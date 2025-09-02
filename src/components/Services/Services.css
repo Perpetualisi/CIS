@@ -1,0 +1,135 @@
+.services-section {
+  padding: 3rem 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: #0a74da;
+  background: linear-gradient(90deg, #007CF0, #00DFD8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.services-intro {
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin: 0 auto 2rem auto;
+  text-align: center;
+  color: #555;
+}
+
+.services-nav {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  list-style: none;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+  padding: 0;
+}
+
+.services-nav li a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #0a74da;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.services-nav li a:hover,
+.services-nav li a:focus {
+  background-color: #0a74da;
+  color: white;
+  outline: none;
+  border-color: #007CF0;
+}
+
+.services-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.service-block {
+  background: #f9f9f9;
+  padding: 1.8rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+  animation: fadeInUp 0.6s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.service-block:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.service-block:nth-child(2) {
+  animation-delay: 0.25s;
+}
+.service-block:nth-child(3) {
+  animation-delay: 0.4s;
+}
+.service-block:nth-child(4) {
+  animation-delay: 0.55s;
+}
+.service-block:nth-child(5) {
+  animation-delay: 0.7s;
+}
+
+.service-block h3 {
+  margin-bottom: 0.6rem;
+  color: #007CF0;
+}
+
+.service-block p {
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  color: #444;
+}
+
+.service-block ul {
+  list-style: disc inside;
+  color: #555;
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.service-block ul li {
+  margin-bottom: 0.5rem;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  .services-nav {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .services-nav li a {
+    width: 100%;
+    text-align: center;
+  }
+}
+.service-image {
+  width: 100%;
+  max-width: 400px; 
+  height: auto;
+  margin: 1rem 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  display: block;
+}

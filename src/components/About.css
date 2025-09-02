@@ -1,0 +1,121 @@
+.about-section {
+  padding: 4rem 1.5rem;
+  background: #f8f9fa;
+  overflow: hidden;
+}
+
+.about-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.about-video {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  border-radius: 15px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.about-video:hover {
+  transform: scale(1.02);
+}
+
+.about-content {
+  max-width: 700px;
+  color: #222;
+  animation: fadeInUp 1.2s ease forwards;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  color: #111;
+}
+
+.about-intro,
+.about-details,
+.about-tagline {
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  color: #444;
+}
+
+.about-tagline {
+  font-style: italic;
+  color: #007bff;
+  font-weight: 600;
+}
+
+/* Responsive layout for desktop */
+@media (min-width: 768px) {
+  .about-wrapper {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .about-content {
+    text-align: left;
+    padding-left: 2rem;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+  }
+
+  .about-intro,
+  .about-details,
+  .about-tagline {
+    font-size: 1.125rem;
+  }
+
+  .about-video {
+    height: 400px;
+    max-width: 650px;
+  }
+}
+.tabs {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.tabs button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #eee;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+
+.tabs button.active {
+  background-color: #003366;
+  color: white;
+}
+
+.tab-content {
+  margin-top: 1rem;
+  line-height: 1.7;
+}
+
+.core-values-list {
+  padding-left: 1.5rem;
+  list-style: disc;
+}
+
+.core-values-list li {
+  margin-bottom: 0.5rem;
+}
