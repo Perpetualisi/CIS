@@ -82,3 +82,7 @@ select {
     font-size: 87.5%; 
   }
 }
+section, div {
+  max-width: 100%;
+  overflow-x: hidden;
+}
