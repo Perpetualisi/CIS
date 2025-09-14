@@ -27,12 +27,14 @@ export default function Navbar() {
 
   const servicesRef = useRef(null);
 
+  // ✅ Change navbar background on scroll
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // ✅ Close desktop dropdown if clicked outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (servicesRef.current && !servicesRef.current.contains(e.target)) {
@@ -57,14 +59,14 @@ export default function Navbar() {
     <nav className={`navbar ${scrolled ? "navbar-scrolled" : ""}`}>
       <div className="navbar-content">
         {/* ✅ Logo with two versions */}
-        <div className="logo" tabIndex={0}>
+        <a href="#home" className="logo" tabIndex={0} aria-label="Homepage">
           <span className="logo-full">
             CONOTEX <span className="logo-highlight">INTEGRATED SERVICES</span>
           </span>
           <span className="logo-mobile">CIS</span>
-        </div>
+        </a>
 
-        {/* Desktop Links */}
+        {/* ✅ Desktop Links */}
         <ul className="nav-links">
           <li><a href="#home">HOME</a></li>
           <li><a href="#about">ABOUT-US</a></li>
@@ -98,11 +100,12 @@ export default function Navbar() {
           <li><a href="#contact">CONTACT</a></li>
         </ul>
 
-        {/* Hamburger Menu */}
+        {/* ✅ Hamburger Menu */}
         <button
           className={`hamburger ${mobileMenuOpen ? "open" : ""}`}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle menu"
+          aria-label="Toggle navigation menu"
+          aria-expanded={mobileMenuOpen}
         >
           <span />
           <span />
@@ -110,7 +113,7 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* ✅ Mobile Menu */}
       <ul className={`mobile-menu ${mobileMenuOpen ? "open" : ""}`}>
         <li><a href="#home" onClick={() => setMobileMenuOpen(false)}>HOME</a></li>
         <li><a href="#about" onClick={() => setMobileMenuOpen(false)}>ABOUT-US</a></li>

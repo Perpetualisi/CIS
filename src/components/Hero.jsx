@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import './Hero.css';
+import React, { useState, useEffect } from "react";
+import "./Hero.css";
 
 const slides = [
   {
     headline: "Reliable Structured Cabling & Networks",
-    intro: "End-to-end structured cabling and network solutions for offices, retail, and more.",
+    intro: "End-to-end structured cabling and network solutions for offices, retail, and enterprises.",
     image: "/cabling.jpg",
   },
   {
@@ -30,7 +30,7 @@ const slides = [
   {
     headline: "Comprehensive Cybersecurity",
     intro: "Protect your business from cyber threats with proactive monitoring and solutions.",
-    image: "/Cybersecurity.jpg",
+    image: "/cybersecurity.jpg",
   },
   {
     headline: "Onsite & Remote Desktop Support",
@@ -47,6 +47,7 @@ const slides = [
 const Hero = () => {
   const [current, setCurrent] = useState(0);
 
+  // Auto-slide every 7s
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
@@ -64,21 +65,48 @@ const Hero = () => {
 
   return (
     <section id="home" className="hero-container">
-      <img src={slides[current].image} alt="Hero Slide" className="hero-3d" />
+      {/* Background Image */}
+      <img
+        src={slides[current].image}
+        alt={slides[current].headline}
+        className="hero-bg"
+      />
 
+      {/* Overlay Content */}
       <div className="hero-overlay">
         <div className="hero-content">
-          <h1 className="blinking-heading">{slides[current].headline}</h1>
-          <p>{slides[current].intro}</p>
-          <a href="#services">
-            <button className="cta-button">Explore Our Services</button>
-          </a>
+          <h1 className="hero-heading">{slides[current].headline}</h1>
+          <p className="hero-text">{slides[current].intro}</p>
+
+          <div className="cta-group">
+            <a href="#services">
+              <button className="cta-button primary">Explore Our Services</button>
+            </a>
+            <a href="#contact">
+              <button className="cta-button secondary">Get in Touch</button>
+            </a>
+          </div>
         </div>
       </div>
 
-      {/* Edge Arrows */}
-      <button onClick={prevSlide} className="arrow-button prev">&lt;</button>
-      <button onClick={nextSlide} className="arrow-button next">&gt;</button>
+      {/* Navigation Arrows */}
+      <button onClick={prevSlide} className="arrow-button prev">
+        &#10094;
+      </button>
+      <button onClick={nextSlide} className="arrow-button next">
+        &#10095;
+      </button>
+
+      {/* Slide Indicators */}
+      <div className="indicators">
+        {slides.map((_, index) => (
+          <span
+            key={index}
+            className={`dot ${current === index ? "active" : ""}`}
+            onClick={() => setCurrent(index)}
+          />
+        ))}
+      </div>
     </section>
   );
 };
