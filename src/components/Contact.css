@@ -5,9 +5,12 @@
   padding: 4rem 1.5rem;
   background-color: #f9f9f9;
   color: #222;
-  min-height: 100vh;  /* fills screen initially */
-  height: auto;       /* grows if needed when keyboard opens */
-  padding-bottom: 4rem; /* extra space for mobile keyboard */
+
+  /* iOS-friendly height */
+  min-height: 100vh;       /* fallback for older browsers */
+  height: 100dvh;          /* dynamic viewport for iOS */
+
+  padding-bottom: 4rem;    /* extra space for mobile keyboard */
 }
 
 .contact-container {
@@ -133,7 +136,7 @@
 @media (max-width: 768px) {
   .contact-content {
     flex-direction: column;
-    align-items: stretch; /* stretch items to full width */
+    align-items: stretch; /* stack items full width */
   }
 
   .contact-form,
@@ -160,4 +163,11 @@
 @media (max-width: 480px) {
   .section-title { font-size: 1.8rem; }
   .section-subtitle { font-size: 0.95rem; }
+}
+
+/* ==============================
+   Smooth scrolling on iOS
+   ============================== */
+body {
+  -webkit-overflow-scrolling: touch;
 }
