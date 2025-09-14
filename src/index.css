@@ -269,3 +269,7 @@ button:hover {
     padding: 0.6rem 0.8rem;
   }
 }
+/* Adjust according to navbar height */
+section {
+  scroll-margin-top: 80px; /* If navbar is 80px tall */
+}
