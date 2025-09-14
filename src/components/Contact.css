@@ -5,10 +5,9 @@
   padding: 4rem 1.5rem;
   background-color: #f9f9f9;
   color: #222;
-
-  height: auto;             /* let section grow naturally */
-  min-height: auto;         /* no fixed height */
-  padding-bottom: 6rem;     /* extra space for mobile keyboard */
+  height: auto;            
+  min-height: calc(var(--vh, 1vh) * 100);
+  padding-bottom: 6rem;     
 }
 
 .contact-container {
