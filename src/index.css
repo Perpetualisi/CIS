@@ -1,0 +1,27 @@
+/* =====================
+   Global Full-Width Fix
+   ===================== */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  background: #000; /* or your site background */
+}
+
+section, header, footer, .hero-container, .projects-section, .footer {
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
+}
+
+/* Optional: keep .container for text only */
+.container {
+  width: 100%;
+  max-width: 1200px; /* content width */
+  margin: 0 auto;
+  padding: 0; /* remove side padding */
+}
