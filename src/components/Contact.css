@@ -1,7 +1,13 @@
+/* ==============================
+   Contact Section
+   ============================== */
 .contact-section {
   padding: 4rem 1.5rem;
   background-color: #f9f9f9;
   color: #222;
+  min-height: 100vh;  /* fills screen initially */
+  height: auto;       /* grows if needed when keyboard opens */
+  padding-bottom: 4rem; /* extra space for mobile keyboard */
 }
 
 .contact-container {
@@ -27,11 +33,12 @@
   justify-content: space-between;
   gap: 2rem;
   flex-wrap: wrap;
+  width: 100%;
 }
 
-/* =======================
+/* ==============================
    Contact Form
-   ======================= */
+   ============================== */
 .contact-form {
   flex: 1;
   min-width: 300px;
@@ -43,11 +50,14 @@
 .contact-form input,
 .contact-form select,
 .contact-form textarea {
+  width: 100%;
+  max-width: 100%;
   padding: 0.8rem 1rem;
   border-radius: 8px;
   border: 1px solid #ccc;
   font-size: 0.95rem;
   transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
 .contact-form input:focus,
@@ -72,6 +82,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   border: none;
+  width: 100%;
 }
 
 .contact-btn:hover {
@@ -84,9 +95,9 @@
   font-weight: 500;
 }
 
-/* =======================
+/* ==============================
    Contact Info
-   ======================= */
+   ============================== */
 .contact-info {
   flex: 0.9;
   min-width: 250px;
@@ -116,16 +127,17 @@
   text-decoration: underline;
 }
 
-/* =======================
+/* ==============================
    Mobile Responsive
-   ======================= */
+   ============================== */
 @media (max-width: 768px) {
   .contact-content {
     flex-direction: column;
-    align-items: center;
+    align-items: stretch; /* stretch items to full width */
   }
 
-  .contact-form, .contact-info {
+  .contact-form,
+  .contact-info {
     width: 100%;
   }
 
@@ -137,6 +149,11 @@
 
   .contact-btn {
     width: 100%;
+  }
+
+  /* Extra bottom padding for keyboard space */
+  .contact-section {
+    padding-bottom: 6rem;
   }
 }
 
