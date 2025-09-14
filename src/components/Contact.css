@@ -1,16 +1,14 @@
 /* ==============================
-   Contact Section
+   Contact Section (iOS-stable)
    ============================== */
 .contact-section {
   padding: 4rem 1.5rem;
   background-color: #f9f9f9;
   color: #222;
 
-  /* iOS-friendly height */
-  min-height: 100vh;       /* fallback for older browsers */
-  height: 100dvh;          /* dynamic viewport for iOS */
-
-  padding-bottom: 4rem;    /* extra space for mobile keyboard */
+  height: auto;             /* let section grow naturally */
+  min-height: auto;         /* no fixed height */
+  padding-bottom: 6rem;     /* extra space for mobile keyboard */
 }
 
 .contact-container {
@@ -169,5 +167,6 @@
    Smooth scrolling on iOS
    ============================== */
 body {
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
