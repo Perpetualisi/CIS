@@ -5,18 +5,165 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Conotex</title>
+
+    <!-- ==============================
+         Contact Section CSS (iOS-stable)
+    =============================== -->
+    <style>
+      .contact-section {
+        padding: 4rem 1.5rem;
+        background-color: #f9f9f9;
+        color: #222;
+        height: auto;
+        min-height: auto;
+        padding-bottom: 6rem;       /* space for keyboard */
+        position: relative;         /* stabilize layout on iOS */
+        box-sizing: border-box;
+      }
+
+      .contact-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .section-title {
+        font-size: 2rem;
+        color: #0a74da;
+        margin-bottom: 0.5rem;
+      }
+
+      .section-subtitle {
+        font-size: 1rem;
+        color: #555;
+        margin-bottom: 2.5rem;
+      }
+
+      .contact-content {
+        display: flex;
+        justify-content: space-between;
+        gap: 2rem;
+        flex-wrap: wrap;
+        width: 100%;
+      }
+
+      .contact-form {
+        flex: 1;
+        min-width: 300px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .contact-form input,
+      .contact-form select,
+      .contact-form textarea {
+        width: 100%;
+        max-width: 100%;
+        padding: 0.8rem 1rem;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 16px;      /* prevents iOS zoom */
+        line-height: 1.5;
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+      }
+
+      .contact-form input:focus,
+      .contact-form select:focus,
+      .contact-form textarea:focus {
+        border-color: #0a74da;
+        outline: none;
+        box-shadow: 0 0 8px rgba(10, 116, 218, 0.3);
+      }
+
+      .contact-form textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+
+      .contact-btn {
+        background-color: #0a74da;
+        color: #fff;
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: none;
+        width: 100%;
+      }
+
+      .contact-btn:hover {
+        background-color: #005bb5;
+      }
+
+      .success-message {
+        color: #00bfa5;
+        margin-top: 0.5rem;
+        font-weight: 500;
+      }
+
+      .contact-info {
+        flex: 0.9;
+        min-width: 250px;
+        background: #fff;
+        padding: 1.8rem;
+        border-radius: 12px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+        text-align: left;
+      }
+
+      .contact-info h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #0a74da;
+      }
+
+      .contact-info p {
+        margin-bottom: 0.8rem;
+      }
+
+      .contact-info a {
+        color: #0a74da;
+        text-decoration: none;
+      }
+
+      .contact-info a:hover {
+        text-decoration: underline;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .contact-content { flex-direction: column; align-items: stretch; }
+        .contact-form, .contact-info { width: 100%; }
+        .contact-btn { width: 100%; }
+        .contact-section { padding-bottom: 6rem; }
+      }
+
+      @media (max-width: 480px) {
+        .section-title { font-size: 1.8rem; }
+        .section-subtitle { font-size: 0.95rem; }
+      }
+
+      body {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+    </style>
   </head>
+
   <body>
-    <!-- Fixed wrapper to stabilize mobile layout -->
+    <!-- Fixed wrapper for React app -->
     <div class="app-wrapper">
       <div id="root"></div>
     </div>
 
-    <!-- ===============================
-         JS Fix for iOS Input Shaking
-    ================================ -->
+    <!-- ==============================
+         iOS Input Focus Fix
+    =============================== -->
     <script>
-      // 1️⃣ Dynamic viewport height (stabilizes vh)
+      // 1️⃣ Dynamic viewport height
       function setVh() {
         let vh = window.innerHeight * 0.01;
         document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -24,7 +171,7 @@
       window.addEventListener('resize', setVh);
       setVh();
 
-      // 2️⃣ iOS input focus fix
+      // 2️⃣ iOS input focus stabilization
       const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
       if (isiOS) {
@@ -32,16 +179,18 @@
 
         contactInputs.forEach(input => {
           input.addEventListener('focus', () => {
-            // small delay to wait for keyboard animation
-            setTimeout(() => {
-              input.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 300);
+            document.body.style.position = 'relative'; // prevent shaking
+            setTimeout(() => input.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300);
+          });
+
+          input.addEventListener('blur', () => {
+            document.body.style.position = ''; // restore
           });
         });
       }
     </script>
 
-    <!-- Your React app -->
+    <!-- React app -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

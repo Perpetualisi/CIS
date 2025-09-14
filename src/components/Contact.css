@@ -1,13 +1,13 @@
-/* ==============================
-   Contact Section (iOS-stable)
-   ============================== */
 .contact-section {
   padding: 4rem 1.5rem;
   background-color: #f9f9f9;
   color: #222;
-  height: auto;            
-  min-height: calc(var(--vh, 1vh) * 100);
-  padding-bottom: 6rem;     
+
+  height: auto;                  /* natural growth */
+  min-height: auto;
+  padding-bottom: 6rem;          /* keyboard space */
+  position: relative;            /* stabilize layout on iOS */
+  box-sizing: border-box;
 }
 
 .contact-container {
@@ -36,9 +36,6 @@
   width: 100%;
 }
 
-/* ==============================
-   Contact Form
-   ============================== */
 .contact-form {
   flex: 1;
   min-width: 300px;
@@ -55,7 +52,8 @@
   padding: 0.8rem 1rem;
   border-radius: 8px;
   border: 1px solid #ccc;
-  font-size: 0.95rem;
+  font-size: 16px;                 /* prevent iOS zoom */
+  line-height: 1.5;                /* helps iOS perceive proper size */
   transition: all 0.3s ease;
   box-sizing: border-box;
 }
@@ -95,9 +93,6 @@
   font-weight: 500;
 }
 
-/* ==============================
-   Contact Info
-   ============================== */
 .contact-info {
   flex: 0.9;
   min-width: 250px;
@@ -127,34 +122,12 @@
   text-decoration: underline;
 }
 
-/* ==============================
-   Mobile Responsive
-   ============================== */
+/* Responsive */
 @media (max-width: 768px) {
-  .contact-content {
-    flex-direction: column;
-    align-items: stretch; /* stack items full width */
-  }
-
-  .contact-form,
-  .contact-info {
-    width: 100%;
-  }
-
-  .contact-form input,
-  .contact-form select,
-  .contact-form textarea {
-    font-size: 0.9rem;
-  }
-
-  .contact-btn {
-    width: 100%;
-  }
-
-  /* Extra bottom padding for keyboard space */
-  .contact-section {
-    padding-bottom: 6rem;
-  }
+  .contact-content { flex-direction: column; align-items: stretch; }
+  .contact-form, .contact-info { width: 100%; }
+  .contact-btn { width: 100%; }
+  .contact-section { padding-bottom: 6rem; }
 }
 
 @media (max-width: 480px) {
@@ -162,9 +135,6 @@
   .section-subtitle { font-size: 0.95rem; }
 }
 
-/* ==============================
-   Smooth scrolling on iOS
-   ============================== */
 body {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
