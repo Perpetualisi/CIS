@@ -32,12 +32,12 @@ export default function Footer() {
           </ul>
         </div>
 
-<div className="footer-contact">
-  <h3>Contact</h3>
-  <p>Email: ucmgbame@gmail.com</p>
-  <p>Phone: +1 (832) 535-1082</p>
-  <p>Location: Richmond, TX 77469</p>
-</div>
+        <div className="footer-contact">
+          <h3>Contact</h3>
+          <p>Email: ucmgbame@gmail.com</p>
+          <p>Phone: +1 (832) 535-1082</p>
+          <p>Location: Richmond, TX 77469</p>
+        </div>
       </div>
 
       <div className="footer-bottom">
