@@ -7,7 +7,6 @@ const Contact = () => {
     email: "",
     subject: "",
     message: "",
-    
   });
 
   const [submitted, setSubmitted] = useState(false);
@@ -18,7 +17,7 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your backend integration here (e.g., Formspree or custom API)
+    // Backend integration (Formspree/API) can be added here
     console.log(formData);
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 3000);
@@ -28,10 +27,13 @@ const Contact = () => {
   return (
     <section className="contact-section" id="contact">
       <div className="contact-container">
-        <h2>Let’s Build Smarter IT Together</h2>
-        <p>Reach out to CIS for tailored tech solutions to elevate your business.</p>
+        <h2 className="section-title">Let’s Build Smarter IT Together</h2>
+        <p className="section-subtitle">
+          Reach out to CIS for tailored tech solutions to elevate your business.
+        </p>
 
         <div className="contact-content">
+          {/* Contact Form */}
           <form className="contact-form" onSubmit={handleSubmit}>
             <input
               type="text"
@@ -68,15 +70,26 @@ const Contact = () => {
               onChange={handleChange}
               required
             ></textarea>
-            <button type="submit">Send Message</button>
-            {submitted && <span className="success-message">Message sent successfully!</span>}
+            <button type="submit" className="contact-btn">
+              Send Message
+            </button>
+            {submitted && (
+              <span className="success-message">Message sent successfully!</span>
+            )}
           </form>
 
+          {/* Contact Info */}
           <div className="contact-info">
             <h3>Contact Info</h3>
-            <p><strong>Email:</strong> ucmgbame@gmail.com</p>
-            <p><strong>Phone:</strong> +1 (832) 535-1082</p>
-            <p><strong>Location:</strong> Richmond, TX 77469</p>
+            <p>
+              <strong>Email:</strong> <a href="mailto:ucmgbame@gmail.com">ucmgbame@gmail.com</a>
+            </p>
+            <p>
+              <strong>Phone:</strong> <a href="tel:+18325351082">+1 (832) 535-1082</a>
+            </p>
+            <p>
+              <strong>Location:</strong> Richmond, TX 77469
+            </p>
           </div>
         </div>
       </div>

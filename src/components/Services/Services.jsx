@@ -137,8 +137,8 @@ const Services = () => {
       <div className="services-details">
         {services.map((service) => (
           <div key={service.id} id={service.id} className="service-block">
-            <h3>{service.headline}</h3>
-            <p>{service.intro}</p>
+            <h3 className="service-headline">{service.headline}</h3>
+            <p className="service-intro">{service.intro}</p>
 
             <h4>Key Services:</h4>
             <ul>
@@ -147,9 +147,14 @@ const Services = () => {
               ))}
             </ul>
 
-            <p><strong>Industries Served:</strong> {service.industries}</p>
+            <p>
+              <strong>Industries Served:</strong> {service.industries}
+            </p>
 
-            <button className="service-cta">{service.cta}</button>
+            {/* CTA Button links to Contact Section */}
+            <a href="#contact" className="service-cta">
+              {service.cta}
+            </a>
           </div>
         ))}
       </div>
@@ -158,14 +163,3 @@ const Services = () => {
 };
 
 export default Services;
-
-
-
-
-
-
-
-
-
-
-
