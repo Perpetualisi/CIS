@@ -1,7 +1,7 @@
 .hero-container {
   position: relative;
   width: 100%;
-  height: 100vh;
+  min-height: 80vh; /* full viewport height by default */
   overflow: hidden;
 }
 
@@ -37,6 +37,7 @@
   color: #fff;
   text-align: center;
   animation: fadeInUp 1s ease forwards;
+  padding: 0 1rem; /* responsive padding */
 }
 
 .hero-heading {
@@ -52,7 +53,7 @@
   font-size: clamp(1rem, 2vw, 1.25rem);
   color: #ddd;
   margin-bottom: 2rem;
-  line-height: 1.6;
+  line-height: 1.4;
 }
 
 /* CTA Buttons */
@@ -60,32 +61,22 @@
   display: flex;
   gap: 1rem;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .cta-button {
   padding: 12px 28px;
   font-size: 1rem;
   font-weight: 600;
-  border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: transform 0.3s ease, background 0.3s ease;
 }
 
-.cta-button.primary {
-  background: #1e90ff;
-  color: white;
-}
+.cta-button.primary { background: #1e90ff; color: white; }
+.cta-button.secondary { background: #ff5722; color: white; }
 
-.cta-button.secondary {
-  background: #ff5722;
-  color: white;
-}
-
-.cta-button:hover {
-  transform: translateY(-3px);
-  opacity: 0.9;
-}
+.cta-button:hover { transform: translateY(-2px); opacity: 0.9; }
 
 /* Navigation Arrows */
 .arrow-button {
@@ -96,81 +87,57 @@
   background: rgba(0, 0, 0, 0.3);
   color: #fff;
   border: none;
-  padding: 10px 15px;
+  padding: 8px 12px;
   cursor: pointer;
   z-index: 3;
   transition: background 0.3s, transform 0.3s;
 }
 
-.arrow-button:hover {
-  background: rgba(0, 0, 0, 0.5);
-  transform: scale(1.1);
-}
+.arrow-button:hover { background: rgba(0, 0, 0, 0.5); transform: scale(1.1); }
 
-.arrow-button.prev {
-  left: 0;
-  border-radius: 0 50% 50% 0;
-}
-
-.arrow-button.next {
-  right: 0;
-  border-radius: 50% 0 0 50%;
-}
+.arrow-button.prev { left: 5px; border-radius: 0 50% 50% 0; }
+.arrow-button.next { right: 5px; border-radius: 50% 0 0 50%; }
 
 /* Indicators (dots) */
 .indicators {
   position: absolute;
-  bottom: 20px;
+  bottom: 15px;
   width: 100%;
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   z-index: 3;
 }
 
 .dot {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.5);
   cursor: pointer;
   transition: background 0.3s ease, transform 0.3s ease;
 }
 
-.dot.active {
-  background: #1e90ff;
-  transform: scale(1.2);
-}
+.dot.active { background: #1e90ff; transform: scale(1.2); }
 
 /* Animations */
-@keyframes fadeInUp {
-  from {
-    transform: translateY(30px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+@keyframes fadeInUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+/* =====================
+   Mobile Responsive
+===================== */
+@media (max-width: 768px) {
+  .hero-container { min-height: 100vh; } /* full height on tablets */
+  .hero-heading { font-size: 2rem; }
+  .hero-text { font-size: 1rem; margin-bottom: 1.5rem; }
+  .cta-button { padding: 10px 20px; font-size: 0.95rem; }
+  .arrow-button { font-size: 28px; padding: 6px 8px; }
 }
 
-/* Mobile Responsive */
-@media (max-width: 768px) {
-  .hero-heading {
-    font-size: 1.8rem;
-  }
-
-  .hero-text {
-    font-size: 1rem;
-  }
-
-  .cta-button {
-    padding: 10px 20px;
-    font-size: 0.9rem;
-  }
-
-  .arrow-button {
-    font-size: 26px;
-    padding: 8px 10px;
-  }
+@media (max-width: 430px) {
+  .hero-container { min-height: 100vh; } /* full height on phones */
+  .hero-heading { font-size: 1.6rem; }
+  .hero-text { font-size: 0.9rem; margin-bottom: 1.2rem; }
+  .cta-button { padding: 8px 16px; font-size: 0.85rem; }
+  .arrow-button { font-size: 24px; padding: 5px 6px; }
 }

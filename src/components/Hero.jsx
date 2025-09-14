@@ -30,7 +30,7 @@ const slides = [
   {
     headline: "Comprehensive Cybersecurity",
     intro: "Protect your business from cyber threats with proactive monitoring and solutions.",
-    image: "/cybersecurity.jpg",
+    image: "/Cybersecurity.jpg",
   },
   {
     headline: "Onsite & Remote Desktop Support",
