@@ -11,16 +11,37 @@
     <div class="app-wrapper">
       <div id="root"></div>
     </div>
-<script>
-  function setVh() {
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-  }
 
-  window.addEventListener('resize', setVh);
-  setVh();
-</script>
+    <!-- ===============================
+         JS Fix for iOS Input Shaking
+    ================================ -->
+    <script>
+      // 1️⃣ Dynamic viewport height (stabilizes vh)
+      function setVh() {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+      }
+      window.addEventListener('resize', setVh);
+      setVh();
 
+      // 2️⃣ iOS input focus fix
+      const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+      if (isiOS) {
+        const contactInputs = document.querySelectorAll('.contact-section input, .contact-section textarea, .contact-section select');
+
+        contactInputs.forEach(input => {
+          input.addEventListener('focus', () => {
+            // small delay to wait for keyboard animation
+            setTimeout(() => {
+              input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+          });
+        });
+      }
+    </script>
+
+    <!-- Your React app -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
