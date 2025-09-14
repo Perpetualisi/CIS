@@ -3,7 +3,7 @@
   --primary-glow: rgba(30, 144, 255, 0.7);
   --background-color: #0a0a23;
   --text-color: #eee;
-  --shadow-color: rgba(30, 144, 255, 0.4);
+  /* --shadow-color: rgba(30, 144, 255, 0.4); */
 }
 
 * {
@@ -20,6 +20,7 @@ nav, ul, li, a, button {
 .navbar {
   position: fixed;
   width: 100%;
+  height: 60px; /* set a fixed height */
   top: 0;
   background: transparent;
   padding: 1rem 2rem;
@@ -30,9 +31,9 @@ nav, ul, li, a, button {
 }
 
 .navbar-scrolled {
-  background: var(--background-color);
-  box-shadow: 0 6px 12px var(--shadow-color);
-  backdrop-filter: blur(8px);
+  background: rgb(14, 14, 37);
+  /* box-shadow: 0 6px 12px var(--shadow-color); */
+  /* backdrop-filter: blur(8px); */
 }
 
 .navbar-content {
@@ -163,6 +164,7 @@ nav, ul, li, a, button {
   height: 22px;
   cursor: pointer;
   background: none;
+  color: antiquewhite;
 }
 
 .hamburger span {
@@ -191,7 +193,7 @@ nav, ul, li, a, button {
   background: var(--background-color);
   width: 280px;
   height: calc(100vh - 64px);
-  box-shadow: -4px 0 14px var(--shadow-color);
+  /* box-shadow: -4px 0 14px var(--shadow-color); */
   border-radius: 12px 0 0 12px;
   padding: 2rem 1.5rem;
   list-style: none;
