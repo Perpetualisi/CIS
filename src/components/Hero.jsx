@@ -69,7 +69,7 @@ const Hero = () => {
               <button className="cta-button primary">Explore Services</button>
             </a>
             <a href="#contact">
-              <button className="cta-button secondary">Get in Touch</button>
+              {/* <button className="cta-button secondary">Get in Touch</button> */}
             </a>
           </div>
         </div>

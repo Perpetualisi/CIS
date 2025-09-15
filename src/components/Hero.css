@@ -74,7 +74,7 @@
 }
 
 .cta-button.primary { background: #1e90ff; color: white; }
-.cta-button.secondary { background: #ff5722; color: white; }
+.cta-button.secondary { background: #1b1a1a; color: white; }
 
 .cta-button:hover { transform: translateY(-2px); opacity: 0.9; }
 
@@ -83,7 +83,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 36px;
+  font-size: 26px;
   background: rgba(0, 0, 0, 0.3);
   color: #fff;
   border: none;
@@ -95,8 +95,8 @@
 
 .arrow-button:hover { background: rgba(0, 0, 0, 0.5); transform: scale(1.1); }
 
-.arrow-button.prev { left: 5px; border-radius: 0 50% 50% 0; }
-.arrow-button.next { right: 5px; border-radius: 50% 0 0 50%; }
+.arrow-button.prev { left: 0px; border-radius: 0 50% 50% 0; }
+.arrow-button.next { right: 0px; border-radius: 50% 0 0 50%; }
 
 /* Indicators (dots) */
 .indicators {
@@ -130,8 +130,8 @@
   .hero-container { min-height: calc(var(--vh, 1vh) * 100); }
   .hero-heading { font-size: 2rem; }
   .hero-text { font-size: 1rem; margin-bottom: 1.5rem; }
-  .cta-button { padding: 10px 20px; font-size: 0.95rem; }
-  .arrow-button { font-size: 28px; padding: 6px 8px; }
+  .cta-button { padding: 10px 20px; font-size: 0.8rem; }
+  .arrow-button { font-size: 15px; padding: 6px 8px; }
 }
 
 @media (max-width: 430px) {
@@ -139,7 +139,7 @@
   .hero-heading { font-size: 1.6rem; }
   .hero-text { font-size: 0.9rem; margin-bottom: 1.2rem; }
   .cta-button { padding: 8px 16px; font-size: 0.85rem; }
-  .arrow-button { font-size: 24px; padding: 5px 6px; }
+  .arrow-button { font-size: 12px; padding: 5px 6px; }
 }
 .hero-heading .nowrap {
   white-space: nowrap; /* Prevent the first word from wrapping */

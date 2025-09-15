@@ -3,12 +3,12 @@
   --primary-glow: rgba(30, 144, 255, 0.7);
   --background-color: #0a0a23;
   --text-color: #eee;
-  /* --shadow-color: rgba(30, 144, 255, 0.4); */
 }
 
 * {
   box-sizing: border-box;
 }
+
 nav, ul, li, a, button {
   margin: 0;
   padding: 0;
@@ -17,13 +17,13 @@ nav, ul, li, a, button {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Navbar Container */
 .navbar {
   position: fixed;
-  width: 100%;
-  height: 60px; /* set a fixed height */
   top: 0;
+  width: 100%;
+  height: 60px;
   background: transparent;
-  padding: 1rem 2rem;
   display: flex;
   justify-content: center;
   z-index: 999;
@@ -32,8 +32,7 @@ nav, ul, li, a, button {
 
 .navbar-scrolled {
   background: rgb(14, 14, 37);
-  /* box-shadow: 0 6px 12px var(--shadow-color); */
-  /* backdrop-filter: blur(8px); */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
 
 .navbar-content {
@@ -44,17 +43,13 @@ nav, ul, li, a, button {
   justify-content: space-between;
 }
 
-/* ✅ Logo */
+/* Logo */
 .logo {
   font-size: 1.8rem;
   font-weight: 900;
   color: var(--primary-color);
-  text-shadow: 0 0 8px var(--primary-glow),
-               0 0 20px var(--primary-glow),
-               0 5px 10px rgba(0, 0, 0, 0.8);
   cursor: pointer;
   transition: transform 0.4s ease, text-shadow 0.4s ease;
-  position: relative;
 }
 
 .logo:hover,
@@ -62,7 +57,7 @@ nav, ul, li, a, button {
   transform: scale(1.05);
   text-shadow: 0 0 12px #00cfff,
                0 0 30px #00cfff,
-               0 8px 20px rgba(0, 255, 255, 0.5);
+               0 8px 20px rgba(0,255,255,0.5);
 }
 
 .logo-highlight {
@@ -70,7 +65,10 @@ nav, ul, li, a, button {
   font-weight: 700;
 }
 
-/* ✅ Navigation Links */
+.logo-full { display: inline; }
+.logo-mobile { display: none; font-size: 1.4rem; font-weight: bold; }
+
+/* Desktop Nav Links */
 .nav-links {
   list-style: none;
   display: flex;
@@ -80,26 +78,20 @@ nav, ul, li, a, button {
 
 .nav-links li a,
 .nav-links li button {
-  color: #1ab7e3;
+  color: var(--primary-color);
   font-weight: 600;
-  text-decoration: none;
-  cursor: pointer;
-  background: none;
   font-size: 1rem;
-  position: relative;
+  background: none;
+  cursor: pointer;
   transition: color 0.3s ease;
 }
 
 .nav-links li a:hover,
-.nav-links li button:hover,
-.nav-links li a:focus,
-.nav-links li button:focus {
-  color: var(--primary-color);
-  text-shadow: 0 0 6px var(--primary-glow),
-               0 0 14px var(--primary-glow);
+.nav-links li button:hover {
+  color: #00cfff;
 }
 
-/* ✅ Dropdown Menu */
+/* Dropdown */
 .nav-services {
   position: relative;
 }
@@ -109,16 +101,15 @@ nav, ul, li, a, button {
   top: 2.8rem;
   left: 0;
   background: var(--background-color);
-  border-radius: 12px;
+  border-radius: 10px;
   padding: 1rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6),
-              0 0 8px var(--primary-glow);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition: all 0.3s ease;
   min-width: 200px;
-  z-index: 1000;
   transform: translateY(-10px);
+  z-index: 1000;
 }
 
 .services-dropdown.open {
@@ -128,34 +119,28 @@ nav, ul, li, a, button {
 }
 
 .services-dropdown li {
-  margin-bottom: 0.6rem;
-}
-
-.services-dropdown li:last-child {
-  margin-bottom: 0;
+  margin-bottom: 0.5rem;
 }
 
 .dropdown-link {
-  color: var(--text-color);
-  font-weight: 500;
-  font-size: 0.95rem;
   display: block;
+  width: 100%;
+  text-align: left;
   padding: 0.3rem 0.5rem;
   border-radius: 6px;
   background: none;
-  width: 100%;
-  text-align: left;
+  color: var(--text-color);
+  font-size: 0.95rem;
   cursor: pointer;
   transition: background 0.3s ease, color 0.3s ease;
 }
 
-.dropdown-link:hover,
-.dropdown-link:focus {
+.dropdown-link:hover {
   background: var(--primary-color);
   color: #0a0a23;
 }
 
-/* ✅ Hamburger */
+/* Hamburger Menu */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -164,7 +149,6 @@ nav, ul, li, a, button {
   height: 22px;
   cursor: pointer;
   background: none;
-  color: antiquewhite;
 }
 
 .hamburger span {
@@ -176,33 +160,31 @@ nav, ul, li, a, button {
 }
 
 .hamburger.open span:nth-child(1) {
-  transform: rotate(45deg) translate(4px, 5px);
+  transform: rotate(45deg) translate(5px, 5px);
 }
 .hamburger.open span:nth-child(2) {
   opacity: 0;
 }
 .hamburger.open span:nth-child(3) {
-  transform: rotate(-45deg) translate(3px, -6px);
+  transform: rotate(-45deg) translate(4px, -6px);
 }
 
-/* ✅ Mobile Menu */
+/* Mobile Menu */
 .mobile-menu {
   position: fixed;
-  top: 64px;
+  top: 60px;
   right: 0;
-  background: var(--background-color);
   width: 280px;
-  height: calc(100vh - 64px);
-  /* box-shadow: -4px 0 14px var(--shadow-color); */
-  border-radius: 12px 0 0 12px;
+  height: calc(100vh - 60px);
+  background: var(--background-color);
   padding: 2rem 1.5rem;
-  list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1rem;
   transform: translateX(100%);
   transition: transform 0.4s ease;
-  z-index: 999;
+  z-index: 998;
+  list-style: none;
 }
 
 .mobile-menu.open {
@@ -211,15 +193,14 @@ nav, ul, li, a, button {
 
 .mobile-menu li a,
 .mobile-menu li button {
-  color: var(--text-color);
   font-size: 1.1rem;
+  color: var(--text-color);
   font-weight: 600;
-  background: none;
-  cursor: pointer;
   text-align: left;
-  width: 100%;
+  background: none;
 }
 
+/* Mobile Dropdown */
 .mobile-menu .services-dropdown {
   position: static;
   opacity: 1;
@@ -229,30 +210,13 @@ nav, ul, li, a, button {
   box-shadow: none;
 }
 
-/* ✅ Logo text versions */
-.logo-full {
-  display: inline;
-}
-.logo-mobile {
-  display: none;
-  font-size: 1.4rem;
-  font-weight: bold;
-}
-
 /* Responsive */
 @media (max-width: 900px) {
-  .nav-links {
-    display: none;
-  }
-  .hamburger {
-    display: flex;
-  }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
 }
+
 @media (max-width: 768px) {
-  .logo-full {
-    display: none;
-  }
-  .logo-mobile {
-    display: inline;
-  }
+  .logo-full { display: none; }
+  .logo-mobile { display: inline; }
 }
