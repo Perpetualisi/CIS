@@ -64,6 +64,7 @@ export default function Navbar() {
             src="/logo.png" // 👈 put your logo file name here (must be inside public folder)
             alt="Conotex Integrated Services"
             className="logo-img"
+            loading="eager"
           />
         </a>
 
