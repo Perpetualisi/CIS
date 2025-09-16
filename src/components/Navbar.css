@@ -104,7 +104,7 @@ nav, ul, li, a, button {
   position: absolute;
   top: 2.8rem;
   left: 0;
-  background: white;
+  background: rgb(68, 84, 186);
   border-radius: 10px;
   padding: 1rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.6);
