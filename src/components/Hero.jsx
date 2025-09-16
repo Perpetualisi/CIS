@@ -75,8 +75,8 @@ const Hero = () => {
         </div>
       </div>
 
-      <button onClick={prevSlide} className="arrow-button prev">&#10094;</button>
-      <button onClick={nextSlide} className="arrow-button next">&#10095;</button>
+      {/* <button onClick={prevSlide} className="arrow-button prev">&#10094;</button>
+      <button onClick={nextSlide} className="arrow-button next">&#10095;</button> */}
 
       <div className="indicators">
         {slides.map((_, index) => (
