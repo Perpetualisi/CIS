@@ -135,7 +135,7 @@
 ===================== */
 @media (max-width: 768px) {
   .hero-container {
-    min-height: calc(var(--vh, 1vh) * 70); /* 70% viewport height */
+    min-height: calc(var(--vh, 1vh) * 85); /* 70% viewport height */
   }
   .hero-heading { font-size: 1.6rem; }
   .hero-text { font-size: 1rem; margin-bottom: 1.5rem; }
@@ -145,7 +145,7 @@
 
 @media (max-width: 480px) {
   .hero-container {
-    min-height: calc(var(--vh, 1vh) * 60); /* 60% viewport height */
+    min-height: calc(var(--vh, 1vh) * 75); /* 60% viewport height */
   }
   .hero-heading { font-size: 1.3rem; }
   .hero-text { font-size: 0.9rem; margin-bottom: 1.2rem; }
