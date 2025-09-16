@@ -60,10 +60,11 @@ export default function Navbar() {
       <div className="navbar-content">
         {/* Logo */}
         <a href="#home" className="logo" aria-label="Homepage">
-          <span className="logo-full">
-            CONOTEX <span className="logo-highlight">INTEGRATED SERVICES</span>
-          </span>
-          <span className="logo-mobile">CIS</span>
+          <img
+            src="/logo.png" // 👈 put your logo file name here (must be inside public folder)
+            alt="Conotex Integrated Services"
+            className="logo-img"
+          />
         </a>
 
         {/* Desktop Links */}
