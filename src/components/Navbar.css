@@ -104,11 +104,12 @@ nav, ul, li, a, button {
   position: absolute;
   top: 2.8rem;
   left: 0;
-  background: var(--background-color);
+  background: white;
   border-radius: 10px;
   padding: 1rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.6);
   opacity: 0;
+  list-style: none;
   pointer-events: none;
   transition: all 0.3s ease;
   min-width: 200px;
@@ -141,7 +142,7 @@ nav, ul, li, a, button {
 
 .dropdown-link:hover {
   background: var(--primary-color);
-  color: #0a0a23;
+  color: #7b7b96;
 }
 
 /* Hamburger Menu */
