@@ -10,7 +10,7 @@ const slides = [
   {
     headline: "IP Surveillance Security",
     intro: "Keep your business safe with CCTV, access control, and monitoring solutions.",
-    image: "/security1.jpg",
+    image: "/IP.jpeg",
   },
   {
     headline: "Telecom & Communication",
@@ -20,27 +20,27 @@ const slides = [
   {
     headline: "Modern AV Solutions",
     intro: "State-of-the-art audio/visual solutions for offices, retail, and conference rooms.",
-    image: "/av.jpg",
+    image: "/AV.jpeg",
   },
   {
     headline: "Custom Websites",
     intro: "We create modern, responsive websites that attract customers and boost online presence.",
-    image: "/website.jpg",
+    image: "/Website.webp",
   },
   {
     headline: "Cybersecurity Protection",
     intro: "Protect your business from cyber threats with proactive monitoring and solutions.",
-    image: "/Cybersecurity.jpg",
+    image: "/Cybersecurity.jpeg",
   },
   {
     headline: "Desktop Support",
     intro: "Fast, reliable support for software, hardware, and user issues—onsite or remote.",
-    image: "/desktop.jpg",
+    image: "/desktop.webp",
   },
   {
     headline: "Managed IT Support",
     intro: "Proactive IT support and managed services for smooth operations and network monitoring.",
-    image: "/managed-it.jpg",
+    image: "/Managed-it.webp",
   },
 ];
 
