@@ -5,7 +5,7 @@ const slides = [
   {
     headline: "Structured Cabling Solutions",
     intro: "End-to-end structured cabling and network solutions for offices, retail, and enterprises.",
-    image: "/cabling.jpg",
+    image: "/cabling.jpeg",
   },
   {
     headline: "IP Surveillance Security",
@@ -15,7 +15,7 @@ const slides = [
   {
     headline: "Telecom & Communication",
     intro: "Telecom and unified communication solutions to keep your teams connected.",
-    image: "/telecom.jpg",
+    image: "/telecom.jpeg",
   },
   {
     headline: "Modern AV Solutions",
