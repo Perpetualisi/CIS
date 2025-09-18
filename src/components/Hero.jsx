@@ -46,35 +46,56 @@ const slides = [
 
 const Hero = () => {
   const [current, setCurrent] = useState(0);
+  const [fade, setFade] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % slides.length);
-    }, 5000);
+      setFade(false); // fade out
+      setTimeout(() => {
+        setCurrent((prev) => (prev + 1) % slides.length);
+        setFade(true); // fade in
+      }, 1000); // match fade duration
+    }, 7000); // 7 seconds per slide
+
     return () => clearInterval(interval);
   }, []);
 
-  const prevSlide = () => setCurrent((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
-  const nextSlide = () => setCurrent((prev) => (prev + 1) % slides.length);
+  const prevSlide = () => {
+    setFade(false);
+    setTimeout(() => {
+      setCurrent((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+      setFade(true);
+    }, 1000);
+  };
+
+  const nextSlide = () => {
+    setFade(false);
+    setTimeout(() => {
+      setCurrent((prev) => (prev + 1) % slides.length);
+      setFade(true);
+    }, 1000);
+  };
 
   return (
     <section id="home" className="hero-container">
-      <img src={slides[current].image} alt={slides[current].headline} className="hero-bg" />
+      <img
+        src={slides[current].image}
+        alt={slides[current].headline}
+        className={`hero-bg ${fade ? "show" : ""}`}
+      />
       <div className="hero-overlay">
-        <div className="hero-content">
+        <div className={`hero-content ${fade ? "show" : ""}`}>
           <h1 className="hero-heading">{slides[current].headline}</h1>
           <p className="hero-text">{slides[current].intro}</p>
           <div className="cta-group">
             <a href="#services">
               <button className="cta-button primary">Explore Services</button>
             </a>
-            <a href="#contact">
-              {/* <button className="cta-button secondary">Get in Touch</button> */}
-            </a>
           </div>
         </div>
       </div>
 
+      {/* Arrows (optional) */}
       {/* <button onClick={prevSlide} className="arrow-button prev">&#10094;</button>
       <button onClick={nextSlide} className="arrow-button next">&#10095;</button> */}
 
@@ -83,7 +104,13 @@ const Hero = () => {
           <span
             key={index}
             className={`dot ${current === index ? "active" : ""}`}
-            onClick={() => setCurrent(index)}
+            onClick={() => {
+              setFade(false);
+              setTimeout(() => {
+                setCurrent(index);
+                setFade(true);
+              }, 1000);
+            }}
           />
         ))}
       </div>
