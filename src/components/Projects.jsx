@@ -59,6 +59,10 @@ const projectData = {
       title: "O’Reilly Auto Parts – VoIP Implementation",
       desc: "Migrated telecom to VoIP for improved reliability and cost efficiency.",
     },
+    {
+      title: "METRO (Metropolitan Transportation Authority) – Beacon Deployment",
+      desc: "Deployed over 9,000 smart beacons across METRO bus stops to enable real-time communication between buses, corporate offices, and riders. The project enhanced fleet visibility, improved rider experience, and introduced accessibility features to support disabled passengers in navigating routes with ease.",
+    },
   ],
   "av-solutions": [
     {

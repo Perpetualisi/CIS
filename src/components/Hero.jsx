@@ -10,7 +10,7 @@ const slides = [
   {
     headline: "IP Surveillance Security",
     intro: "Keep your business safe with CCTV, access control, and monitoring solutions.",
-    image: "/IP.jpeg",
+    image: "/IP1.jpeg",
   },
   {
     headline: "Telecom & Communication",
