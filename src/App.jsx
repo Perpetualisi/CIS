@@ -8,6 +8,7 @@ import './App.css'
 import './index.css'
 import Contact from './components/Contact'
 import Footer from './components/Footer/footer'
+import Partners from './components/Partners'
 
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
       <About/>
       <Services/>
       <Project/>
+      <Partners/>
       <Contact/>
       <Footer/>
     </div>
