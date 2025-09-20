@@ -4,41 +4,49 @@ import "./Hero.css";
 const slides = [
   {
     headline: "Structured Cabling Solutions",
+    subheadline: "Reliable networks that keep your business connected 24/7.",
     intro: "End-to-end structured cabling and network solutions for offices, retail, and enterprises.",
     image: "/cabling.jpeg",
   },
   {
     headline: "IP Surveillance Security",
+    subheadline: "Protect your assets with smart monitoring solutions.",
     intro: "Keep your business safe with CCTV, access control, and monitoring solutions.",
     image: "/IP1.jpeg",
   },
   {
     headline: "Telecom & Communication",
+    subheadline: "Seamless communication for teams of any size.",
     intro: "Telecom and unified communication solutions to keep your teams connected.",
     image: "/telecom.jpeg",
   },
   {
     headline: "Modern AV Solutions",
+    subheadline: "Engaging audio/visual solutions for any space.",
     intro: "State-of-the-art audio/visual solutions for offices, retail, and conference rooms.",
     image: "/AV.jpeg",
   },
   {
     headline: "Custom Websites",
+    subheadline: "Attract more customers with modern, responsive websites.",
     intro: "We create modern, responsive websites that attract customers and boost online presence.",
     image: "/Website.webp",
   },
   {
     headline: "Cybersecurity Protection",
+    subheadline: "Proactive monitoring to protect your business.",
     intro: "Protect your business from cyber threats with proactive monitoring and solutions.",
     image: "/Cybersecurity.jpeg",
   },
   {
     headline: "Desktop Support",
+    subheadline: "Fast, reliable support whenever you need it.",
     intro: "Fast, reliable support for software, hardware, and user issues—onsite or remote.",
     image: "/desktop.webp",
   },
   {
     headline: "Managed IT Support",
+    subheadline: "Smooth operations with proactive IT management.",
     intro: "Proactive IT support and managed services for smooth operations and network monitoring.",
     image: "/Managed-it.webp",
   },
@@ -50,12 +58,12 @@ const Hero = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setFade(false); // fade out
+      setFade(false);
       setTimeout(() => {
         setCurrent((prev) => (prev + 1) % slides.length);
-        setFade(true); // fade in
-      }, 1000); // match fade duration
-    }, 7000); // 7 seconds per slide
+        setFade(true);
+      }, 1000);
+    }, 7000);
 
     return () => clearInterval(interval);
   }, []);
@@ -86,16 +94,20 @@ const Hero = () => {
       <div className="hero-overlay">
         <div className={`hero-content ${fade ? "show" : ""}`}>
           <h1 className="hero-heading">{slides[current].headline}</h1>
+          <h2 className="hero-subheading">{slides[current].subheadline}</h2>
           <p className="hero-text">{slides[current].intro}</p>
           <div className="cta-group">
+            <a href="#contact">
+              <button className="cta-button primary">Get a Free Quote</button>
+            </a>
             <a href="#services">
-              <button className="cta-button primary">Explore Services</button>
+              <button className="cta-button secondary">Explore Services</button>
             </a>
           </div>
         </div>
       </div>
 
-      {/* Arrows (optional) */}
+      {/* Optional arrows */}
       {/* <button onClick={prevSlide} className="arrow-button prev">&#10094;</button>
       <button onClick={nextSlide} className="arrow-button next">&#10095;</button> */}
 

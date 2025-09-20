@@ -21,6 +21,7 @@ const partnerLogos = [
   "/Partners/logo16.webp",
   "/Partners/logo17.png",
   "/Partners/logo18.jpg",
+  "/Partners/logo19.jpeg",
 ];
 
 const Partners = () => {

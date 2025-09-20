@@ -16,14 +16,6 @@
   -webkit-text-fill-color: transparent;
 }
 
-.services-intro {
-  font-size: 1.1rem;
-  max-width: 700px;
-  margin: 0 auto 2rem auto;
-  text-align: center;
-  color: #555;
-}
-
 .services-nav {
   display: flex;
   justify-content: center;
@@ -66,22 +58,7 @@
   animation: fadeInUp 0.6s ease forwards;
   opacity: 0;
   transform: translateY(20px);
-}
-
-.service-block:nth-child(1) {
-  animation-delay: 0.1s;
-}
-.service-block:nth-child(2) {
-  animation-delay: 0.25s;
-}
-.service-block:nth-child(3) {
-  animation-delay: 0.4s;
-}
-.service-block:nth-child(4) {
-  animation-delay: 0.55s;
-}
-.service-block:nth-child(5) {
-  animation-delay: 0.7s;
+  scroll-margin-top: 100px; /* for fixed navbar */
 }
 
 .service-block h3 {
@@ -106,6 +83,23 @@
   margin-bottom: 0.5rem;
 }
 
+.service-cta {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #fff;
+  background-color: #ff7f50;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.service-cta:hover {
+  background-color: #ff6333;
+  transform: translateY(-2px);
+}
+
 @keyframes fadeInUp {
   to {
     opacity: 1;
@@ -123,18 +117,4 @@
     width: 100%;
     text-align: center;
   }
-}
-.service-image {
-  width: 100%;
-  max-width: 400px; 
-  height: auto;
-  margin: 1rem 0;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  display: block;
-}
-/* Add space above sections to account for fixed navbar */
-.service-block {
-  scroll-margin-top: 100px; /* adjust based on your navbar height */
-  padding-top: 20px; /* optional, visual spacing */
 }
