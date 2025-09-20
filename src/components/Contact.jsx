@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MdOutlineMarkEmailRead, MdEmail, MdSupportAgent, MdPerson, MdPhone } from "react-icons/md";
+import { MdOutlineMarkEmailRead, MdEmail, MdSupportAgent, MdPerson, MdPhone, MdLocationOn } from "react-icons/md";
 import "./Contact.css";
 
 const Contact = () => {
@@ -100,10 +100,13 @@ const Contact = () => {
             <p><MdEmail /> General Inquiries: <a href="mailto:info@conotextech.com">info@conotextech.com</a></p>
             <p><MdSupportAgent /> Project & Service Requests: <a href="mailto:projects@conotextech.com">projects@conotextech.com</a></p>
             <p><MdSupportAgent /> Technical Support: <a href="mailto:support@conotextech.com">support@conotextech.com</a></p>
-            <p><MdPerson /> Direct Contact (Founder & Lead Project Manager): <a href="mailto:uchenna.m@conotextech.com">uchenna.m@conotextech.com</a></p>
-
+            <p><MdPerson /> Direct Contact (Founder): <a href="mailto:uchenna.m@conotextech.com">uchenna.m@conotextech.com</a></p>
+            
             <h4>Call Us</h4>
             <p><MdPhone /> +1 (832) 535-1082</p>
+
+            <h4>Location</h4>
+            <p><MdLocationOn /> Richmond, TX 77469 USA</p>
           </div>
         </div>
       </div>
@@ -112,6 +115,3 @@ const Contact = () => {
 };
 
 export default Contact;
-
-
-

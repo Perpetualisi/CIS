@@ -14,7 +14,7 @@ const services = [
       "Organized cable management & labeling",
       "Fast troubleshooting & maintenance",
     ],
-    industries: "Oil & Gas | Banks & Financial Institutions | Retail | Corporate Offices | Healthcare | Education",
+    industries: "Oil & Gas | Corporate Offices | Financial Institutions | Healthcare | Power & Utilities | Retail | Fast Food",
     cta: "Get Your Free Structured Cabling Consultation →",
   },
   {
@@ -28,7 +28,7 @@ const services = [
       "Remote monitoring & instant alerts",
       "Security system upgrades & maintenance",
     ],
-    industries: "Oil & Gas | Banks | Retail | Fast Food | Corporate Offices",
+    industries: "Oil & Gas | Corporate Offices | Financial Institutions | Healthcare | Power & Utilities | Retail | Fast Food",
     cta: "Schedule a Security Assessment Today →",
   },
   {
@@ -42,7 +42,7 @@ const services = [
       "PBX & unified communication solutions",
       "System maintenance & support",
     ],
-    industries: "Oil & Gas | Banks | Retail | Fast Food | Corporate Offices",
+    industries: "Oil & Gas | Corporate Offices | Financial Institutions | Healthcare | Power & Utilities | Retail | Fast Food",
     cta: "Request a Telecom & UC Consultation →",
   },
   {
@@ -56,7 +56,7 @@ const services = [
       "High-quality sound systems & intercoms",
       "Installation & ongoing maintenance",
     ],
-    industries: "Corporate Offices | Retail | Fast Food | Education | Healthcare",
+    industries: "Oil & Gas | Corporate Offices | Financial Institutions | Healthcare | Power & Utilities | Retail | Fast Food",
     cta: "Upgrade Your AV Systems Today →",
   },
   {
@@ -70,7 +70,7 @@ const services = [
       "Digital marketing integrations",
       "Website maintenance & updates",
     ],
-    industries: "Retail | Fast Food | Corporate Offices | SMEs",
+    industries: "Oil & Gas | Corporate Offices | Financial Institutions | Healthcare | Power & Utilities | Retail | Fast Food",
     cta: "Request Your Custom Website Quote →",
   },
   {
@@ -85,7 +85,7 @@ const services = [
       "Security compliance & audits",
       "24/7 monitoring & incident response",
     ],
-    industries: "Oil & Gas | Banks | Retail | Fast Food | Corporate Offices | Healthcare | Education",
+    industries: "Oil & Gas | Corporate Offices | Financial Institutions | Healthcare | Power & Utilities | Retail | Fast Food",
     cta: "Schedule a Cybersecurity Risk Assessment →",
   },
   {
@@ -100,7 +100,7 @@ const services = [
       "Printer, peripheral & device support",
       "Employee onboarding & IT training",
     ],
-    industries: "Corporate Offices | Retail | Fast Food | Banks | Healthcare | Education",
+    industries: "Oil & Gas | Corporate Offices | Financial Institutions | Healthcare | Power & Utilities | Retail | Fast Food",
     cta: "Request Reliable Desktop Support Today →",
   },
   {
@@ -114,7 +114,7 @@ const services = [
       "Patch management & updates",
       "Business continuity & disaster recovery",
     ],
-    industries: "Oil & Gas | Banks | Retail | Fast Food | Corporate Offices | Healthcare",
+    industries: "Oil & Gas | Corporate Offices | Financial Institutions | Healthcare | Power & Utilities | Retail | Fast Food",
     cta: "Get Your Managed IT Quote Today →",
   },
 ];

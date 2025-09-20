@@ -63,6 +63,15 @@
   color: #ccc;
 }
 
+.footer-contact a {
+  color: #bbb;
+  text-decoration: none;
+}
+
+.footer-contact a:hover {
+  color: #f39c12;
+}
+
 .footer-bottom {
   text-align: center;
   margin-top: 40px;

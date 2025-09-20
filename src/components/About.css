@@ -153,3 +153,61 @@
     height: 400px;
   }
 }
+
+/* Tablet & Mobile Responsive */
+@media (max-width: 767px) {
+  .about-wrapper {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .about-content {
+    text-align: center;
+    padding-left: 0;
+  }
+
+  .about-video {
+    height: 250px; /* smaller height for mobile */
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .about-intro {
+    font-size: 1rem;
+  }
+
+  .tabs {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .tabs button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .tab-content {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 1.7rem;
+  }
+
+  .about-intro {
+    font-size: 0.95rem;
+  }
+
+  .about-video {
+    height: 200px;
+  }
+
+  .tab-content {
+    font-size: 0.9rem;
+  }
+}
