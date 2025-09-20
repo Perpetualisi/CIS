@@ -92,7 +92,7 @@ const projectData = {
     {
       title: "ConotexTech.com",
       desc: "The official corporate site developed with a user-first interface, responsive design, and integrated features to boost client engagement.",
-      link: "https://conotextech.com",
+      link: "https://www.conotextech.com/",
     },
   ],
   cybersecurity: [
