@@ -80,20 +80,20 @@ const projectData = {
   ],
   "website-design": [
     {
-      title: "weareiko.com",
-      desc: "A modern corporate platform designed with a focus on brand identity, seamless navigation, and optimized performance for business growth.",
-      link: "https://weareiko.com",
+      title: "ConotexTech.com",
+      desc: "The official corporate site developed with a user-first interface, responsive design, and integrated features to boost client engagement.",
+      link: "https://www.conotextech.com/"
     },
     {
       title: "My E-commerce Store",
       desc: "An online store offering a smooth shopping experience, secure checkout, and efficient product management tailored for scalability.",
-      link: "https://my-ecommerce-nine-iota.vercel.app/",
+      link: "https://my-ecommerce-nine-iota.vercel.app/"
     },
     {
-      title: "ConotexTech.com",
-      desc: "The official corporate site developed with a user-first interface, responsive design, and integrated features to boost client engagement.",
-      link: "https://www.conotextech.com/",
-    },
+      title: "weareiko.com",
+      desc: "A modern corporate platform designed with a focus on brand identity, seamless navigation, and optimized performance for business growth.",
+      link: "https://weareiko.com"
+    }
   ],
   cybersecurity: [
     {
@@ -214,7 +214,7 @@ const Projects = () => {
                 rel="noopener noreferrer"
                 className="project-btn"
               >
-                Click Here
+                Visit Site
               </a>
             )}
           </div>

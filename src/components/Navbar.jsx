@@ -99,7 +99,7 @@ export default function Navbar() {
           </li>
 
           <li><a href="#projects">PROJECTS</a></li>
-          <li><a href="#partners">PARTNERS</a></li> {/* 👈 Added Partners link */}
+          <li><a href="#partners">CLIENTS</a></li> {/* 👈 Added Partners link */}
           <li><a href="#contact">CONTACT</a></li>
         </ul>
 
@@ -147,7 +147,7 @@ export default function Navbar() {
         </li>
 
         <li><a href="#projects" onClick={() => setMobileMenuOpen(false)}>PROJECTS</a></li>
-        <li><a href="#partners" onClick={() => setMobileMenuOpen(false)}>PARTNERS</a></li> {/* 👈 Added Partners link */}
+        <li><a href="#partners" onClick={() => setMobileMenuOpen(false)}>CLIENTS</a></li> {/* 👈 Added Partners link */}
         <li><a href="#contact" onClick={() => setMobileMenuOpen(false)}>CONTACT</a></li>
       </ul>
     </nav>
