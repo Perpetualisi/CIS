@@ -82,20 +82,20 @@ const clientCategories = [
 const Partners = () => {
   return (
     <section id="partners" className="partners-section">
-      <h2 className="partners-heading">Our Clients</h2>
+      <h2 className="partners-heading">
+        Our <span>Clients</span>
+      </h2>
 
       <p className="partners-intro">
-        At Conotex Tech, we take pride in delivering innovative technology solutions across diverse industries.
-        From healthcare and financial services to retail, energy, and government institutions, 
-        we’ve built long-term relationships by ensuring reliability, security, and efficiency in every project.
+        At Conotex Tech, we deliver innovative technology solutions across industries.
+        From healthcare to finance, retail, energy, and government, we ensure reliability, security, and efficiency in every project.
       </p>
 
-      {/* Featured Clients Grid */}
-      <h3 className="featured-clients-heading">Featured Clients</h3>
+      {/* Featured Clients */}
       <div className="clients-grid">
         {clientCategories.map((category, idx) => (
-          <div key={idx} className="client-category">
-            <h4>{category.category}</h4>
+          <div key={idx} className="client-card">
+            <h3 className="client-category">{category.category}</h3>
             <ul>
               {category.clients.map((client, index) => (
                 <li key={index}>{client}</li>
@@ -106,10 +106,10 @@ const Partners = () => {
       </div>
 
       <p className="clients-cta">
-        At Conotex Tech, our success is measured by the trust of our clients and the results we deliver.
+       Our success is measured by the trust of our clients and the results we deliver.
       </p>
 
-      {/* Client Logos Grid */}
+      {/* Partner Logos */}
       <h3 className="partners-heading">Clients Logos</h3>
       <div className="partners-grid">
         {partnerLogos.map((logo, index) => (

@@ -1,91 +1,104 @@
+/* ===== Partners Section ===== */
 .partners-section {
-  padding: 4rem 2rem;
-  background: #f9f9f9;
+  padding: 5rem 2rem;
+  background: #f5f5f7;
   color: #333;
+  font-family: 'Inter', sans-serif;
 }
 
+/* Headings */
 .partners-heading {
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-
-.partners-intro {
-  max-width: 800px;
-  margin: 0 auto 2.5rem auto;
-  font-size: 1.1rem;
-  line-height: 1.7;
-  text-align: center;
-}
-
-.featured-clients-heading {
-  font-size: 1.8rem;
-  font-weight: 700;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
   text-align: center;
   margin-bottom: 2rem;
 }
 
-/* Grid Layout for Featured Clients */
+.partners-heading span {
+  background: linear-gradient(90deg, #ff6a00, #b415ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.partners-intro {
+  max-width: 850px;
+  margin: 0 auto 3rem auto;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  text-align: center;
+  color: #555;
+}
+
+/* Clients Grid */
 .clients-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto 3rem auto;
 }
 
-.client-category h4 {
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+.client-card {
+  background: #fff;
+  border-radius: 15px;
+  padding: 1.8rem 1.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.client-category ul {
-  margin-left: 1rem;
+.client-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.client-category {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.client-card ul {
   list-style-type: disc;
+  margin-left: 1rem;
   color: #555;
+  line-height: 1.6;
 }
 
 .clients-cta {
   font-weight: 600;
-  margin-top: 2rem;
+  margin-top: 2.5rem;
   text-align: center;
   font-size: 1.1rem;
 }
 
-/* Grid Layout for Logos */
+/* Logos Grid */
 .partners-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 2rem;
   align-items: center;
   justify-items: center;
   margin-top: 2rem;
 }
 
-/* Partner Logos */
 .partner-logo img {
   max-width: 140px;
   width: 100%;
   height: auto;
   object-fit: contain;
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
-  transition: transform 0.3s ease, filter 0.3s ease;
-  filter: grayscale(40%);
+  transition: transform 0.4s ease, filter 0.4s ease;
+  filter: grayscale(30%);
 }
 
 .partner-logo img:hover {
   filter: grayscale(0%);
-  transform: scale(1.08);
+  transform: scale(1.15) rotate(-2deg);
 }
 
 /* Responsive Tweaks */
 @media (max-width: 992px) {
   .clients-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   }
 }
 
@@ -101,11 +114,11 @@
 
 @media (max-width: 480px) {
   .partners-section {
-    padding: 2.5rem 1rem;
+    padding: 3rem 1rem;
   }
   .partners-heading,
-  .featured-clients-heading {
-    font-size: 1.4rem;
+  .clients-cta {
+    font-size: 1.6rem;
   }
   .clients-grid {
     grid-template-columns: 1fr;
@@ -116,6 +129,6 @@
     gap: 1rem;
   }
   .partner-logo img {
-    max-width: 80px;
+    max-width: 70px;
   }
 }
