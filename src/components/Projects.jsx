@@ -63,6 +63,10 @@ const projectData = {
       title: "METRO (Metropolitan Transportation Authority) – Beacon Deployment",
       desc: "Deployed over 9,000 smart beacons across METRO bus stops to enable real-time communication between buses, corporate offices, and riders. The project enhanced fleet visibility, improved rider experience, and introduced accessibility features to support disabled passengers in navigating routes with ease.",
     },
+    {
+      title: "Palacios Prescription Shoppe – Starlink & PBX Installation",
+      desc: "Reliable internet and seamless communication for daily operations. Deployed a Starlink Gen 3 satellite system with optimized roof placement and installed a Grandstream PBX with SIP trunks, desk/cordless phones, wireless access points, and fax integration to deliver reliable connectivity and unified communications. Delivered a complete connectivity upgrade by installing Starlink satellite internet and a Grandstream PBX phone system. The solution provided strong, uninterrupted internet service and streamlined voice communications across desk phones, cordless phones, and fax services, ensuring the pharmacy team can stay connected and serve customers without interruption.",
+    },
   ],
   "av-solutions": [
     {
