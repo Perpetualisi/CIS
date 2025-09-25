@@ -42,7 +42,7 @@ export default function Footer() {
         {/* Contact Info */}
         <div className="footer-contact">
           <h3>Contact</h3>
-          <p>Email: <a href="mailto:info@conotextech.com">info@conotextech.com</a></p>
+          <p>Email: <a href="mailto:info@conotextech.com">uchenna.m@conotextech.com</a></p>
           <p>Phone: +1 (832) 535-1082</p>
           <p>Location: Richmond, TX 77469, USA</p>
         </div>

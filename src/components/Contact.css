@@ -1,3 +1,6 @@
+/* =======================
+   CONTACT SECTION STYLES
+   ======================= */
 .contact-section {
   padding: 4rem 1.5rem 6rem 1.5rem;
   background-color: #f9f9f9;
@@ -26,6 +29,9 @@
   line-height: 1.6;
 }
 
+/* =======================
+   CONTACT FORM
+   ======================= */
 .contact-content {
   display: flex;
   justify-content: space-between;
@@ -91,6 +97,7 @@
   transform: translateY(-2px);
 }
 
+/* ✅ Success Message */
 .success-message {
   display: inline-block;
   margin-top: 0.5rem;
@@ -104,6 +111,9 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* =======================
+   CONTACT INFO BOX
+   ======================= */
 .contact-info {
   flex: 0.9;
   min-width: 280px;
@@ -132,7 +142,7 @@
   color: #444;
   display: flex;
   align-items: center;
-  gap: 0.5rem; /* space between icon and text */
+  gap: 0.5rem;
   font-size: 1rem;
 }
 
@@ -149,11 +159,13 @@
 
 .contact-info svg {
   color: #0a74da;
-  min-width: 20px; /* keep icon aligned */
+  min-width: 20px;
   height: 20px;
 }
 
-/* Mobile tweaks */
+/* =======================
+   RESPONSIVE DESIGN
+   ======================= */
 @media (max-width: 768px) {
   .contact-content {
     flex-direction: column;
@@ -175,7 +187,7 @@
   }
 
   .contact-info p {
-    justify-content: center; /* center icon + text on mobile */
+    justify-content: center;
     font-size: 0.95rem;
   }
 
@@ -196,7 +208,7 @@
   }
 
   .contact-info p {
-    flex-direction: column; /* stack icon and text */
+    flex-direction: column;
     align-items: center;
     gap: 0.2rem;
   }
@@ -210,4 +222,3 @@
     min-width: 22px;
   }
 }
-

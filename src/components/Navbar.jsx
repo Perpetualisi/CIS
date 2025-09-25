@@ -4,7 +4,7 @@ import "./Navbar.css";
 const services = [
   "Structured Cabling",
   "IP Surveillance",
-  "Telecom",
+  "Telecom & UC",   // ✅ corrected here
   "A/V Solutions",
   "Website Design",
   "Managed IT",
@@ -13,7 +13,7 @@ const services = [
 const serviceIdMap = {
   "Structured Cabling": "structured-cabling",
   "IP Surveillance": "ip-surveillance",
-  "Telecom": "telecom",
+  "Telecom & UC": "telecom",   // ✅ corrected here
   "A/V Solutions": "av-solutions",
   "Website Design": "website-design",
   "Managed IT": "managed-it",
