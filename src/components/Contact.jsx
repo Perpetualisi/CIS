@@ -10,40 +10,7 @@ import {
 import "./Contact.css";
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-
   const [status, setStatus] = useState("");
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=uchenna.m@conotextech.com&su=${encodeURIComponent(
-      formData.subject
-    )}&body=${encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`
-    )}`;
-
-    // open Gmail in new tab
-    window.open(mailtoLink, "_blank");
-
-    // show success message
-    setStatus("✅ Message opened in your email app");
-
-    // reset form
-    setFormData({ name: "", email: "", subject: "", message: "" });
-
-    // clear status after 4s
-    setTimeout(() => setStatus(""), 4000);
-  };
 
   return (
     <section className="contact-section" id="contact">
@@ -58,15 +25,18 @@ const Contact = () => {
 
         <div className="contact-content">
           {/* Contact Form */}
-          <form className="contact-form" onSubmit={handleSubmit}>
+          <form
+            className="contact-form"
+            action="https://formsubmit.co/uchenna.m@conotextech.com"
+            method="POST"
+            onSubmit={() => setStatus("✅ Message sent successfully!")}
+          >
             <label htmlFor="name">Full Name</label>
             <input
               type="text"
               id="name"
               name="name"
               placeholder="Enter your full name"
-              value={formData.name}
-              onChange={handleChange}
               required
             />
 
@@ -76,19 +46,11 @@ const Contact = () => {
               id="email"
               name="email"
               placeholder="Enter your email"
-              value={formData.email}
-              onChange={handleChange}
               required
             />
 
             <label htmlFor="subject">Subject</label>
-            <select
-              id="subject"
-              name="subject"
-              value={formData.subject}
-              onChange={handleChange}
-              required
-            >
+            <select id="subject" name="subject" required>
               <option value="">Select Subject</option>
               <option value="General Inquiry">General Inquiry</option>
               <option value="Project & Service Requests">
@@ -103,10 +65,21 @@ const Contact = () => {
               id="message"
               name="message"
               placeholder="Type your message here..."
-              value={formData.message}
-              onChange={handleChange}
               required
             ></textarea>
+
+            {/* Hidden inputs for Formsubmit */}
+            {/* Replace the URL below with your actual live site */}
+            <input
+              type="hidden"
+              name="_next"
+              value={
+                window.location.hostname === "localhost"
+                  ? "http://localhost:5173/#contact"
+                  : "https://conotextech.com/#contact"
+              }
+            />
+            <input type="hidden" name="_captcha" value="false" />
 
             <button type="submit" className="contact-btn">
               Send Message
@@ -125,21 +98,15 @@ const Contact = () => {
             </p>
             <p>
               <MdSupportAgent /> Project & Service Requests:{" "}
-              <a href="mailto:projects@conotextech.com">
-                projects@conotextech.com
-              </a>
+              <a href="mailto:projects@conotextech.com">projects@conotextech.com</a>
             </p>
             <p>
               <MdSupportAgent /> Technical Support:{" "}
-              <a href="mailto:support@conotextech.com">
-                support@conotextech.com
-              </a>
+              <a href="mailto:support@conotextech.com">support@conotextech.com</a>
             </p>
             <p>
               <MdPerson /> Direct Contact (Founder):{" "}
-              <a href="mailto:uchenna.m@conotextech.com">
-                uchenna.m@conotextech.com
-              </a>
+              <a href="mailto:uchenna.m@conotextech.com">uchenna.m@conotextech.com</a>
             </p>
 
             <h4>Call Us</h4>
