@@ -4,19 +4,23 @@ import "./Navbar.css";
 const services = [
   "Structured Cabling",
   "IP Surveillance",
-  "Telecom & UC",   // ✅ corrected here
+  "Telecom & UC",
   "A/V Solutions",
   "Website Design",
   "Managed IT",
+  "Cybersecurity",
+  "Desktop Support",
 ];
 
 const serviceIdMap = {
   "Structured Cabling": "structured-cabling",
   "IP Surveillance": "ip-surveillance",
-  "Telecom & UC": "telecom",   // ✅ corrected here
+  "Telecom & UC": "telecom",
   "A/V Solutions": "av-solutions",
   "Website Design": "website-design",
   "Managed IT": "managed-it",
+  "Cybersecurity": "cybersecurity",
+  "Desktop Support": "desktop-support",
 };
 
 export default function Navbar() {
@@ -61,7 +65,7 @@ export default function Navbar() {
         {/* Logo */}
         <a href="#home" className="logo" aria-label="Homepage">
           <img
-            src="/logo.png" // 👈 put your logo file name here (must be inside public folder)
+            src="/logo.png"
             alt="Conotex Integrated Services"
             className="logo-img"
             loading="eager"
@@ -99,7 +103,7 @@ export default function Navbar() {
           </li>
 
           <li><a href="#projects">PROJECTS</a></li>
-          <li><a href="#partners">CLIENTS</a></li> {/* 👈 Added Partners link */}
+          <li><a href="#partners">CLIENTS</a></li>
           <li><a href="#contact">CONTACT</a></li>
         </ul>
 
@@ -147,7 +151,7 @@ export default function Navbar() {
         </li>
 
         <li><a href="#projects" onClick={() => setMobileMenuOpen(false)}>PROJECTS</a></li>
-        <li><a href="#partners" onClick={() => setMobileMenuOpen(false)}>CLIENTS</a></li> {/* 👈 Added Partners link */}
+        <li><a href="#partners" onClick={() => setMobileMenuOpen(false)}>CLIENTS</a></li>
         <li><a href="#contact" onClick={() => setMobileMenuOpen(false)}>CONTACT</a></li>
       </ul>
     </nav>
