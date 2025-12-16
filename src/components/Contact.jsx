@@ -1,16 +1,43 @@
 import React, { useState } from "react";
-import {
+import { 
   MdOutlineMarkEmailRead,
   MdEmail,
   MdSupportAgent,
   MdPerson,
   MdPhone,
-  MdLocationOn,
+  MdLocationOn
 } from "react-icons/md";
+import emailjs from "@emailjs/browser";
 import "./Contact.css";
 
 const Contact = () => {
+  const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("");
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setStatus("");
+
+    emailjs
+      .sendForm(
+        "service_9amspci",      // Your Service ID
+        "template_50ofd27",     // Your Template ID
+        e.target,
+        "Q-wqqOPJmv_v2YNEC"    // Your Public Key
+      )
+      .then(
+        () => {
+          setStatus("✅ Message sent successfully!");
+          e.target.reset();
+        },
+        (err) => {
+          console.error(err);
+          setStatus("❌ Failed to send message. Try again.");
+        }
+      )
+      .finally(() => setLoading(false));
+  };
 
   return (
     <section className="contact-section" id="contact">
@@ -25,99 +52,44 @@ const Contact = () => {
 
         <div className="contact-content">
           {/* Contact Form */}
-          <form
-            className="contact-form"
-            action="https://formsubmit.co/uchenna.m@conotextech.com"
-            method="POST"
-            onSubmit={() => setStatus("✅ Message sent successfully!")}
-          >
+          <form className="contact-form" onSubmit={sendEmail}>
             <label htmlFor="name">Full Name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Enter your full name"
-              required
-            />
+            <input type="text" id="name" name="name" placeholder="Enter your full name" required />
 
             <label htmlFor="email">Email Address</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Enter your email"
-              required
-            />
+            <input type="email" id="email" name="email" placeholder="Enter your email" required />
 
             <label htmlFor="subject">Subject</label>
             <select id="subject" name="subject" required>
               <option value="">Select Subject</option>
               <option value="General Inquiry">General Inquiry</option>
-              <option value="Project & Service Requests">
-                Project & Service Requests
-              </option>
+              <option value="Project Request">Project Request</option>
               <option value="Technical Support">Technical Support</option>
-              <option value="Direct Contact">Direct Contact</option>
             </select>
 
             <label htmlFor="message">Your Message</label>
-            <textarea
-              id="message"
-              name="message"
-              placeholder="Type your message here..."
-              required
-            ></textarea>
+            <textarea id="message" name="message" placeholder="Type your message here..." required></textarea>
 
-            {/* Hidden inputs for Formsubmit */}
-            {/* Replace the URL below with your actual live site */}
-            <input
-              type="hidden"
-              name="_next"
-              value={
-                window.location.hostname === "localhost"
-                  ? "http://localhost:5173/#contact"
-                  : "https://conotextech.com/#contact"
-              }
-            />
-            <input type="hidden" name="_captcha" value="false" />
-
-            <button type="submit" className="contact-btn">
-              Send Message
+            <button type="submit" className="contact-btn" disabled={loading}>
+              {loading ? "Sending..." : "Send Message"}
             </button>
 
-            {status && <p className="success-message">{status}</p>}
+            {status && <p className={`status-message ${status.includes("✅") ? "success" : "error"}`}>{status}</p>}
           </form>
 
           {/* Contact Info */}
           <div className="contact-info">
             <h3>Contact Info</h3>
-
-            <p>
-              <MdEmail /> General Inquiries:{" "}
-              <a href="mailto:info@conotextech.com">info@conotextech.com</a>
-            </p>
-            <p>
-              <MdSupportAgent /> Project & Service Requests:{" "}
-              <a href="mailto:projects@conotextech.com">projects@conotextech.com</a>
-            </p>
-            <p>
-              <MdSupportAgent /> Technical Support:{" "}
-              <a href="mailto:support@conotextech.com">support@conotextech.com</a>
-            </p>
-            <p>
-              <MdPerson /> Direct Contact (Founder):{" "}
-              <a href="mailto:uchenna.m@conotextech.com">uchenna.m@conotextech.com</a>
-            </p>
+            <p><MdEmail /> General Inquiries: <a href="mailto:info@conotextech.com">info@conotextech.com</a></p>
+            <p><MdSupportAgent /> Project & Service Requests: <a href="mailto:projects@conotextech.com">projects@conotextech.com</a></p>
+            <p><MdSupportAgent /> Technical Support: <a href="mailto:support@conotextech.com">support@conotextech.com</a></p>
+            <p><MdPerson /> Direct Contact (Founder): <a href="mailto:uchenna.m@conotextech.com">uchenna.m@conotextech.com</a></p>
 
             <h4>Call Us</h4>
-            <p>
-              <MdPhone /> +1 (832) 535-1082
-            </p>
+            <p><MdPhone /> +1 (832) 535-1082</p>
 
             <h4>Location</h4>
-            <p>
-              <MdLocationOn /> Richmond, TX 77469 USA
-            </p>
+            <p><MdLocationOn /> Richmond, TX 77469 USA</p>
           </div>
         </div>
       </div>
