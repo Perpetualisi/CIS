@@ -10,6 +10,7 @@ const services = [
   "Managed IT",
   "Cybersecurity",
   "Desktop Support",
+  "AI & Search Quality Assurance Services", // New service added
 ];
 
 const serviceIdMap = {
@@ -21,6 +22,7 @@ const serviceIdMap = {
   "Managed IT": "managed-it",
   "Cybersecurity": "cybersecurity",
   "Desktop Support": "desktop-support",
+  "AI & Search Quality Assurance Services": "ai-search-qa", // New ID
 };
 
 export default function Navbar() {

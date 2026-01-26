@@ -117,6 +117,21 @@ const services = [
     industries: "Oil & Gas | Corporate Offices | Financial Institutions | Healthcare | Power & Utilities | Retail | Fast Food",
     cta: "Get Your Managed IT Quote Today →",
   },
+  // New AI & Search QA Service
+  {
+    id: "ai-search-qa",
+    title: "AI & Search Quality Assurance Services",
+    headline: "Ensure Accurate, Reliable, and Compliant AI Systems",
+    intro: "We provide AI quality and search validation services to optimize AI models, healthcare AI, and enterprise knowledge systems.",
+    keyServices: [
+      "AI Search Quality",
+      "Human-in-the-Loop Evaluation",
+      "Healthcare AI Validation",
+      "Enterprise Knowledge Search QA",
+    ],
+    industries: "Healthcare | Enterprise | Technology | Finance | Retail",
+    cta: "Discover Our AI QA Services →",
+  },
 ];
 
 const Services = () => {
