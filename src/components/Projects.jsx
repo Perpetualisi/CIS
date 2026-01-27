@@ -29,9 +29,9 @@ const PROJECT_DATA = {
     { title: "Porsche Dealership", desc: "Integrated overhead and floor speaker systems synced with CCTV." },
   ],
   "website-design": [
+    { title: "weareiko", desc: "A modern corporate platform designed with a focus on brand identity, seamless navigation, and optimized performance for business growth.", link: "https://weareiko.com" },
     { title: "Conotex Tech", desc: "Corporate site with responsive design and integrated client engagement features.", link: "https://www.conotextech.com/" },
     { title: "E-commerce Store", desc: "Secure checkout and scalable product management on Vercel.", link: "https://my-ecommerce-nine-iota.vercel.app/" },
-    { title: "Iko Corporate", desc: "Modern platform focused on brand identity and seamless navigation.", link: "https://weareiko.com" }
   ],
   cybersecurity: [
     { title: "BP Infrastructure", desc: "Firewall policies, endpoint protection, and access controls for Oil & Gas assets." },
@@ -69,7 +69,7 @@ const Projects = () => {
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50" id="projects">
       <div className="max-w-7xl mx-auto">
         
-        {/* Header - Orange line removed */}
+        {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-black text-[#001f3f] mb-6">
             Our Projects
@@ -96,7 +96,7 @@ const Projects = () => {
           ))}
         </div>
 
-        {/* Projects Grid with Animation */}
+        {/* Projects Grid */}
         <motion.div 
           layout
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[450px]"
