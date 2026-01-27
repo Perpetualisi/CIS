@@ -1,184 +1,64 @@
 import React, { useState } from "react";
-import "./Projects.css";
+import { motion, AnimatePresence } from "framer-motion";
+import { LuExternalLink, LuBriefcase } from "react-icons/lu";
 
-const projectData = {
+const PROJECT_DATA = {
   "structured-cabling": [
-    {
-      title: "MMC Marsh McLennan Agency – Network Migration & Decommission",
-      desc: "Migrated and decommissioned legacy networks across multiple units, boosting scalability.",
-    },
-    {
-      title: "McDonald’s – Enterprise Network Migration",
-      desc: "Delivered network migration across corporate and franchise sites.",
-    },
-    {
-      title: "East End Lofts Apartments (Houston, TX) – Full Network Migration & Infrastructure Build",
-      desc: "Built MDF and IDF with fiber, Cat6, and coax cabling; installed switches, routers, gateways, OpenGear, and CradlePoint APs to deliver a complete end-to-end network solution.",
-    },
-    {
-      title: "Sprouts Farmers Market – Network Migration, CCTV & AV Installations",
-      desc: "Integrated CCTV, AV, and network migration for enhanced in-store operations.",
-    },
-    {
-      title: "Wal-Mart – Network Migration & POS Refresh",
-      desc: "Upgraded store networks and refreshed POS infrastructure, improving uptime and speed.",
-    },
-    {
-      title: "Porsche Car Dealership (Sugar Land, TX) – Network Migration & CCTV Installation",
-      desc: "Built MDF and IDF with Cat5/Cat6 cabling; installed cameras and speakers across 5 floors for the newly constructed building.",
-    },
-    {
-      title: "Texas State Prisons – Network Migration & AP Deployment",
-      desc: "Built MDF and IDF in multiple units, installed racks, switches, routers, and PDUs, ran Cat6 and fiber cabling, and deployed hundreds of APs to provide inmates with secure tablet access while maintaining full security compliance.",
-    },
+    { title: "MMC Marsh McLennan Agency", desc: "Network Migration & Decommission across multiple units, boosting scalability." },
+    { title: "McDonald’s", desc: "Delivered enterprise network migration across corporate and franchise sites." },
+    { title: "East End Lofts Apartments", desc: "Full MDF/IDF build with fiber, Cat6, and coax; installed switches, routers, and CradlePoint APs." },
+    { title: "Sprouts Farmers Market", desc: "Integrated CCTV, AV, and network migration for enhanced in-store operations." },
+    { title: "Wal-Mart", desc: "Upgraded store networks and refreshed POS infrastructure, improving uptime." },
+    { title: "Porsche (Sugar Land, TX)", desc: "MDF/IDF build with Cat6 cabling and 5-floor camera/speaker installation." },
+    { title: "Texas State Prisons", desc: "High-security infrastructure for inmate tablet access involving hundreds of APs." },
   ],
   "ip-surveillance": [
-    {
-      title: "Nova Source Power – CCTV & Outdoor Security Installations",
-      desc: "Installed surveillance systems with cameras and horn speakers to enhance site safety.",
-    },
-    {
-      title: "Sprouts Farmers Market – CCTV Installations",
-      desc: "Installed in-store surveillance and monitoring systems.",
-    },
-    {
-      title: "Porsche Car Dealership (Sugar Land, TX) – CCTV Installations",
-      desc: "Installed surveillance cameras and speakers across 5 floors of the new dealership.",
-    },
+    { title: "Nova Source Power", desc: "Outdoor surveillance with cameras and horn speakers for site safety." },
+    { title: "Sprouts Farmers Market", desc: "Comprehensive in-store surveillance and monitoring systems." },
+    { title: "Porsche (Sugar Land, TX)", desc: "5-floor surveillance integration for newly constructed dealership." },
   ],
   telecom: [
-    {
-      title: "BP – Cisco Phone Migration",
-      desc: "Migrated enterprise telephony to Cisco UC platform for improved collaboration.",
-    },
-    {
-      title: "Movie Center – Telecom VoIP Migration",
-      desc: "Migrated legacy phone systems to VoIP, improving communication reliability and reducing costs.",
-    },
-    {
-      title: "O’Reilly Auto Parts – VoIP Implementation",
-      desc: "Migrated telecom to VoIP for improved reliability and cost efficiency.",
-    },
-    {
-      title: "METRO (Metropolitan Transportation Authority) – Beacon Deployment",
-      desc: "Deployed over 9,000 smart beacons across METRO bus stops to enable real-time communication between buses, corporate offices, and riders. The project enhanced fleet visibility, improved rider experience, and introduced accessibility features to support disabled passengers in navigating routes with ease.",
-    },
-    {
-      title: "Palacios Prescription Shoppe – Starlink & PBX Installation",
-      desc: "Reliable internet and seamless communication for daily operations. Deployed a Starlink Gen 3 satellite system with optimized roof placement and installed a Grandstream PBX with SIP trunks, desk/cordless phones, wireless access points, and fax integration to deliver reliable connectivity and unified communications. Delivered a complete connectivity upgrade by installing Starlink satellite internet and a Grandstream PBX phone system. The solution provided strong, uninterrupted internet service and streamlined voice communications across desk phones, cordless phones, and fax services, ensuring the pharmacy team can stay connected and serve customers without interruption.",
-    },
+    { title: "BP – Cisco Phone Migration", desc: "Migrated enterprise telephony to Cisco UC platform for global collaboration." },
+    { title: "METRO Authority", desc: "Deployed 9,000+ smart beacons for real-time bus visibility and accessibility features." },
+    { title: "Palacios Prescription Shoppe", desc: "Complete upgrade with Starlink Gen 3 and Grandstream PBX unified communications." },
+    { title: "O’Reilly Auto Parts", desc: "VoIP implementation across multiple locations for cost efficiency." },
   ],
   "av-solutions": [
-    {
-      title: "BP – AV (Telepresence) Installations",
-      desc: "Delivered enterprise-grade Telepresence solutions for seamless global collaboration.",
-    },
-    {
-      title: "Sprouts Farmers Market – AV Installations",
-      desc: "Integrated AV solutions into retail environments for enhanced operations.",
-    },
-    {
-      title: "Porsche Car Dealership (Sugar Land, TX) – Speaker Installations",
-      desc: "Installed overhead and floor speaker systems integrated with CCTV.",
-    },
+    { title: "BP Global", desc: "Enterprise-grade Telepresence solutions for seamless global collaboration." },
+    { title: "Sprouts Farmers Market", desc: "Integrated AV solutions into retail environments for customer experience." },
+    { title: "Porsche Dealership", desc: "Integrated overhead and floor speaker systems synced with CCTV." },
   ],
   "website-design": [
-    {
-      title: "ConotexTech.com",
-      desc: "The official corporate site developed with a user-first interface, responsive design, and integrated features to boost client engagement.",
-      link: "https://www.conotextech.com/"
-    },
-    {
-      title: "My E-commerce Store",
-      desc: "An online store offering a smooth shopping experience, secure checkout, and efficient product management tailored for scalability.",
-      link: "https://my-ecommerce-nine-iota.vercel.app/"
-    },
-    {
-      title: "weareiko.com",
-      desc: "A modern corporate platform designed with a focus on brand identity, seamless navigation, and optimized performance for business growth.",
-      link: "https://weareiko.com"
-    }
+    { title: "Conotex Tech", desc: "Corporate site with responsive design and integrated client engagement features.", link: "https://www.conotextech.com/" },
+    { title: "E-commerce Store", desc: "Secure checkout and scalable product management on Vercel.", link: "https://my-ecommerce-nine-iota.vercel.app/" },
+    { title: "Iko Corporate", desc: "Modern platform focused on brand identity and seamless navigation.", link: "https://weareiko.com" }
   ],
   cybersecurity: [
-    {
-      title: "BP – Network Security & Endpoint Protection",
-      desc: "Implemented enterprise-wide firewall policies, endpoint protection, and access controls to secure critical Oil & Gas infrastructure.",
-    },
-    {
-      title: "Shell – Security Hardening & Patch Management",
-      desc: "Performed system hardening, applied security patches across desktops and servers, and monitored network security alerts to reduce vulnerabilities.",
-    },
-    {
-      title: "MMC Marsh McLennan Agency – Data & Network Security Compliance",
-      desc: "Ensured secure handling of corporate data during network migration and decommission projects; implemented VPN, secure access, and intrusion detection monitoring.",
-    },
-    {
-      title: "East End Lofts Apartments (Houston, TX) – Network Security Implementation",
-      desc: "Configured firewalls, VLAN segmentation, and secure network access controls for residential and commercial tenants.",
-    },
-    {
-      title: "Wells Fargo – Systems Security & Compliance Refresh",
-      desc: "Executed security refresh projects during enterprise system upgrades, including access control, encryption, and compliance verification.",
-    },
-    {
-      title: "Morgan Stanley – Cybersecurity Projects",
-      desc: "Implemented security measures including endpoint protection, access controls, network monitoring, and compliance protocols to protect sensitive financial data.",
-    },
+    { title: "BP Infrastructure", desc: "Firewall policies, endpoint protection, and access controls for Oil & Gas assets." },
+    { title: "Shell Energy", desc: "Security hardening, patch management, and threat monitoring across servers." },
+    { title: "Morgan Stanley", desc: "Advanced network monitoring and compliance protocols for sensitive financial data." },
+    { title: "Wells Fargo", desc: "System security refresh during enterprise upgrades and encryption verification." },
   ],
   "desktop-support": [
-    {
-      title: "Shell – Desktop Support & Network Administration",
-      desc: "Provided enterprise-level desktop support and network administration for global operations, ensuring minimal downtime and rapid issue resolution.",
-    },
-    {
-      title: "BP – Desktop Support & AV (Telepresence) Administration",
-      desc: "Delivered ongoing IT support, troubleshooting, and AV/Telepresence system administration for seamless collaboration and operational efficiency.",
-    },
-    {
-      title: "MD Anderson Cancer Center – Windows Refresh",
-      desc: "Executed desktop refresh and support alongside network migration and Epic deployment.",
-    },
-    {
-      title: "United Healthcare – Windows Refresh",
-      desc: "Supported Epic projects with desktop refresh across enterprise environments.",
-    },
-    {
-      title: "Memorial Hermann Health System – Epic Refresh Project & M48 Cart Maintenance",
-      desc: "Implemented Epic refresh initiative and completed M48 Cart maintenance to support clinical staff efficiency.",
-    },
+    { title: "Shell Global", desc: "Enterprise-level desktop support and network administration for 24/7 operations." },
+    { title: "MD Anderson Cancer Center", desc: "Windows refresh and network migration alongside Epic deployment." },
+    { title: "Memorial Hermann", desc: "Epic refresh initiative and M48 Cart maintenance for clinical efficiency." },
   ],
   "managed-it": [
-    {
-      title: "Morgan Stanley – Managed IT & Technical Support",
-      desc: "Provided enterprise-wide network and desktop support, ongoing IT operations management, and end-user technical assistance to ensure operational efficiency and minimal downtime.",
-    },
-    {
-      title: "MMC Marsh McLennan Agency – Managed Network Support",
-      desc: "Oversaw daily IT operations, including network monitoring, user support, patch management, and legacy system decommissioning for corporate offices.",
-    },
-    {
-      title: "O’Reilly Auto Parts – Managed VoIP & IT Helpdesk Support",
-      desc: "Implemented VoIP systems and provided helpdesk support to troubleshoot and maintain telecommunication infrastructure across multiple locations.",
-    },
-    {
-      title: "East End Lofts Apartments (Houston, TX) – Network & End-User Support",
-      desc: "Managed all network operations post-installation, including switch/router configuration, end-user network access support, and ongoing troubleshooting.",
-    },
-    {
-      title: "Data Center Relocation – Corporate Client",
-      desc: "Managed end-to-end relocation with zero data loss and minimal downtime.",
-    },
+    { title: "Morgan Stanley", desc: "Managed IT operations, helpdesk support, and end-user assistance for efficiency." },
+    { title: "O’Reilly Auto Parts", desc: "Managed VoIP and IT helpdesk support for nationwide infrastructure." },
+    { title: "East End Lofts", desc: "Full post-installation network operations management and troubleshooting." },
   ],
 };
 
-const tabs = {
-  "structured-cabling": "Structured Cabling",
-  "ip-surveillance": "IP Surveillance",
-  telecom: "Telecom & UC",
-  "av-solutions": "A/V Solutions",
-  "website-design": "Website Design",
-  cybersecurity: "Cybersecurity",
-  "desktop-support": "Desktop Support",
+const TABS = {
+  "structured-cabling": "Cabling",
+  "ip-surveillance": "Security",
+  telecom: "Telecom",
+  "av-solutions": "A/V",
+  "website-design": "Web Design",
+  cybersecurity: "Cyber",
+  "desktop-support": "IT Support",
   "managed-it": "Managed IT",
 };
 
@@ -186,43 +66,79 @@ const Projects = () => {
   const [activeTab, setActiveTab] = useState("structured-cabling");
 
   return (
-    <section className="projects-section" id="projects">
-      <h2 className="section-title">Our Projects</h2>
-      <p className="section-subtitle">
-        Explore the real-world impact we've made across industries.
-      </p>
+    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50" id="projects">
+      <div className="max-w-7xl mx-auto">
+        
+        {/* Header - Orange line removed */}
+        <div className="text-center mb-16">
+          <h2 className="text-4xl sm:text-5xl font-black text-[#001f3f] mb-6">
+            Our Projects
+          </h2>
+          <p className="text-slate-600 text-lg max-w-2xl mx-auto font-medium">
+            Strategic infrastructure and technology deployments across major industries worldwide.
+          </p>
+        </div>
 
-      {/* Tabs */}
-      <div className="project-tabs">
-        {Object.keys(tabs).map((key) => (
-          <button
-            key={key}
-            onClick={() => setActiveTab(key)}
-            className={activeTab === key ? "active" : ""}
-          >
-            {tabs[key]}
-          </button>
-        ))}
-      </div>
+        {/* Tab Navigation */}
+        <div className="flex flex-wrap justify-center gap-2 mb-12">
+          {Object.entries(TABS).map(([key, label]) => (
+            <button
+              key={key}
+              onClick={() => setActiveTab(key)}
+              className={`px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-300 border-2 ${
+                activeTab === key
+                  ? "bg-[#001f3f] border-[#001f3f] text-white shadow-lg scale-105"
+                  : "bg-white border-slate-200 text-slate-500 hover:border-[#001f3f] hover:text-[#001f3f]"
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
 
-      {/* Projects Grid */}
-      <div className="project-grid">
-        {projectData[activeTab].map((item, index) => (
-          <div key={index} className="project-card">
-            <h3>{item.title}</h3>
-            <p>{item.desc}</p>
-            {item.link && (
-              <a
-                href={item.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="project-btn"
+        {/* Projects Grid with Animation */}
+        <motion.div 
+          layout
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[450px]"
+        >
+          <AnimatePresence mode="popLayout">
+            {PROJECT_DATA[activeTab].map((project, index) => (
+              <motion.div
+                key={`${activeTab}-${index}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
+                className="bg-white border border-slate-100 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
               >
-                Visit Site
-              </a>
-            )}
-          </div>
-        ))}
+                <div>
+                  <div className="w-12 h-12 bg-slate-50 rounded-lg flex items-center justify-center mb-6 group-hover:bg-[#001f3f] group-hover:text-white transition-colors duration-300">
+                    <LuBriefcase className="text-xl" />
+                  </div>
+                  <h3 className="text-[#001f3f] font-black text-xl mb-3 leading-tight">
+                    {project.title}
+                  </h3>
+                  <p className="text-slate-600 text-sm leading-relaxed font-medium">
+                    {project.desc}
+                  </p>
+                </div>
+
+                {project.link && (
+                  <div className="mt-8">
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-[#001f3f] font-bold text-sm hover:translate-x-1 transition-transform"
+                    >
+                      View Live Project <LuExternalLink />
+                    </a>
+                  </div>
+                )}
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   );
