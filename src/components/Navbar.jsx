@@ -73,13 +73,23 @@ export default function Navbar() {
 
           {/* Hamburger Toggle */}
           <button
-            className="md:hidden flex flex-col justify-between w-8 h-6 z-[1000]"
+            className={`md:hidden flex flex-col justify-between w-10 h-10 p-2 z-[1000] rounded-lg transition-colors duration-300 ${
+              mobileMenuOpen ? "bg-white" : "bg-transparent"
+            }`}
             onClick={toggleMobileMenu}
             aria-label="Toggle Menu"
           >
-            <span className={`h-1 w-full bg-[#001f3f] rounded-full transition-all ${mobileMenuOpen ? "rotate-45 translate-y-2.5 bg-white" : ""}`} />
-            <span className={`h-1 w-full bg-[#001f3f] rounded-full transition-all ${mobileMenuOpen ? "opacity-0" : ""}`} />
-            <span className={`h-1 w-full bg-[#001f3f] rounded-full transition-all ${mobileMenuOpen ? "-rotate-45 -translate-y-2.5 bg-white" : ""}`} />
+            <div className="flex flex-col justify-between w-full h-full">
+                <span className={`h-1 w-full rounded-full transition-all duration-300 ${
+                    mobileMenuOpen ? "rotate-45 translate-y-[11px] bg-[#001f3f]" : "bg-[#001f3f]"
+                }`} />
+                <span className={`h-1 w-full rounded-full transition-all duration-300 ${
+                    mobileMenuOpen ? "opacity-0" : "bg-[#001f3f]"
+                }`} />
+                <span className={`h-1 w-full rounded-full transition-all duration-300 ${
+                    mobileMenuOpen ? "-rotate-45 -translate-y-[11px] bg-[#001f3f]" : "bg-[#001f3f]"
+                }`} />
+            </div>
           </button>
         </div>
       </nav>
@@ -104,7 +114,7 @@ export default function Navbar() {
           <a 
             href="#contact" 
             onClick={closeMobileMenu}
-            className="mt-4 bg-blue-600 text-white text-center py-4 rounded-xl font-bold text-lg"
+            className="mt-4 bg-blue-600 text-white text-center py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition-colors"
           >
             GET A QUOTE
           </a>
