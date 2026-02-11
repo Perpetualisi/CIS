@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLocation, useNavigate } from "react-router-dom";
 import { 
   FiGlobe, 
   FiShield, 
@@ -13,45 +14,28 @@ import {
   FiCheckCircle 
 } from "react-icons/fi";
 
-// Global industry list to ensure consistency across all service tabs
+// Global industry list
 const INDUSTRIES_SERVED = "Oil & Gas | Corporate | Financial | Healthcare | Utilities | Retail | Fast Food";
 
+// Services in requested order
 const SERVICES_DATA = [
   {
-    id: "structured-cabling",
-    title: "Structured Cabling",
-    headline: "Reliable Network Infrastructure Nationwide",
-    intro: "We design and implement cabling networks that keep your business connected, reliable, and scalable for growth.",
-    keyServices: ["Cat5e / Cat6 / Fiber Optic", "Data Center & Server Room Build", "Custom Network Design", "Cable Management & Labeling", "Troubleshooting & Maintenance"],
-    icon: <FiGlobe />,
+    id: "website-design",
+    title: "Website Design & Digital Growth",
+    headline: "Custom Websites & Digital Growth",
+    intro: "Responsive designs that attract customers and grow your brand online with modern UX/UI.",
+    keyServices: ["UX/UI Design", "E-commerce Development", "Digital Marketing Integration", "Website Maintenance"],
+    icon: <FiLayout />,
     industries: INDUSTRIES_SERVED
   },
   {
-    id: "ip-surveillance",
-    title: "IP Surveillance",
-    headline: "Advanced Security & Monitoring",
-    intro: "Protect your assets, employees, and customers 24/7 with smart surveillance and instant alerts.",
-    keyServices: ["CCTV Installation", "Smart Access Control", "Remote Monitoring", "System Upgrades", "Ongoing Maintenance"],
-    icon: <FiShield />,
-    industries: INDUSTRIES_SERVED
-  },
-  {
-    id: "telecom",
-    title: "Telecom & UC",
-    headline: "Unified Communication Solutions",
-    intro: "Streamline team collaboration and reduce downtime with modern VoIP and video conferencing.",
-    keyServices: ["VoIP Setup & Integration", "Video Conferencing Systems", "PBX Solutions", "System Support"],
-    icon: <FiPhone />,
-    industries: INDUSTRIES_SERVED
-  },
-  {
-    id: "av-solutions",
-    title: "A/V Solutions",
-    headline: "Modern A/V for Workspaces",
-    intro: "Enhance presentations and customer experiences with high-end audio/visual technology.",
-    keyServices: ["Conference Room AV", "Digital Signage", "Interactive Displays", "Intercom Systems"],
-    icon: <FiVideo />,
-    industries: INDUSTRIES_SERVED
+    id: "ai-qa",
+    title: "AI Search Quality & Validation",
+    headline: "AI Search Quality & Validation",
+    intro: "Optimize AI models, healthcare AI, and enterprise knowledge systems for accuracy and compliance.",
+    keyServices: ["AI Search Quality", "Human-in-the-Loop Eval", "Healthcare AI Validation", "Knowledge Search QA"],
+    icon: <FiCpu />,
+    industries: "Healthcare | Enterprise | Technology | Finance | Retail"
   },
   {
     id: "cybersecurity",
@@ -60,24 +44,6 @@ const SERVICES_DATA = [
     intro: "Securing your business against cyber threats, ensuring compliance and zero downtime.",
     keyServices: ["Threat Detection", "Firewall & Endpoint Protection", "Penetration Testing", "Security Audits", "24/7 Incident Response"],
     icon: <FiLock />,
-    industries: INDUSTRIES_SERVED
-  },
-  {
-    id: "website-design",
-    title: "Website Design",
-    headline: "Custom Websites & Digital Growth",
-    intro: "Responsive designs that attract customers and grow your brand online with modern UX/UI.",
-    keyServices: ["UX/UI Design", "E-commerce Development", "Digital Marketing Integration", "Website Maintenance"],
-    icon: <FiLayout />,
-    industries: INDUSTRIES_SERVED
-  },
-  {
-    id: "desktop-support",
-    title: "Desktop Support",
-    headline: "Onsite & Remote Support",
-    intro: "Fast, dependable technical support to keep your workforce productive at all times.",
-    keyServices: ["Hardware/Software Install", "Access Management", "Device Support", "IT Training"],
-    icon: <FiSmartphone />,
     industries: INDUSTRIES_SERVED
   },
   {
@@ -90,18 +56,46 @@ const SERVICES_DATA = [
     industries: INDUSTRIES_SERVED
   },
   {
-    id: "ai-qa",
-    title: "AI & QA",
-    headline: "AI Search Quality & Validation",
-    intro: "Optimize AI models, healthcare AI, and enterprise knowledge systems for accuracy and compliance.",
-    keyServices: ["AI Search Quality", "Human-in-the-Loop Eval", "Healthcare AI Validation", "Knowledge Search QA"],
-    icon: <FiCpu />,
-    industries: "Healthcare | Enterprise | Technology | Finance | Retail"
+    id: "desktop-support",
+    title: "Desktop Support",
+    headline: "Onsite & Remote Support",
+    intro: "Fast, dependable technical support to keep your workforce productive at all times.",
+    keyServices: ["Hardware/Software Install", "Access Management", "Device Support", "IT Training"],
+    icon: <FiSmartphone />,
+    industries: INDUSTRIES_SERVED
+  },
+  {
+    id: "structured-cabling",
+    title: "Structured Cabling / A/V / Surveillance",
+    headline: "Reliable Network & AV Infrastructure",
+    intro: "We design and implement cabling networks and A/V solutions that keep your business connected and secure.",
+    keyServices: ["Cat5e / Cat6 / Fiber Optic", "Data Center & Server Room Build", "Cable Management & Labeling", "CCTV & IP Surveillance", "Conference Room AV"],
+    icon: <FiGlobe />,
+    industries: INDUSTRIES_SERVED
   }
 ];
 
 const Services = () => {
-  const [activeTab, setActiveTab] = useState(SERVICES_DATA[0].id);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Set active tab based on URL
+  const urlId = location.pathname.split("/")[2]; // /services/:id
+  const defaultTab = SERVICES_DATA[0].id;
+
+  const [activeTab, setActiveTab] = useState(urlId || defaultTab);
+
+  // Update tab when URL changes
+  useEffect(() => {
+    setActiveTab(urlId || defaultTab);
+  }, [urlId]);
+
+  // Update URL when tab changes
+  const handleTabClick = (id) => {
+    setActiveTab(id);
+    navigate(`/services/${id}`);
+  };
+
   const currentService = SERVICES_DATA.find(s => s.id === activeTab);
 
   return (
@@ -110,20 +104,18 @@ const Services = () => {
         
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-black text-[#001f3f] mb-4">
-            Our Services
-          </h2>
+          <h2 className="text-4xl sm:text-5xl font-black text-[#001f3f] mb-4">Our Services</h2>
           <p className="text-slate-600 text-lg max-w-2xl mx-auto font-medium">
             Strategic IT infrastructure and support tailored for enterprise-level demands.
           </p>
         </div>
 
-        {/* Tabbed Navigation */}
+        {/* Tab Navigation */}
         <div className="flex flex-wrap justify-center gap-2 mb-12">
           {SERVICES_DATA.map((service) => (
             <button
               key={service.id}
-              onClick={() => setActiveTab(service.id)}
+              onClick={() => handleTabClick(service.id)}
               className={`flex items-center px-5 py-2.5 rounded-full font-bold text-xs md:text-sm transition-all duration-300 border-2 ${
                 activeTab === service.id
                   ? "bg-[#001f3f] border-[#001f3f] text-white shadow-xl scale-105"
@@ -161,7 +153,7 @@ const Services = () => {
                 </div>
               </div>
 
-              {/* Service Features Grid */}
+              {/* Service Features */}
               <div className="grid sm:grid-cols-2 gap-4 mb-12">
                 {currentService.keyServices.map((item, idx) => (
                   <div 
@@ -174,12 +166,10 @@ const Services = () => {
                 ))}
               </div>
 
-              {/* Card Footer */}
+              {/* Footer */}
               <div className="pt-10 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-8">
                 <div className="max-w-md">
-                  <span className="text-[11px] text-[#001f3f] font-black uppercase tracking-[0.3em] block mb-3">
-                    Industries Served
-                  </span>
+                  <span className="text-[11px] text-[#001f3f] font-black uppercase tracking-[0.3em] block mb-3">Industries Served</span>
                   <div className="flex flex-wrap gap-2">
                     {currentService.industries.split('|').map((ind, i) => (
                       <span key={i} className="text-[10px] bg-slate-100 text-[#001f3f] px-3 py-1.5 rounded-lg font-bold uppercase border border-slate-200">
@@ -199,7 +189,6 @@ const Services = () => {
             </motion.div>
           </AnimatePresence>
         </div>
-
       </div>
     </section>
   );
