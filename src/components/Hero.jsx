@@ -151,18 +151,23 @@ const Hero = () => {
 
       {/* Centered content */}
       <div className="relative z-20 flex items-center justify-center h-full">
+        {/* max-w-fit used to ensure container doesn't force wrapping */}
         <div
-          className={`max-w-4xl px-6 text-center transition-all duration-500 ease-out ${
+          className={`max-w-[95vw] px-4 text-center transition-all duration-500 ease-out ${
             isAnimating ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
           }`}
         >
-          <h1 className="font-black text-white text-3xl sm:text-5xl md:text-6xl lg:text-6xl mb-4 leading-snug break-words">
+          {/* Headline: whitespace-nowrap forces one line, text size scales with screen */}
+          <h1 className="font-black text-white text-[5.5vw] sm:text-4xl md:text-5xl lg:text-6xl mb-4 leading-tight whitespace-nowrap">
             {currentSlide.headline}
           </h1>
-          <h2 className="text-yellow-400 font-bold text-base sm:text-xl md:text-2xl mb-6 break-words">
+          
+          {/* Subheadline: whitespace-nowrap and slightly smaller scaling to fit longer text */}
+          <h2 className="text-yellow-400 font-bold text-[3.8vw] sm:text-lg md:text-xl lg:text-2xl mb-6 whitespace-nowrap">
             {currentSlide.subheadline}
           </h2>
-          <p className="text-gray-200 text-sm sm:text-base md:text-lg mb-10 max-w-3xl mx-auto leading-relaxed break-words">
+
+          <p className="text-gray-200 text-sm sm:text-base md:text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
             {currentSlide.intro}
           </p>
 
@@ -170,13 +175,13 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
             <a
               href="#contact"
-              className="w-full sm:w-auto bg-orange-600 text-white font-bold py-4 px-10 rounded-full hover:bg-orange-700 transition-colors"
+              className="w-full sm:w-auto bg-orange-600 text-white font-bold py-4 px-10 rounded-full hover:bg-orange-700 transition-colors whitespace-nowrap"
             >
               {currentSlide.cta.primary}
             </a>
             <a
               href="#services"
-              className="w-full sm:w-auto bg-white/10 text-white border-2 border-white/40 font-bold py-4 px-10 rounded-full hover:bg-white/20 backdrop-blur-md transition-colors"
+              className="w-full sm:w-auto bg-white/10 text-white border-2 border-white/40 font-bold py-4 px-10 rounded-full hover:bg-white/20 backdrop-blur-md transition-colors whitespace-nowrap"
             >
               {currentSlide.cta.secondary}
             </a>
