@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const NAV_LINKS = [
-  { label: "HOME", href: "#home" },
-  { label: "ABOUT-US", href: "#about" },
-  { label: "SERVICES", href: "#services" },
-  { label: "PROJECTS", href: "#projects" },
-  { label: "CLIENTS", href: "#partners" },
-  { label: "CONTACT", href: "#contact" },
+  { label: "HOME", path: "/" },
+  { label: "ABOUT-US", path: "/about-us", scrollId: "about" },
+  { label: "SERVICES", path: "/services", scrollId: "services" },
+  { label: "PROJECTS", path: "/projects", scrollId: "projects" },
+  { label: "CLIENTS", path: "/clients", scrollId: "partners" },
+  { label: "CONTACT", path: "/contact", scrollId: "contact" },
 ];
 
 // Refined Styles
@@ -16,6 +17,19 @@ const MOBILE_LINK_CLASSES = "text-2xl text-white font-black text-left cursor-poi
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Scroll to section when URL changes
+  useEffect(() => {
+    const current = NAV_LINKS.find(link => link.path === location.pathname);
+    if (current && current.scrollId) {
+      const el = document.getElementById(current.scrollId);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [location]);
 
   // Handle scroll for sticky effect
   const handleScroll = useCallback(() => {
@@ -35,6 +49,11 @@ export default function Navbar() {
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
+  const handleClick = (path) => {
+    navigate(path);
+    closeMobileMenu();
+  };
+
   return (
     <>
       {/* Mobile Backdrop */}
@@ -52,21 +71,24 @@ export default function Navbar() {
       >
         <div className="max-w-7xl w-full flex items-center justify-between px-6">
           {/* Logo */}
-          <a href="#home" className="flex items-center transition-transform hover:scale-105">
+          <Link to="/" className="flex items-center transition-transform hover:scale-105" onClick={() => closeMobileMenu()}>
             <img
               src="/logo.png"
               alt="Conotex Logo"
               className={`transition-all duration-300 ${scrolled ? "h-14" : "h-20"}`}
             />
-          </a>
+          </Link>
 
           {/* Desktop Links */}
           <ul className="hidden md:flex items-center gap-8">
             {NAV_LINKS.map((link) => (
               <li key={link.label}>
-                <a href={link.href} className={LINK_CLASSES}>
+                <button
+                  onClick={() => handleClick(link.path)}
+                  className={LINK_CLASSES}
+                >
                   {link.label}
-                </a>
+                </button>
               </li>
             ))}
           </ul>
@@ -80,15 +102,15 @@ export default function Navbar() {
             aria-label="Toggle Menu"
           >
             <div className="flex flex-col justify-between w-full h-full">
-                <span className={`h-1 w-full rounded-full transition-all duration-300 ${
-                    mobileMenuOpen ? "rotate-45 translate-y-[11px] bg-[#001f3f]" : "bg-[#001f3f]"
-                }`} />
-                <span className={`h-1 w-full rounded-full transition-all duration-300 ${
-                    mobileMenuOpen ? "opacity-0" : "bg-[#001f3f]"
-                }`} />
-                <span className={`h-1 w-full rounded-full transition-all duration-300 ${
-                    mobileMenuOpen ? "-rotate-45 -translate-y-[11px] bg-[#001f3f]" : "bg-[#001f3f]"
-                }`} />
+              <span className={`h-1 w-full rounded-full transition-all duration-300 ${
+                  mobileMenuOpen ? "rotate-45 translate-y-[11px] bg-[#001f3f]" : "bg-[#001f3f]"
+              }`} />
+              <span className={`h-1 w-full rounded-full transition-all duration-300 ${
+                  mobileMenuOpen ? "opacity-0" : "bg-[#001f3f]"
+              }`} />
+              <span className={`h-1 w-full rounded-full transition-all duration-300 ${
+                  mobileMenuOpen ? "-rotate-45 -translate-y-[11px] bg-[#001f3f]" : "bg-[#001f3f]"
+              }`} />
             </div>
           </button>
         </div>
@@ -102,22 +124,20 @@ export default function Navbar() {
       >
         <nav className="flex flex-col gap-8">
           {NAV_LINKS.map((link) => (
-            <a
+            <button
               key={link.label}
-              href={link.href}
-              onClick={closeMobileMenu}
+              onClick={() => handleClick(link.path)}
               className={MOBILE_LINK_CLASSES}
             >
               {link.label}
-            </a>
+            </button>
           ))}
-          <a 
-            href="#contact" 
-            onClick={closeMobileMenu}
+          <button
+            onClick={() => handleClick("/contact")}
             className="mt-4 bg-blue-600 text-white text-center py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition-colors"
           >
             GET A QUOTE
-          </a>
+          </button>
         </nav>
       </aside>
     </>
