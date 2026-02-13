@@ -1,23 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { 
-  FiGlobe, 
-  FiShield, 
-  FiPhone, 
-  FiVideo, 
-  FiLayout, 
-  FiLock, 
-  FiSmartphone, 
-  FiSettings, 
-  FiCpu,
-  FiCheckCircle 
+  FiGlobe, FiLayout, FiLock, FiSmartphone, 
+  FiSettings, FiCpu, FiCheckCircle 
 } from "react-icons/fi";
 
-// Global industry list
 const INDUSTRIES_SERVED = "Oil & Gas | Corporate | Financial | Healthcare | Utilities | Retail | Fast Food";
 
-// Services in requested order
 const SERVICES_DATA = [
   {
     id: "website-design",
@@ -76,30 +66,38 @@ const SERVICES_DATA = [
 ];
 
 const Services = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  // Set active tab based on URL
-  const urlId = location.pathname.split("/")[2]; // /services/:id
+  const { id } = useParams(); // URL: /services/:id
   const defaultTab = SERVICES_DATA[0].id;
+  const [activeTab, setActiveTab] = useState(id || defaultTab);
 
-  const [activeTab, setActiveTab] = useState(urlId || defaultTab);
-
-  // Update tab when URL changes
+  // Synchronize state if URL changes (e.g., via browser Back/Forward)
   useEffect(() => {
-    setActiveTab(urlId || defaultTab);
-  }, [urlId]);
+    if (id && SERVICES_DATA.some(s => s.id === id)) {
+      setActiveTab(id);
+    }
+  }, [id]);
 
-  // Update URL when tab changes
-  const handleTabClick = (id) => {
-    setActiveTab(id);
-    navigate(`/services/${id}`);
+  const handleTabClick = (serviceId) => {
+    setActiveTab(serviceId);
+    
+    /**
+     * SILENT URL UPDATE:
+     * Using window.history.pushState updates the address bar WITHOUT 
+     * triggering React Router's route-change scroll reset.
+     */
+    window.history.pushState(null, '', `/services/${serviceId}`);
+
+    // Ensure we stay focused on the services section
+    const el = document.getElementById('services');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
   };
 
-  const currentService = SERVICES_DATA.find(s => s.id === activeTab);
+  const currentService = SERVICES_DATA.find(s => s.id === activeTab) || SERVICES_DATA[0];
 
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-slate-50" id="services">
+    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-slate-50 scroll-mt-20" id="services">
       <div className="max-w-7xl mx-auto">
         
         {/* Section Header */}
@@ -133,10 +131,10 @@ const Services = () => {
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -10 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
               className="bg-white rounded-[2rem] md:rounded-[3rem] p-8 md:p-14 shadow-2xl shadow-slate-200/50 border border-slate-100"
             >
               <div className="flex flex-col md:flex-row items-center md:items-start gap-10 mb-10">
