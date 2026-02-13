@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { 
   FiGlobe, FiLayout, FiLock, FiSmartphone, 
   FiSettings, FiCpu, FiCheckCircle 
@@ -66,11 +66,11 @@ const SERVICES_DATA = [
 ];
 
 const Services = () => {
-  const { id } = useParams(); // URL: /services/:id
+  const { id } = useParams();
   const defaultTab = SERVICES_DATA[0].id;
   const [activeTab, setActiveTab] = useState(id || defaultTab);
 
-  // Synchronize state if URL changes (e.g., via browser Back/Forward)
+  // Synchronize state when URL parameter changes
   useEffect(() => {
     if (id && SERVICES_DATA.some(s => s.id === id)) {
       setActiveTab(id);
@@ -80,17 +80,21 @@ const Services = () => {
   const handleTabClick = (serviceId) => {
     setActiveTab(serviceId);
     
-    /**
-     * SILENT URL UPDATE:
-     * Using window.history.pushState updates the address bar WITHOUT 
-     * triggering React Router's route-change scroll reset.
-     */
+    // Update URL without triggering navigation
     window.history.pushState(null, '', `/services/${serviceId}`);
 
-    // Ensure we stay focused on the services section
-    const el = document.getElementById('services');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    // Keep focus on services section
+    const servicesEl = document.getElementById('services');
+    if (servicesEl) {
+      servicesEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  };
+
+  const handleConsultClick = (e) => {
+    e.preventDefault();
+    const contactEl = document.getElementById('contact');
+    if (contactEl) {
+      contactEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
@@ -102,7 +106,9 @@ const Services = () => {
         
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-black text-[#001f3f] mb-4">Our Services</h2>
+          <h2 className="text-4xl sm:text-5xl font-black text-[#001f3f] mb-4">
+            Our Services
+          </h2>
           <p className="text-slate-600 text-lg max-w-2xl mx-auto font-medium">
             Strategic IT infrastructure and support tailored for enterprise-level demands.
           </p>
@@ -114,13 +120,17 @@ const Services = () => {
             <button
               key={service.id}
               onClick={() => handleTabClick(service.id)}
+              aria-pressed={activeTab === service.id}
+              aria-label={`View ${service.title} service`}
               className={`flex items-center px-5 py-2.5 rounded-full font-bold text-xs md:text-sm transition-all duration-300 border-2 ${
                 activeTab === service.id
                   ? "bg-[#001f3f] border-[#001f3f] text-white shadow-xl scale-105"
                   : "bg-white border-slate-200 text-slate-500 hover:border-[#001f3f] hover:text-[#001f3f]"
               }`}
             >
-              <span className="text-lg mr-2">{service.icon}</span>
+              <span className="text-lg mr-2" aria-hidden="true">
+                {service.icon}
+              </span>
               {service.title}
             </button>
           ))}
@@ -167,22 +177,27 @@ const Services = () => {
               {/* Footer */}
               <div className="pt-10 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-8">
                 <div className="max-w-md">
-                  <span className="text-[11px] text-[#001f3f] font-black uppercase tracking-[0.3em] block mb-3">Industries Served</span>
+                  <span className="text-[11px] text-[#001f3f] font-black uppercase tracking-[0.3em] block mb-3">
+                    Industries Served
+                  </span>
                   <div className="flex flex-wrap gap-2">
                     {currentService.industries.split('|').map((ind, i) => (
-                      <span key={i} className="text-[10px] bg-slate-100 text-[#001f3f] px-3 py-1.5 rounded-lg font-bold uppercase border border-slate-200">
+                      <span 
+                        key={i} 
+                        className="text-[10px] bg-slate-100 text-[#001f3f] px-3 py-1.5 rounded-lg font-bold uppercase border border-slate-200"
+                      >
                         {ind.trim()}
                       </span>
                     ))}
                   </div>
                 </div>
                 
-                <a 
-                  href="#contact" 
+                <button
+                  onClick={handleConsultClick}
                   className="bg-[#001f3f] hover:bg-[#003366] text-white font-black py-5 px-12 rounded-2xl transition-all shadow-lg hover:shadow-[#001f3f]/30 active:scale-95 text-center w-full md:w-auto"
                 >
                   Consult an Expert →
-                </a>
+                </button>
               </div>
             </motion.div>
           </AnimatePresence>
