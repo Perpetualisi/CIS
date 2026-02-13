@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 const SLIDES = [
   {
     id: 1,
-    headline: "Structured Cabling Solutions",
+    headline: "Structured Cabling ",
     subheadline: "Infrastructure And Network Layer Architecture",
     intro: "Deploying high-density fiber and copper architectures designed for 99.9% uptime. The physical backbone of your enterprise.",
     image: "/cabling.jpeg",
@@ -43,7 +43,7 @@ const SLIDES = [
   },
   {
     id: 6,
-    headline: "AI Search Quality & Validation",
+    headline: "Search Intelligence",
     subheadline: "Machine Learning and Quality Assurance",
     intro: "Validation and tuning for Large Language Models and enterprise search engines. Ensuring data accuracy in the AI era.",
     image: "/AI-SEARCH.jpg",
@@ -128,7 +128,7 @@ const Hero = () => {
   const currentSlide = SLIDES[current];
 
   return (
-    <section id="home" className="relative w-full h-[80vh] min-h-[500px] lg:h-screen overflow-hidden bg-[#020617] text-white">
+    <section id="home" className="relative w-full h-[85vh] min-h-[550px] lg:h-screen overflow-hidden bg-[#020617] text-white">
       
       {/* Background Layer */}
       {SLIDES.map((slide, index) => (
@@ -147,11 +147,11 @@ const Hero = () => {
       ))}
 
       {/* Centered Content */}
-      <div className="relative z-20 container mx-auto px-4 h-full flex items-center justify-center">
-        <div className={`w-full max-w-6xl text-center transition-all duration-700 ${isAnimating ? "opacity-0 scale-95" : "opacity-100 scale-100"}`}>
+      <div className="relative z-20 container mx-auto h-full flex items-center justify-center">
+        <div className={`w-full text-center transition-all duration-700 ${isAnimating ? "opacity-0 scale-95" : "opacity-100 scale-100"}`}>
           
           {/* System Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 mb-4 border border-orange-500/30 bg-orange-500/5 rounded-sm">
+          <div className="inline-flex items-center gap-2 px-3 py-1 mb-6 border border-orange-500/30 bg-orange-500/5 rounded-sm">
             <span className="relative flex h-1.5 w-1.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-orange-500"></span>
@@ -159,44 +159,45 @@ const Hero = () => {
             <span className="text-[8px] md:text-[9px] font-mono tracking-[0.3em] text-orange-500 uppercase">Core_Module_0{current + 1}</span>
           </div>
 
-          {/* HEADLINE: Fixed Fluid Typography to prevent breaking */}
-          <h1 
-            className="font-black uppercase tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-500 leading-none block w-full px-2"
-            style={{ 
-                fontSize: "clamp(1.75rem, 6.5vw, 4.5rem)",
+          {/* HEADLINE: The Scaling Fix */}
+          <div className="w-full px-2 sm:px-4 overflow-hidden flex justify-center">
+            <h1 
+              className="font-black uppercase mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-500 leading-none inline-block max-w-full"
+              style={{ 
+                fontSize: "clamp(1.1rem, 5.5vw, 5rem)",
                 whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "clip"
-            }}
-          >
-            {currentSlide.headline}
-          </h1>
+                letterSpacing: "-0.04em"
+              }}
+            >
+              {currentSlide.headline}
+            </h1>
+          </div>
 
           {/* Sub-headline */}
-          <div className="inline-block mb-6 md:mb-8 px-4 py-1.5 border-x border-slate-800">
-            <h2 className="text-orange-500 font-mono text-[9px] md:text-xs uppercase tracking-[0.2em] md:tracking-[0.3em] whitespace-nowrap">
+          <div className="inline-block mb-8 px-4 py-1.5 border-x border-slate-800 max-w-[95vw]">
+            <h2 className="text-orange-500 font-mono text-[7px] sm:text-[9px] md:text-xs uppercase tracking-[0.1em] md:tracking-[0.3em] whitespace-nowrap overflow-hidden text-ellipsis">
               {currentSlide.subheadline}
             </h2>
           </div>
 
           {/* Description */}
-          <p className="text-slate-400 text-xs sm:text-sm md:text-base lg:text-lg max-w-xl mx-auto leading-relaxed mb-8 md:mb-10 font-light opacity-80 px-4">
+          <p className="text-slate-400 text-xs sm:text-sm md:text-base lg:text-lg max-w-xl mx-auto leading-relaxed mb-10 font-light opacity-80 px-8">
             {currentSlide.intro}
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-3 md:gap-4 px-6 sm:px-0">
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 px-10 sm:px-0">
             <a 
               href="#contact" 
               onClick={(e) => scrollToSection(e, "#contact")}
-              className="w-full sm:w-auto bg-orange-600 text-white font-bold py-3 md:py-4 px-8 md:px-10 rounded-sm hover:bg-orange-500 transition-all uppercase tracking-widest text-[10px] active:scale-95 shadow-lg shadow-orange-900/20 text-center"
+              className="w-full sm:w-auto bg-orange-600 text-white font-bold py-3.5 px-10 rounded-sm hover:bg-orange-500 transition-all uppercase tracking-widest text-[10px] active:scale-95 shadow-lg shadow-orange-900/20 text-center"
             >
               {currentSlide.cta.primary}
             </a>
             <a 
               href="#services" 
               onClick={(e) => scrollToSection(e, "#services")}
-              className="w-full sm:w-auto bg-slate-900/40 text-white border border-slate-700 font-bold py-3 md:py-4 px-8 md:px-10 rounded-sm hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] active:scale-95 backdrop-blur-md text-center"
+              className="w-full sm:w-auto bg-slate-900/40 text-white border border-slate-700 font-bold py-3.5 px-10 rounded-sm hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] active:scale-95 backdrop-blur-md text-center"
             >
               {currentSlide.cta.secondary}
             </a>
@@ -205,8 +206,7 @@ const Hero = () => {
       </div>
 
       {/* Footer Interface */}
-      <div className="absolute bottom-0 left-0 w-full z-30 px-6 py-4 flex flex-row items-center justify-between border-t border-white/5 bg-[#020617]/95 backdrop-blur-md">
-        
+      <div className="absolute bottom-0 left-0 w-full z-30 px-6 py-5 flex flex-row items-center justify-between border-t border-white/5 bg-[#020617]/95 backdrop-blur-md">
         <div className="flex gap-2">
           {SLIDES.map((_, index) => (
             <button key={index} onClick={() => manualNav(index)} className="group py-2">
@@ -227,7 +227,6 @@ const Hero = () => {
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
             </button>
           </div>
-          
           <div className="hidden sm:flex flex-col text-right font-mono leading-none">
             <span className="text-[10px] text-orange-500 font-bold tracking-widest">0{current + 1} / 0{SLIDES.length}</span>
           </div>
