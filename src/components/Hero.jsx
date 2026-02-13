@@ -4,88 +4,79 @@ const SLIDES = [
   {
     id: 1,
     headline: "Structured Cabling Solutions",
-    subheadline: "Reliable Networks That Keep You Connected 24/7.",
-    intro: "End-to-end structured cabling and network solutions for offices, retail, and enterprises.",
+    subheadline: "Infrastructure And Network Layer Architecture",
+    intro: "Deploying high-density fiber and copper architectures designed for 99.9% uptime. The physical backbone of your enterprise.",
     image: "/cabling.jpeg",
-    imageAlt: "Professional structured cabling installation in modern office",
-    cta: { primary: "Get a Free Quote", secondary: "Explore Services" },
+    cta: { primary: "System Specifications", secondary: "View Network Topology" },
   },
   {
     id: 2,
     headline: "IP Surveillance Security",
-    subheadline: "Protect Your Assets With Smart Monitoring Solutions.",
-    intro: "Keep your business safe with CCTV, access control, and monitoring solutions.",
+    subheadline: "Vision And Artificial Intelligence Monitoring",
+    intro: "End-to-end monitoring featuring motion-sensing analytics and encrypted remote access protocols for high-security environments.",
     image: "/IP1.jpeg",
-    imageAlt: "IP security camera monitoring system",
-    cta: { primary: "Get a Free Quote", secondary: "Explore Services" },
+    cta: { primary: "Secure Infrastructure", secondary: "Case Studies" },
   },
   {
     id: 3,
     headline: "Telecom & Communication",
-    subheadline: "Seamless Communication For Teams Of Any Size.",
-    intro: "Telecom and unified communication solutions to keep your teams connected.",
+    subheadline: "Unified Communications And Voice Over IP",
+    intro: "Seamless multi-channel communication systems. Low-latency voice and data synchronization for global enterprise teams.",
     image: "/telecom.jpeg",
-    imageAlt: "Modern telecommunication equipment and systems",
-    cta: { primary: "Get a Free Quote", secondary: "Explore Services" },
+    cta: { primary: "Connect Systems", secondary: "System Audit" },
   },
   {
     id: 4,
     headline: "Modern AV Solutions",
-    subheadline: "Engaging Audio/Visual Solutions For Any Space.",
-    intro: "State-of-the-art audio/visual solutions for offices, retail, and conference rooms.",
+    subheadline: "Multimedia And Presentation Technology",
+    intro: "Integrated smart-room technology. From interactive displays to automated acoustic environments for modern boardrooms.",
     image: "/AV.jpeg",
-    imageAlt: "Audio visual equipment in conference room",
-    cta: { primary: "Get a Free Quote", secondary: "Explore Services" },
+    cta: { primary: "Request Quotation", secondary: "Solution Gallery" },
   },
   {
     id: 5,
     headline: "Custom Websites",
-    subheadline: "Attract More Customers With Modern, Responsive Websites.",
-    intro: "We create modern, responsive websites that attract customers and boost online presence.",
+    subheadline: "Full-Stack And User Experience Design",
+    intro: "Engineered for speed and search engine optimization. We build responsive digital interfaces that convert traffic into revenue.",
     image: "/Website.webp",
-    imageAlt: "Modern responsive website design on multiple devices",
-    cta: { primary: "Get a Free Quote", secondary: "Explore Services" },
+    cta: { primary: "Initiate Development", secondary: "Technology Stack" },
   },
   {
     id: 6,
     headline: "AI Search Quality & Validation",
-    subheadline: "Optimize AI Models & Ensure Accurate Results.",
-    intro: "We provide AI search optimization, healthcare AI validation, and enterprise knowledge system QA for maximum accuracy and compliance.",
+    subheadline: "Machine Learning and Quality Assurance",
+    intro: "Validation and tuning for Large Language Models and enterprise search engines. Ensuring data accuracy in the AI era.",
     image: "/AI-SEARCH.jpg",
-    imageAlt: "AI search and validation process illustration",
-    cta: { primary: "Get a Free Quote", secondary: "Explore Services" },
+    cta: { primary: "Audit Data", secondary: "Methodology" },
   },
   {
     id: 7,
     headline: "Cybersecurity Protection",
-    subheadline: "Proactive Monitoring To Protect Your Business.",
-    intro: "Protect your business from cyber threats with proactive monitoring and solutions.",
+    subheadline: "Security And Defense Architecture",
+    intro: "Hardening your perimeter. Real-time threat detection, penetration testing, and zero-trust implementation for business safety.",
     image: "/Cybersecurity.jpeg",
-    imageAlt: "Cybersecurity monitoring dashboard",
-    cta: { primary: "Get a Free Quote", secondary: "Explore Services" },
+    cta: { primary: "Deploy Shield", secondary: "Threat Map" },
   },
   {
     id: 8,
     headline: "Desktop Support",
-    subheadline: "Fast, Reliable Support Whenever You Need It.",
-    intro: "Fast, reliable support for software, hardware, and user issues—onsite or remote.",
+    subheadline: "Endpoint And Helpdesk Management",
+    intro: "Rapid-response resolution. Remote and on-site support for hardware, software, and local networks across all endpoints.",
     image: "/desktop.webp",
-    imageAlt: "IT technician providing desktop support",
-    cta: { primary: "Get a Free Quote", secondary: "Explore Services" },
+    cta: { primary: "Request Support", secondary: "Service Level Agreement" },
   },
   {
     id: 9,
     headline: "Managed IT Support",
-    subheadline: "Smooth Operations With Proactive IT Management.",
-    intro: "Proactive IT support and managed services for smooth operations and network monitoring.",
+    subheadline: "Systems Operations And Maintenance",
+    intro: "Complete outsourced IT management. We monitor your servers while you focus on scaling your core business operations.",
     image: "/Managed-it.webp",
-    imageAlt: "IT infrastructure management and monitoring",
-    cta: { primary: "Get a Free Quote", secondary: "Explore Services" },
+    cta: { primary: "Consultation", secondary: "Service Packages" },
   },
 ];
 
-const SLIDE_INTERVAL = 7000;
-const FADE_DURATION = 700;
+const SLIDE_INTERVAL = 8000;
+const FADE_DURATION = 800;
 
 const Hero = () => {
   const [current, setCurrent] = useState(0);
@@ -98,7 +89,7 @@ const Hero = () => {
     setTimeout(() => {
       setCurrent((prev) => (prev + 1) % SLIDES.length);
       setIsAnimating(false);
-    }, FADE_DURATION);
+    }, FADE_DURATION / 2);
   }, []);
 
   const handlePrev = useCallback(() => {
@@ -106,7 +97,7 @@ const Hero = () => {
     setTimeout(() => {
       setCurrent((prev) => (prev - 1 + SLIDES.length) % SLIDES.length);
       setIsAnimating(false);
-    }, FADE_DURATION);
+    }, FADE_DURATION / 2);
   }, []);
 
   useEffect(() => {
@@ -116,20 +107,34 @@ const Hero = () => {
     return () => clearInterval(timerRef.current);
   }, [isAutoPlaying, handleNext]);
 
-  const manualNav = (direction) => {
+  const manualNav = (index) => {
     setIsAutoPlaying(false);
-    if (direction === "next") handleNext();
-    else handlePrev();
+    setIsAnimating(true);
+    setTimeout(() => {
+      setCurrent(index);
+      setIsAnimating(false);
+    }, FADE_DURATION / 2);
+  };
+
+  // FIXED: Smooth scroll function that prevents "jumping" back
+  const scrollToSection = (e, sectionId) => {
+    e.preventDefault();
+    setIsAutoPlaying(false); // Pause autoplay when user interacts
+    const element = document.querySelector(sectionId);
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
   };
 
   const currentSlide = SLIDES[current];
 
   return (
-    <section
-      id="home"
-      className="relative w-full h-[75vh] md:h-screen min-h-[550px] overflow-hidden bg-slate-900"
-    >
-      {/* Background */}
+    <section id="home" className="relative w-full h-screen min-h-[600px] overflow-hidden bg-[#020617] text-white">
+      
+      {/* Background Layer */}
       {SLIDES.map((slide, index) => (
         <div
           key={slide.id}
@@ -137,51 +142,58 @@ const Hero = () => {
           style={{
             opacity: index === current ? 1 : 0,
             transitionDuration: `${FADE_DURATION}ms`,
-            zIndex: index === current ? 1 : 0,
           }}
         >
-          <img
-            src={slide.image}
-            alt={slide.imageAlt}
-            className="w-full h-full object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-black/50 md:bg-gradient-to-r md:from-black/90 md:via-black/20 md:to-black/80" />
+          <img src={slide.image} alt="" className="w-full h-full object-cover grayscale opacity-20" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#020617] via-transparent to-[#020617]" />
         </div>
       ))}
 
-      {/* Centered content */}
-      <div className="relative z-20 flex items-center justify-center h-full">
-        {/* max-w-fit used to ensure container doesn't force wrapping */}
-        <div
-          className={`max-w-[95vw] px-4 text-center transition-all duration-500 ease-out ${
-            isAnimating ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
-          }`}
-        >
-          {/* Headline: whitespace-nowrap forces one line, text size scales with screen */}
-          <h1 className="font-black text-white text-[5.5vw] sm:text-4xl md:text-5xl lg:text-6xl mb-4 leading-tight whitespace-nowrap">
+      {/* Centered Content */}
+      <div className="relative z-20 container mx-auto px-4 h-full flex items-center justify-center">
+        <div className={`w-full max-w-[98vw] text-center transition-all duration-700 ${isAnimating ? "opacity-0 scale-95" : "opacity-100 scale-100"}`}>
+          
+          {/* System Badge */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 mb-6 border border-orange-500/30 bg-orange-500/5 rounded-sm">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-orange-500"></span>
+            </span>
+            <span className="text-[9px] font-mono tracking-[0.3em] text-orange-500 uppercase">Core_Module_0{current + 1}</span>
+          </div>
+
+          {/* HEADLINE: Fluid Typography with smaller base for long words */}
+          <h1 className="whitespace-nowrap font-black uppercase tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-500 
+            text-[4.8vw] sm:text-[4.2vw] lg:text-[4vw] xl:text-[64px]">
             {currentSlide.headline}
           </h1>
-          
-          {/* Subheadline: whitespace-nowrap and slightly smaller scaling to fit longer text */}
-          <h2 className="text-yellow-400 font-bold text-[3.8vw] sm:text-lg md:text-xl lg:text-2xl mb-6 whitespace-nowrap">
-            {currentSlide.subheadline}
-          </h2>
 
-          <p className="text-gray-200 text-sm sm:text-base md:text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
+          {/* Sub-headline: Technical subtitle */}
+          <div className="inline-block mb-10 px-4 py-1.5 border-x border-slate-800">
+            <h2 className="text-orange-500 font-mono text-[8px] sm:text-[10px] md:text-xs uppercase tracking-[0.4em] whitespace-nowrap">
+              {currentSlide.subheadline}
+            </h2>
+          </div>
+
+          {/* Description */}
+          <p className="text-slate-400 text-[11px] sm:text-sm md:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed mb-10 font-light opacity-70">
             {currentSlide.intro}
           </p>
 
-          {/* CTA */}
+          {/* CTA Buttons - Using scrollToSection */}
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-            <a
-              href="#contact"
-              className="w-full sm:w-auto bg-orange-600 text-white font-bold py-4 px-10 rounded-full hover:bg-orange-700 transition-colors whitespace-nowrap"
+            <a 
+              href="#contact" 
+              onClick={(e) => scrollToSection(e, "#contact")}
+              className="w-full sm:w-auto bg-orange-600 text-white font-bold py-3.5 px-10 rounded-sm hover:bg-orange-500 transition-all uppercase tracking-widest text-[10px] active:scale-95 shadow-lg shadow-orange-900/20"
             >
               {currentSlide.cta.primary}
             </a>
-            <a
-              href="#services"
-              className="w-full sm:w-auto bg-white/10 text-white border-2 border-white/40 font-bold py-4 px-10 rounded-full hover:bg-white/20 backdrop-blur-md transition-colors whitespace-nowrap"
+            <a 
+              href="#services" 
+              onClick={(e) => scrollToSection(e, "#services")}
+              className="w-full sm:w-auto bg-slate-900/40 text-white border border-slate-700 font-bold py-3.5 px-10 rounded-sm hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] active:scale-95 backdrop-blur-md"
             >
               {currentSlide.cta.secondary}
             </a>
@@ -189,63 +201,34 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Arrows */}
-      <button
-        onClick={() => manualNav("prev")}
-        className="hidden md:flex absolute left-6 top-1/2 -translate-y-1/2 z-30 p-4 rounded-full border border-white/20 text-white hover:bg-white hover:text-black transition-all"
-        aria-label="Previous slide"
-      >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
-      <button
-        onClick={() => manualNav("next")}
-        className="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 z-30 p-4 rounded-full border border-white/20 text-white hover:bg-white hover:text-black transition-all"
-        aria-label="Next slide"
-      >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
-
-      {/* Dots */}
-      <div className="absolute bottom-8 left-0 right-0 z-30 flex justify-center px-6">
-        <div className="flex gap-3 bg-black/20 backdrop-blur-sm p-2 rounded-full">
+      {/* Footer Interface */}
+      <div className="absolute bottom-0 left-0 w-full z-30 px-6 py-6 flex flex-col md:flex-row items-center justify-between border-t border-white/5 bg-[#020617]/95 backdrop-blur-md">
+        <div className="flex gap-3 mb-6 md:mb-0">
           {SLIDES.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                setIsAutoPlaying(false);
-                setIsAnimating(true);
-                setTimeout(() => {
-                  setCurrent(index);
-                  setIsAnimating(false);
-                }, FADE_DURATION);
-              }}
-              className={`h-2 transition-all duration-500 rounded-full ${
-                current === index ? "bg-orange-500 w-12" : "bg-white/40 w-4 hover:bg-white/60"
-              }`}
-            />
+            <button key={index} onClick={() => manualNav(index)} className="group py-2">
+              <div className={`h-[1px] transition-all duration-500 ${current === index ? "w-10 bg-orange-600" : "w-4 bg-slate-800 group-hover:bg-slate-600"}`} />
+            </button>
           ))}
         </div>
-      </div>
 
-      {/* Play/Pause */}
-      <button
-        onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-        className="absolute top-6 right-6 z-30 p-2.5 rounded-full bg-black/20 backdrop-blur-sm text-white hover:bg-black/40 transition-all border border-white/10"
-      >
-        {isAutoPlaying ? (
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
-          </svg>
-        ) : (
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M8 5v14l11-7z" />
-          </svg>
-        )}
-      </button>
+        <div className="flex items-center gap-6">
+          <div className="flex items-center gap-1 border border-slate-800 rounded-sm p-0.5">
+            <button onClick={handlePrev} className="p-2 text-slate-500 hover:text-white transition-colors">
+              <svg className="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+            </button>
+            <button onClick={() => setIsAutoPlaying(!isAutoPlaying)} className="w-8 h-8 flex items-center justify-center rounded-sm bg-slate-800 text-orange-500 hover:bg-slate-700">
+                {isAutoPlaying ? <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" /></svg> : <svg className="w-3 h-3 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>}
+            </button>
+            <button onClick={handleNext} className="p-2 text-slate-500 hover:text-white transition-colors">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+            </button>
+          </div>
+          <div className="hidden lg:flex flex-col text-right font-mono">
+            <span className="text-[8px] text-slate-600 uppercase tracking-tighter italic">Process_ID</span>
+            <span className="text-xs text-orange-500 font-bold tracking-widest">0{current + 1} / 0{SLIDES.length}</span>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };

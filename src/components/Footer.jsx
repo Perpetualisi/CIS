@@ -21,40 +21,38 @@ const Footer = () => {
             Reliability, security, and efficiency delivered globally.
           </p>
           <div className="flex gap-4">
-            <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300">
+            <a href="#" className="w-10 h-10 rounded-sm bg-white/5 flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300">
               <FaFacebookF size={18} />
             </a>
-            <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300">
+            <a href="#" className="w-10 h-10 rounded-sm bg-white/5 flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300">
               <FaTwitter size={18} />
             </a>
-            <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300">
+            <a href="#" className="w-10 h-10 rounded-sm bg-white/5 flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300">
               <FaLinkedinIn size={18} />
             </a>
-            <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300">
+            <a href="#" className="w-10 h-10 rounded-sm bg-white/5 flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300">
               <FaInstagram size={18} />
             </a>
           </div>
         </div>
 
-        {/* Navigation */}
+        {/* Navigation - Underlines Removed */}
         <div>
-          <h3 className="text-white text-lg font-bold mb-6 relative inline-block">
+          <h3 className="text-white text-lg font-bold mb-6 uppercase tracking-wider">
             Quick Links
-            <span className="absolute -bottom-2 left-0 w-8 h-1 bg-orange-500 rounded-full"></span>
           </h3>
           <ul className="space-y-4">
-            <li><a href="#projects" className="text-slate-400 hover:text-orange-500 transition-all block">Our Projects</a></li>
-            <li><a href="#services" className="text-slate-400 hover:text-orange-500 transition-all block">Core Services</a></li>
-            <li><a href="#partners" className="text-slate-400 hover:text-orange-500 transition-all block">Global Partners</a></li>
-            <li><a href="#contact" className="text-slate-400 hover:text-orange-500 transition-all block">Contact Us</a></li>
+            <li><a href="#projects" className="text-slate-400 hover:text-orange-500 transition-all block text-sm font-medium">Our Projects</a></li>
+            <li><a href="#services" className="text-slate-400 hover:text-orange-500 transition-all block text-sm font-medium">Core Services</a></li>
+            <li><a href="#partners" className="text-slate-400 hover:text-orange-500 transition-all block text-sm font-medium">Global Partners</a></li>
+            <li><a href="#contact" className="text-slate-400 hover:text-orange-500 transition-all block text-sm font-medium">Contact Us</a></li>
           </ul>
         </div>
 
-        {/* Contact Details */}
+        {/* Contact Details - Underlines Removed */}
         <div>
-          <h3 className="text-white text-lg font-bold mb-6 relative inline-block">
+          <h3 className="text-white text-lg font-bold mb-6 uppercase tracking-wider">
             Get In Touch
-            <span className="absolute -bottom-2 left-0 w-8 h-1 bg-orange-500 rounded-full"></span>
           </h3>
           <ul className="space-y-4">
             <li className="flex items-start gap-3 text-sm">
@@ -65,32 +63,32 @@ const Footer = () => {
               <MdPhone className="text-orange-500 mt-1" size={20} />
               <a href="tel:+18325351082" className="hover:text-white transition-colors">+1 (832) 535-1082</a>
             </li>
-            <li className="flex items-start gap-3 text-sm">
+            <li className="flex items-start gap-3 text-sm font-medium">
               <MdLocationOn className="text-orange-500 mt-1" size={20} />
               <span>Richmond, TX 77469 USA</span>
             </li>
           </ul>
         </div>
 
-        {/* Newsletter */}
+        {/* Newsletter - Underlines Removed & Style Sharpened */}
         <div>
-          <h3 className="text-white text-lg font-bold mb-6 relative inline-block">
+          <h3 className="text-white text-lg font-bold mb-6 uppercase tracking-wider">
             Newsletter
-            <span className="absolute -bottom-2 left-0 w-8 h-1 bg-orange-500 rounded-full"></span>
           </h3>
           <div className="flex flex-col gap-3">
             <input 
               type="email" 
               placeholder="Your Email" 
-              className="w-full bg-white/5 border border-white/10 rounded-lg py-3 px-4 text-sm focus:outline-none focus:border-orange-500"
+              className="w-full bg-white/5 border border-white/10 rounded-sm py-3 px-4 text-sm focus:outline-none focus:border-orange-500 transition-colors"
             />
-            <button className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 rounded-lg transition-all active:scale-95">
+            <button className="bg-orange-600 hover:bg-orange-700 text-white font-black py-3 rounded-sm transition-all active:scale-95 uppercase text-xs tracking-widest">
               Subscribe
             </button>
           </div>
         </div>
       </div>
 
+      {/* Bottom Bar */}
       <div className="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/5 text-center text-[10px] font-medium text-slate-500 tracking-widest uppercase">
         <p>&copy; {currentYear} CONOTEX TECH. ALL RIGHTS RESERVED.</p>
       </div>
@@ -99,4 +97,3 @@ const Footer = () => {
 };
 
 export default Footer;
-

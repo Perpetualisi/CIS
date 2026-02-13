@@ -28,7 +28,7 @@ const CLIENT_DATA = {
   retail: [
     { title: "Walmart", desc: "Nationwide Network Migration & POS Infrastructure Refresh." },
     { title: "Target", desc: "POS Refresh utilizing ELO Tablets for enhanced customer checkout." },
-    { title: "Porche (Sugar Land)", desc: "Full MDF/IDF Network & CCTV Installation for high-end dealership." },
+    { title: "Porsche (Sugar Land)", desc: "Full MDF/IDF Network & CCTV Installation for high-end dealership." },
     { title: "HEB", desc: "RFID Installation and inventory tracking technology deployment." },
     { title: "Sprouts Farmers Market", desc: "Comprehensive CCTV & AV Migration across retail locations." },
     { title: "McDonald’s", desc: "Enterprise Network Migration across corporate and franchise sites." },
@@ -55,30 +55,29 @@ const Partners = () => {
   const [activeTab, setActiveTab] = useState("healthcare");
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50" id="partners">
+    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-slate-50" id="partners">
       <div className="max-w-7xl mx-auto">
         
-        {/* Header */}
+        {/* Header - Underline Removed */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-black text-[#001f3f] mb-6">
+          <h2 className="text-4xl sm:text-5xl font-black text-[#001f3f] mb-6 uppercase tracking-tighter">
             Trusted by Industry Leaders
           </h2>
           <p className="text-slate-600 text-lg max-w-2xl mx-auto font-medium">
-            From healthcare to government, we deliver mission-critical IT solutions 
-            ensuring reliability, security, and enterprise efficiency.
+            Strategic infrastructure partnerships across mission-critical sectors including energy, finance, and healthcare.
           </p>
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
+        <div className="flex flex-wrap justify-center gap-2 mb-16">
           {Object.entries(CATEGORY_TABS).map(([key, label]) => (
             <button
               key={key}
               onClick={() => setActiveTab(key)}
-              className={`px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-300 border-2 ${
+              className={`px-6 py-3 rounded-sm font-bold text-[10px] uppercase tracking-widest transition-all duration-300 border-2 ${
                 activeTab === key
-                  ? "bg-[#001f3f] border-[#001f3f] text-white shadow-lg scale-105"
-                  : "bg-white border-slate-200 text-slate-500 hover:border-[#001f3f] hover:text-[#001f3f]"
+                  ? "bg-[#001f3f] border-[#001f3f] text-white shadow-lg"
+                  : "bg-white border-slate-200 text-slate-400 hover:border-[#001f3f] hover:text-[#001f3f]"
               }`}
             >
               {label}
@@ -89,7 +88,7 @@ const Partners = () => {
         {/* Clients Grid */}
         <motion.div 
           layout
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[400px]"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[400px]"
         >
           <AnimatePresence mode="popLayout">
             {CLIENT_DATA[activeTab].map((client, index) => (
@@ -97,18 +96,19 @@ const Partners = () => {
                 key={`${activeTab}-${index}`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-                className="bg-white border border-slate-100 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.4, delay: index * 0.05 }}
+                className="relative bg-white border border-slate-100 p-8 rounded-sm shadow-sm hover:shadow-2xl transition-all duration-500 group overflow-hidden"
               >
+                {/* Accent line removed for ultra-clean look */}
                 <div>
-                  <div className="w-12 h-12 bg-slate-50 rounded-lg flex items-center justify-center mb-6 group-hover:bg-[#001f3f] group-hover:text-white transition-colors duration-300">
+                  <div className="w-12 h-12 bg-slate-50 rounded-sm flex items-center justify-center mb-8 group-hover:bg-[#001f3f] group-hover:text-white transition-all duration-300">
                     <LuBuilding2 className="text-xl" />
                   </div>
-                  <h3 className="text-[#001f3f] font-black text-xl mb-3 leading-tight">
+                  <h3 className="text-[#001f3f] font-black text-lg mb-4 leading-tight uppercase tracking-tight">
                     {client.title}
                   </h3>
-                  <p className="text-slate-600 text-sm leading-relaxed font-medium">
+                  <p className="text-slate-500 text-sm leading-relaxed font-light">
                     {client.desc}
                   </p>
                 </div>
@@ -117,20 +117,26 @@ const Partners = () => {
           </AnimatePresence>
         </motion.div>
 
-        {/* Logo Marquee Section */}
-        <div className="mt-20 pt-10 border-t border-slate-200">
-          <h3 className="text-center text-xs font-black text-slate-400 uppercase tracking-[0.4em] mb-12">
-            Enterprise Client Network
-          </h3>
+        {/* Logo Marquee Section - Logos Bright & Clear */}
+        <div className="mt-24 pt-12 border-t border-slate-200">
+          <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4">
+            <span className="text-[10px] text-slate-400 font-black uppercase tracking-[0.4em] font-mono">
+              Partner_Network_Status: Active
+            </span>
+            <div className="h-px flex-grow bg-slate-200 mx-8 hidden md:block" />
+            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+              Authorized Service Provider
+            </span>
+          </div>
           
-          <div className="relative flex overflow-x-hidden group">
-            <div className="animate-marquee flex items-center whitespace-nowrap gap-12 py-4">
+          <div className="relative flex overflow-x-hidden group bg-white py-12 rounded-sm border border-slate-100 shadow-sm">
+            <div className="animate-marquee flex items-center whitespace-nowrap gap-16 py-4">
               {[...PARTNER_LOGOS, ...PARTNER_LOGOS].map((logo, index) => (
                 <img
                   key={index}
                   src={logo}
-                  alt={`Partner Logo ${index + 1}`}
-                  className="h-10 md:h-14 w-auto object-contain opacity-100 transition-transform duration-300 hover:scale-110 mx-4"
+                  alt="Partner Brand"
+                  className="h-10 md:h-14 w-auto object-contain brightness-110 contrast-110 transition-transform duration-300 hover:scale-110 mx-6 drop-shadow-sm"
                 />
               ))}
             </div>
@@ -138,14 +144,13 @@ const Partners = () => {
         </div>
       </div>
 
-      {/* Global Style for Marquee Animation */}
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes marquee {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
         }
         .animate-marquee {
-          animation: marquee 40s linear infinite;
+          animation: marquee 45s linear infinite;
         }
         .animate-marquee:hover {
           animation-play-state: paused;
