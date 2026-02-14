@@ -149,7 +149,7 @@ const Hero = () => {
             src={slide.image} 
             alt="" 
             className="w-full h-full object-cover grayscale-[20%] opacity-60 transition-all duration-1000 scale-105" 
-            style={{ transform: index === current ? 'scale(1)' : 'scale(1.05)' }} // Subtle zoom-in effect
+            style={{ transform: index === current ? 'scale(1)' : 'scale(1.05)' }} 
           />
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:30px_30px] md:bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
           <div className="absolute inset-0 bg-gradient-to-b from-[#020617]/80 via-transparent to-[#020617] opacity-95" />
@@ -183,9 +183,9 @@ const Hero = () => {
             </h1>
           </div>
 
-          {/* Sub-headline */}
-          <div className="inline-block mb-8 px-4 py-1.5 border-x border-slate-800 max-w-[95vw]">
-            <h2 className="text-orange-500 font-mono text-[7px] sm:text-[9px] md:text-xs uppercase tracking-[0.1em] md:tracking-[0.3em] whitespace-nowrap overflow-hidden text-ellipsis">
+          {/* STRENGTHENED SUB-HEADLINE */}
+          <div className="inline-block mb-8 px-4 py-2 border border-slate-800 bg-slate-900/40 backdrop-blur-sm max-w-[95vw] rounded-sm shadow-xl">
+            <h2 className="text-orange-500 font-mono text-[9px] sm:text-xs md:text-sm uppercase tracking-[0.15em] md:tracking-[0.3em] font-bold">
               {currentSlide.subheadline}
             </h2>
           </div>
