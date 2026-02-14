@@ -3,75 +3,75 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 const SLIDES = [
   {
     id: 1,
-    headline: "Structured Cabling ",
-    subheadline: "Infrastructure And Network Layer Architecture",
-    intro: "Deploying high-density fiber and copper architectures designed for 99.9% uptime. The physical backbone of your enterprise.",
-    image: "/cabling.jpeg",
-    cta: { primary: "System Specifications", secondary: "View Network Topology" },
-  },
-  {
-    id: 2,
-    headline: "IP Surveillance Security",
-    subheadline: "Vision And Artificial Intelligence Monitoring",
-    intro: "End-to-end monitoring featuring motion-sensing analytics and encrypted remote access protocols for high-security environments.",
-    image: "/IP1.jpeg",
-    cta: { primary: "Secure Infrastructure", secondary: "Case Studies" },
-  },
-  {
-    id: 3,
-    headline: "Telecom & Communication",
-    subheadline: "Unified Communications And Voice Over IP",
-    intro: "Seamless multi-channel communication systems. Low-latency voice and data synchronization for global enterprise teams.",
-    image: "/telecom.jpeg",
-    cta: { primary: "Connect Systems", secondary: "System Audit" },
-  },
-  {
-    id: 4,
-    headline: "Modern AV Solutions",
-    subheadline: "Multimedia And Presentation Technology",
-    intro: "Integrated smart-room technology. From interactive displays to automated acoustic environments for modern boardrooms.",
-    image: "/AV.jpeg",
-    cta: { primary: "Request Quotation", secondary: "Solution Gallery" },
-  },
-  {
-    id: 5,
     headline: "Custom Websites",
     subheadline: "Full-Stack And User Experience Design",
-    intro: "Engineered for speed and search engine optimization. We build responsive digital interfaces that convert traffic into revenue.",
+    intro: "High-performance responsive interfaces engineered for speed.\nOptimized to convert digital traffic into measurable revenue.",
     image: "/Website.webp",
     cta: { primary: "Initiate Development", secondary: "Technology Stack" },
   },
   {
-    id: 6,
+    id: 2,
     headline: "Search Intelligence",
     subheadline: "Machine Learning and Quality Assurance",
-    intro: "Validation and tuning for Large Language Models and enterprise search engines. Ensuring data accuracy in the AI era.",
+    intro: "Precision tuning for LLMs and enterprise search engines.\nEnsuring data accuracy and reliability in the AI era.",
     image: "/AI-SEARCH.jpg",
     cta: { primary: "Audit Data", secondary: "Methodology" },
   },
   {
-    id: 7,
+    id: 3,
     headline: "Cybersecurity Protection",
     subheadline: "Security And Defense Architecture",
-    intro: "Hardening your perimeter. Real-time threat detection, penetration testing, and zero-trust implementation for business safety.",
+    intro: "Real-time threat detection and zero-trust implementation.\nHardening your perimeter with advanced penetration testing.",
     image: "/Cybersecurity.jpeg",
     cta: { primary: "Deploy Shield", secondary: "Threat Map" },
   },
   {
-    id: 8,
+    id: 4,
+    headline: "Managed IT Support",
+    subheadline: "Systems Operations And Maintenance",
+    intro: "Complete outsourced management of your server infrastructure.\nProactive monitoring so you can focus on scaling your business.",
+    image: "/Managed-it.webp",
+    cta: { primary: "Consultation", secondary: "Service Packages" },
+  },
+  {
+    id: 5,
     headline: "Desktop Support",
     subheadline: "Endpoint And Helpdesk Management",
-    intro: "Rapid-response resolution. Remote and on-site support for hardware, software, and local networks across all endpoints.",
+    intro: "Rapid-response resolution for hardware and software issues.\nRemote and on-site support across all enterprise endpoints.",
     image: "/desktop.webp",
     cta: { primary: "Request Support", secondary: "Service Level Agreement" },
   },
   {
+    id: 6,
+    headline: "Structured Cabling",
+    subheadline: "Infrastructure And Network Layer Architecture",
+    intro: "High-density fiber and copper architectures for 99.9% uptime.\nThe physical backbone designed for enterprise-grade connectivity.",
+    image: "/cabling.jpeg",
+    cta: { primary: "System Specifications", secondary: "View Network Topology" },
+  },
+  {
+    id: 7,
+    headline: "IP Surveillance Security",
+    subheadline: "Vision And Artificial Intelligence Monitoring",
+    intro: "AI-powered motion analytics with encrypted remote access.\nEnd-to-end monitoring protocols for high-security environments.",
+    image: "/IP1.jpeg",
+    cta: { primary: "Secure Infrastructure", secondary: "Case Studies" },
+  },
+  {
+    id: 8,
+    headline: "Telecom & Communication",
+    subheadline: "Unified Communications And Voice Over IP",
+    intro: "Low-latency voice and data synchronization for global teams.\nSeamlessly integrated multi-channel communication systems.",
+    image: "/telecom.jpeg",
+    cta: { primary: "Connect Systems", secondary: "System Audit" },
+  },
+  {
     id: 9,
-    headline: "Managed IT Support",
-    subheadline: "Systems Operations And Maintenance",
-    intro: "Complete outsourced IT management. We monitor your servers while you focus on scaling your core business operations.",
-    image: "/Managed-it.webp",
-    cta: { primary: "Consultation", secondary: "Service Packages" },
+    headline: "Modern AV Solutions",
+    subheadline: "Multimedia And Presentation Technology",
+    intro: "Smart-room technology and interactive display integration.\nAutomated acoustic environments for modern boardrooms.",
+    image: "/AV.jpeg",
+    cta: { primary: "Request Quotation", secondary: "Solution Gallery" },
   },
 ];
 
@@ -130,6 +130,11 @@ const Hero = () => {
   return (
     <section id="home" className="relative w-full h-[85vh] min-h-[550px] lg:h-screen overflow-hidden bg-[#020617] text-white">
       
+      {/* Optimization: Preload Images */}
+      <div className="hidden">
+        {SLIDES.map(s => <img key={s.id} src={s.image} alt="" />)}
+      </div>
+
       {/* Background Layer */}
       {SLIDES.map((slide, index) => (
         <div
@@ -140,15 +145,20 @@ const Hero = () => {
             transitionDuration: `${FADE_DURATION}ms`,
           }}
         >
-          <img src={slide.image} alt="" className="w-full h-full object-cover grayscale opacity-20" />
+          <img 
+            src={slide.image} 
+            alt="" 
+            className="w-full h-full object-cover grayscale-[20%] opacity-60 transition-all duration-1000 scale-105" 
+            style={{ transform: index === current ? 'scale(1)' : 'scale(1.05)' }} // Subtle zoom-in effect
+          />
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:30px_30px] md:bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#020617] via-transparent to-[#020617]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#020617]/80 via-transparent to-[#020617] opacity-95" />
         </div>
       ))}
 
       {/* Centered Content */}
       <div className="relative z-20 container mx-auto h-full flex items-center justify-center">
-        <div className={`w-full text-center transition-all duration-700 ${isAnimating ? "opacity-0 scale-95" : "opacity-100 scale-100"}`}>
+        <div className={`w-full text-center transition-all duration-700 ${isAnimating ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"}`}>
           
           {/* System Badge */}
           <div className="inline-flex items-center gap-2 px-3 py-1 mb-6 border border-orange-500/30 bg-orange-500/5 rounded-sm">
@@ -159,10 +169,10 @@ const Hero = () => {
             <span className="text-[8px] md:text-[9px] font-mono tracking-[0.3em] text-orange-500 uppercase">Core_Module_0{current + 1}</span>
           </div>
 
-          {/* HEADLINE: The Scaling Fix */}
+          {/* HEADLINE */}
           <div className="w-full px-2 sm:px-4 overflow-hidden flex justify-center">
             <h1 
-              className="font-black uppercase mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-500 leading-none inline-block max-w-full"
+              className="font-black uppercase mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-400 leading-none inline-block max-w-full drop-shadow-2xl"
               style={{ 
                 fontSize: "clamp(1.1rem, 5.5vw, 5rem)",
                 whiteSpace: "nowrap",
@@ -180,8 +190,8 @@ const Hero = () => {
             </h2>
           </div>
 
-          {/* Description */}
-          <p className="text-slate-400 text-xs sm:text-sm md:text-base lg:text-lg max-w-xl mx-auto leading-relaxed mb-10 font-light opacity-80 px-8">
+          {/* Intro Text */}
+          <p className="text-slate-100 text-xs sm:text-sm md:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed mb-10 font-light px-8 whitespace-pre-line drop-shadow-md">
             {currentSlide.intro}
           </p>
 
@@ -190,14 +200,14 @@ const Hero = () => {
             <a 
               href="#contact" 
               onClick={(e) => scrollToSection(e, "#contact")}
-              className="w-full sm:w-auto bg-orange-600 text-white font-bold py-3.5 px-10 rounded-sm hover:bg-orange-500 transition-all uppercase tracking-widest text-[10px] active:scale-95 shadow-lg shadow-orange-900/20 text-center"
+              className="w-full sm:w-auto bg-orange-600 text-white font-bold py-3.5 px-10 rounded-sm hover:bg-orange-500 hover:shadow-orange-500/20 hover:shadow-2xl transition-all duration-300 uppercase tracking-widest text-[10px] active:scale-95 text-center"
             >
               {currentSlide.cta.primary}
             </a>
             <a 
               href="#services" 
               onClick={(e) => scrollToSection(e, "#services")}
-              className="w-full sm:w-auto bg-slate-900/40 text-white border border-slate-700 font-bold py-3.5 px-10 rounded-sm hover:bg-slate-800 transition-all uppercase tracking-widest text-[10px] active:scale-95 backdrop-blur-md text-center"
+              className="w-full sm:w-auto bg-slate-900/40 text-white border border-slate-700 font-bold py-3.5 px-10 rounded-sm hover:bg-slate-800 hover:border-slate-500 transition-all duration-300 uppercase tracking-widest text-[10px] active:scale-95 backdrop-blur-md text-center"
             >
               {currentSlide.cta.secondary}
             </a>
