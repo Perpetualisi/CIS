@@ -7,16 +7,17 @@ import Project from './components/Projects';
 import Partners from './components/Partners';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 
 const MainPage = ({ scrollTo }) => {
   const location = useLocation();
+  const scrollLocked = useRef(false);
 
   useLayoutEffect(() => {
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
@@ -33,9 +34,34 @@ const MainPage = ({ scrollTo }) => {
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     } else {
-      setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: 'instant' });
-      }, 0);
+      // Fire scroll reset multiple times to fight mobile scroll restoration
+      scrollLocked.current = true;
+
+      window.scrollTo(0, 0);
+
+      const t1 = setTimeout(() => window.scrollTo(0, 0), 0);
+      const t2 = setTimeout(() => window.scrollTo(0, 0), 50);
+      const t3 = setTimeout(() => window.scrollTo(0, 0), 100);
+      const t4 = setTimeout(() => {
+        window.scrollTo(0, 0);
+        scrollLocked.current = false;
+      }, 200);
+
+      const handleScroll = () => {
+        if (scrollLocked.current) {
+          window.scrollTo(0, 0);
+        }
+      };
+
+      window.addEventListener('scroll', handleScroll);
+
+      return () => {
+        clearTimeout(t1);
+        clearTimeout(t2);
+        clearTimeout(t3);
+        clearTimeout(t4);
+        window.removeEventListener('scroll', handleScroll);
+      };
     }
   }, [scrollTo, location.pathname]);
 
