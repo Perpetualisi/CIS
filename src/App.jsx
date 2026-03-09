@@ -13,33 +13,29 @@ const MainPage = ({ scrollTo }) => {
   const location = useLocation();
 
   useLayoutEffect(() => {
-    // Prevent default scroll restoration
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
   useEffect(() => {
-    // Check if we're on a service subpage
     const isServiceSubpage = location.pathname.startsWith('/services/');
-    
+
     if (isServiceSubpage || scrollTo === 'services') {
-      // Wait for next tick to ensure Services component is mounted
       requestAnimationFrame(() => {
         const el = document.getElementById('services');
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     } else if (scrollTo) {
       requestAnimationFrame(() => {
         const el = document.getElementById(scrollTo);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }, 0);
     }
   }, [scrollTo, location.pathname]);
 
