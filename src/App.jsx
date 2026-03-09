@@ -9,65 +9,91 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import { useEffect, useLayoutEffect } from 'react';
 
-const MainPage = ({ scrollTo }) => {
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   CONSTANTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+const NAVBAR_H  = 66;   // px — must match Navbar.jsx height
+const SCROLL_MS = 80;   // retry interval
+const MAX_TRIES = 10;   // max retries (~800 ms window)
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   scrollToSection — smooth scroll with fixed-navbar offset + retry
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function scrollToSection(id, attempt = 0) {
+  if (!id) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return;
+  }
+
+  const el = document.getElementById(id);
+  if (el) {
+    const top = el.getBoundingClientRect().top + window.scrollY - NAVBAR_H;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+  } else if (attempt < MAX_TRIES) {
+    setTimeout(() => scrollToSection(id, attempt + 1), SCROLL_MS);
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ROUTE → SECTION MAP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+const ROUTES = [
+  { path: '/',              section: null        },
+  { path: '/about-us',      section: 'about'    },
+  { path: '/services',      section: 'services' },
+  { path: '/services/:id',  section: 'services' },
+  { path: '/projects',      section: 'projects' },
+  { path: '/clients',       section: 'partners' },
+  { path: '/contact',       section: 'contact'  },
+];
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   MainPage
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+const MainPage = ({ section }) => {
   const location = useLocation();
 
+  /* Disable browser's native scroll restoration */
   useLayoutEffect(() => {
-    // Prevent default scroll restoration
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
   }, []);
 
+  /* Scroll whenever section or pathname changes */
   useEffect(() => {
-    // Check if we're on a service subpage
-    const isServiceSubpage = location.pathname.startsWith('/services/');
-    
-    if (isServiceSubpage || scrollTo === 'services') {
-      // Wait for next tick to ensure Services component is mounted
-      requestAnimationFrame(() => {
-        const el = document.getElementById('services');
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    } else if (scrollTo) {
-      requestAnimationFrame(() => {
-        const el = document.getElementById(scrollTo);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  }, [scrollTo, location.pathname]);
+    const target =
+      section ??
+      (location.pathname.startsWith('/services/') ? 'services' : null);
+
+    const timer = setTimeout(() => scrollToSection(target), 50);
+    return () => clearTimeout(timer);
+  }, [section, location.pathname]);
 
   return (
     <>
       <Hero />
-      <About id="about" />
-      <Services id="services" />
-      <Project id="projects" />
-      <Partners id="partners" />
-      <Contact id="contact" />
+      <About />
+      <Services />
+      <Project />
+      <Partners />
+      <Contact />
       <Footer />
     </>
   );
 };
 
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   App
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 const App = () => (
   <>
     <Navbar />
     <Routes>
-      <Route path="/" element={<MainPage />} />
-      <Route path="/about-us" element={<MainPage scrollTo="about" />} />
-      <Route path="/services" element={<MainPage scrollTo="services" />} />
-      <Route path="/services/:id" element={<MainPage scrollTo="services" />} />
-      <Route path="/projects" element={<MainPage scrollTo="projects" />} />
-      <Route path="/clients" element={<MainPage scrollTo="partners" />} />
-      <Route path="/contact" element={<MainPage scrollTo="contact" />} />
-      <Route path="*" element={<Navigate to="/" />} />
+      {ROUTES.map(({ path, section }) => (
+        <Route key={path} path={path} element={<MainPage section={section} />} />
+      ))}
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   </>
 );

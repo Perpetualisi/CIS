@@ -17,7 +17,6 @@ export default function Navbar() {
   const navigate  = useNavigate();
   const location  = useLocation();
 
-  /* ── scroll-to-section on route change ── */
   useEffect(() => {
     const current = NAV_LINKS.find(l => l.path === location.pathname);
     if (current?.scrollId) {
@@ -28,14 +27,12 @@ export default function Navbar() {
     setActiveIdx(NAV_LINKS.findIndex(l => l.path === location.pathname));
   }, [location]);
 
-  /* ── scroll detection ── */
   const handleScroll = useCallback(() => setScrolled(window.scrollY > 10), []);
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
-  /* ── body lock when menu open ── */
   useEffect(() => {
     document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
   }, [mobileMenuOpen]);
@@ -48,11 +45,10 @@ export default function Navbar() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap');
 
-        .nb-root { font-family: 'Barlow', sans-serif; }
-        .nb-mono  { font-family: 'Space Mono', monospace; }
+        .nb-root    { font-family: 'Barlow', sans-serif; }
+        .nb-mono    { font-family: 'Space Mono', monospace; }
         .nb-display { font-family: 'Bebas Neue', sans-serif; }
 
-        /* ── 3-D perspective link hover ── */
         .nb-link {
           position: relative;
           display: inline-flex;
@@ -84,7 +80,6 @@ export default function Navbar() {
           opacity: 1;
         }
 
-        /* ── active underline bar ── */
         .nb-link-active::after {
           content: '';
           position: absolute;
@@ -100,7 +95,6 @@ export default function Navbar() {
           to   { transform: scaleX(1); }
         }
 
-        /* ── mobile menu slide-in ── */
         .nb-mobile-menu {
           transform: translateX(100%);
           transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -109,7 +103,6 @@ export default function Navbar() {
           transform: translateX(0);
         }
 
-        /* ── mobile link hover ── */
         .nb-mob-link {
           position: relative;
           transition: color 0.2s, padding-left 0.3s cubic-bezier(0.16,1,0.3,1);
@@ -120,13 +113,12 @@ export default function Navbar() {
           left: 0; top: 50%;
           transform: translateY(-50%) scaleY(0);
           width: 2px; height: 60%;
-          background: var(--accent, #f97316);
+          background: var(--accent, #3b82f6);
           transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
         }
         .nb-mob-link:hover::before { transform: translateY(-50%) scaleY(1); }
-        .nb-mob-link:hover { padding-left: 14px; color: #fff; }
+        .nb-mob-link:hover { padding-left: 14px; color: #111; }
 
-        /* ── quote btn ── */
         .nb-quote-btn {
           position: relative;
           overflow: hidden;
@@ -136,20 +128,19 @@ export default function Navbar() {
           content: '';
           position: absolute;
           inset: 0;
-          background: rgba(255,255,255,0.12);
+          background: rgba(255,255,255,0.15);
           transform: translateX(-101%);
           transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
         }
         .nb-quote-btn:hover::before { transform: translateX(0); }
-        .nb-quote-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 30px rgba(59,130,246,0.4); }
+        .nb-quote-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 30px rgba(59,130,246,0.35); }
 
-        /* ── hamburger lines ── */
         .hb-line {
           display: block;
           width: 100%;
           height: 1.5px;
           border-radius: 2px;
-          background: #e2e8f0;
+          background: #1a1a2e;
           transition: transform 0.35s cubic-bezier(0.16,1,0.3,1),
                       opacity   0.25s ease,
                       width     0.3s ease;
@@ -161,34 +152,26 @@ export default function Navbar() {
       <div
         onClick={close}
         className={`fixed inset-0 z-[997] transition-all duration-500 ${
-          mobileMenuOpen
-            ? "opacity-100 visible backdrop-blur-sm"
-            : "opacity-0 invisible"
+          mobileMenuOpen ? "opacity-100 visible backdrop-blur-sm" : "opacity-0 invisible"
         }`}
-        style={{ background: "rgba(3,4,10,0.7)" }}
+        style={{ background: "rgba(0,0,0,0.4)" }}
       />
 
-      {/* ══════════════════════════════════════════
-          NAVBAR
-      ══════════════════════════════════════════ */}
       <nav
-        className="nb-root fixed top-0 w-full z-[999] flex justify-center transition-all duration-500"
+        className="fixed top-0 w-full z-[999] flex justify-center transition-all duration-500"
         style={{
-          height: scrolled ? 66 : 90,
-          background: scrolled
-            ? "rgba(3,4,10,0.92)"
-            : "rgba(3,4,10,0.75)",
+          height: scrolled ? 56 : 66,
+          background: scrolled ? "#f8f9fa" : "#f1f3f5",
           backdropFilter: "blur(24px) saturate(180%)",
           WebkitBackdropFilter: "blur(24px) saturate(180%)",
           borderBottom: scrolled
-            ? "1px solid rgba(255,255,255,0.07)"
-            : "1px solid rgba(255,255,255,0.04)",
+            ? "1px solid rgba(0,0,0,0.08)"
+            : "1px solid rgba(0,0,0,0.05)",
           boxShadow: scrolled
-            ? "0 8px 40px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.05) inset"
-            : "none",
+            ? "0 4px 24px rgba(0,0,0,0.08)"
+            : "0 1px 0 rgba(0,0,0,0.04)",
         }}
       >
-        {/* Inner container */}
         <div className="max-w-7xl w-full flex items-center justify-between px-6">
 
           {/* ── Logo ── */}
@@ -202,9 +185,9 @@ export default function Navbar() {
               src="/logo.png"
               alt="Conotex Logo"
               style={{
-                height: scrolled ? 44 : 60,
+                height: scrolled ? 24 : 28,
                 transition: "height 0.4s cubic-bezier(0.16,1,0.3,1)",
-                filter: "brightness(0) invert(1)",   /* force white on dark bg */
+                /* removed invert — logo shows naturally on light bg */
                 opacity: 0.92,
               }}
             />
@@ -221,7 +204,7 @@ export default function Navbar() {
                     className={`nb-link nb-mono text-[11px] tracking-[0.25em] ${
                       isActive ? "nb-link-active" : ""
                     }`}
-                    style={{ color: isActive ? "#fff" : "rgba(255,255,255,0.45)" }}
+                    style={{ color: isActive ? "#0f172a" : "rgba(15,23,42,0.45)" }}
                   >
                     <span className="nb-link-front">{link.label}</span>
                     <span className="nb-link-back" style={{ color: "#3b82f6" }}>{link.label}</span>
@@ -233,8 +216,7 @@ export default function Navbar() {
 
           {/* ── Desktop CTA ── */}
           <div className="hidden md:flex items-center gap-4">
-            {/* Subtle divider */}
-            <div style={{ width: 1, height: 24, background: "rgba(255,255,255,0.1)" }} />
+            <div style={{ width: 1, height: 24, background: "rgba(0,0,0,0.1)" }} />
             <button
               onClick={() => go("/contact")}
               className="nb-quote-btn nb-mono text-[10px] tracking-[0.25em] text-white px-5 py-2.5"
@@ -255,7 +237,6 @@ export default function Navbar() {
           >
             <span className="hb-line" style={{
               transform: mobileMenuOpen ? "rotate(45deg) translate(4.5px, 4.5px)" : "none",
-              width: mobileMenuOpen ? "100%" : "100%",
             }} />
             <span className="hb-line" style={{
               opacity: mobileMenuOpen ? 0 : 1,
@@ -276,10 +257,10 @@ export default function Navbar() {
         className={`nb-mobile-menu ${mobileMenuOpen ? "open" : ""} fixed top-0 right-0 h-full z-[998] flex flex-col`}
         style={{
           width: "min(85vw, 380px)",
-          background: "rgba(5,7,18,0.97)",
+          background: "#f8f9fa",
           backdropFilter: "blur(40px)",
-          borderLeft: "1px solid rgba(255,255,255,0.06)",
-          boxShadow: "-20px 0 80px rgba(0,0,0,0.6)",
+          borderLeft: "1px solid rgba(0,0,0,0.07)",
+          boxShadow: "-20px 0 80px rgba(0,0,0,0.15)",
         }}
       >
         {/* Top accent line */}
@@ -289,7 +270,8 @@ export default function Navbar() {
         <div className="flex flex-col justify-center flex-1 px-10 py-12">
 
           {/* Label */}
-          <div className="nb-mono text-[9px] tracking-[0.4em] text-white/20 uppercase mb-10">
+          <div className="nb-mono text-[9px] tracking-[0.4em] uppercase mb-10"
+            style={{ color: "rgba(15,23,42,0.3)" }}>
             Navigation
           </div>
 
@@ -304,7 +286,7 @@ export default function Navbar() {
                   className="nb-mob-link nb-display text-left py-3"
                   style={{
                     fontSize: "clamp(2rem, 7vw, 2.6rem)",
-                    color: isActive ? "#fff" : "rgba(255,255,255,0.28)",
+                    color: isActive ? "#0f172a" : "rgba(15,23,42,0.25)",
                     letterSpacing: "0.04em",
                     "--accent": "#3b82f6",
                   }}
@@ -330,11 +312,13 @@ export default function Navbar() {
 
           {/* Bottom meta */}
           <div className="mt-10 pt-8 flex items-center justify-between"
-            style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-            <span className="nb-mono text-[9px] text-white/15 tracking-widest uppercase">
+            style={{ borderTop: "1px solid rgba(0,0,0,0.07)" }}>
+            <span className="nb-mono text-[9px] tracking-widest uppercase"
+              style={{ color: "rgba(15,23,42,0.2)" }}>
               Conotex Tech
             </span>
-            <span className="nb-mono text-[9px] text-white/15 tracking-widest">
+            <span className="nb-mono text-[9px] tracking-widest"
+              style={{ color: "rgba(15,23,42,0.2)" }}>
               USA
             </span>
           </div>

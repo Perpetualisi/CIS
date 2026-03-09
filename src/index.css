@@ -1,6 +1,12 @@
-/* ==============================
-   Global Reset & Full-width
-   ============================== */
+/* ============================================================
+   CONOTEX TECH — Global Stylesheet
+   Fonts: Bebas Neue (display) · Barlow (body) · Space Mono (mono)
+   Palette: #f1f3f5 bg · #0f172a text · #3b82f6 accent
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Space+Mono:wght@400;700&display=swap');
+
+/* ── Reset ──────────────────────────────────────────────── */
 *,
 *::before,
 *::after {
@@ -9,267 +15,329 @@
   padding: 0;
 }
 
-html, body {
-  width: 100%;
-  height: 100%;
-  font-family: 'Inter', sans-serif;
+/* ── Root tokens ─────────────────────────────────────────── */
+:root {
+  --color-bg:        #f1f3f5;
+  --color-bg-deep:   #e8eaed;
+  --color-surface:   #ffffff;
+  --color-text:      #0f172a;
+  --color-text-muted:#475569;
+  --color-accent:    #3b82f6;
+  --color-accent-dim:rgba(59,130,246,0.12);
+  --color-border:    rgba(15,23,42,0.08);
+
+  --font-display:    'Bebas Neue', sans-serif;
+  --font-body:       'Barlow', sans-serif;
+  --font-mono:       'Space Mono', monospace;
+
+  --navbar-h:        66px;
+  --radius-sm:       4px;
+  --radius-md:       8px;
+  --radius-lg:       16px;
+
+  --shadow-sm:  0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04);
+  --shadow-md:  0 4px 16px rgba(15,23,42,0.08), 0 2px 6px rgba(15,23,42,0.05);
+  --shadow-lg:  0 12px 40px rgba(15,23,42,0.10), 0 4px 12px rgba(15,23,42,0.06);
+
+  --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in:    cubic-bezier(0.55, 0, 1, 0.45);
+}
+
+/* ── Base ────────────────────────────────────────────────── */
+html {
   font-size: 16px;
-  line-height: 1.6;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #fff;
-  color: #222;
+  text-rendering: optimizeLegibility;
 }
 
-/* Full-width sections */
-section, header, footer, main {
+body {
   width: 100%;
-  margin: 0;
-  padding: 0;
+  min-height: 100%;
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.6;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  overflow-x: hidden;
 }
 
-/* ==============================
-   Navbar
-   ============================== */
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1.5rem;
-  background: transparent;
-  z-index: 999;
-  transition: background 0.4s ease, box-shadow 0.4s ease, padding 0.3s ease;
+/* ── Scroll offset for fixed navbar ─────────────────────── */
+html {
+  scroll-padding-top: var(--navbar-h);
 }
 
-.navbar-scrolled {
-  background: rgba(30, 144, 255, 0.95);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  padding: 0.8rem 1.5rem;
+section {
+  scroll-margin-top: var(--navbar-h);
 }
 
-.navbar-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* ── Full-width layout primitives ───────────────────────── */
+section,
+header,
+footer,
+main {
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
+  position: relative;
 }
 
-/* ==============================
-   Media
-   ============================== */
-img, video, canvas {
-  max-width: 100%;
-  height: auto;
+/* ── Media defaults ──────────────────────────────────────── */
+img,
+video,
+canvas,
+svg {
   display: block;
+  max-width: 100%;
 }
 
-/* ==============================
-   Typography & Text
-   ============================== */
+img {
+  height: auto;
+  object-fit: cover;
+}
+
+/* ── Typography ──────────────────────────────────────────── */
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 600;
-  line-height: 1.3;
-  margin-bottom: 1rem;
+  font-family: var(--font-display);
+  font-weight: 400;           /* Bebas is already bold by design */
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--color-text);
 }
 
-h1 { font-size: 2.2rem; }
-h2 { font-size: 1.8rem; }
-h3 { font-size: 1.6rem; }
-h4 { font-size: 1.4rem; }
-h5 { font-size: 1.2rem; }
+h1 { font-size: clamp(2.8rem, 6vw, 5.5rem); }
+h2 { font-size: clamp(2rem,   4vw, 3.8rem); }
+h3 { font-size: clamp(1.6rem, 3vw, 2.8rem); }
+h4 { font-size: clamp(1.2rem, 2vw, 2rem);   }
+h5 { font-size: clamp(1rem,   1.5vw, 1.4rem); }
 h6 { font-size: 1rem; }
 
 p {
+  font-family: var(--font-body);
+  font-size: clamp(0.875rem, 1.1vw, 1rem);
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--color-text-muted);
   margin-bottom: 1rem;
-  line-height: 1.6;
-  color: #444;
-  font-size: 0.95rem;
 }
 
-/* ==============================
-   Links & Buttons
-   ============================== */
+p:last-child { margin-bottom: 0; }
+
+/* ── Links ───────────────────────────────────────────────── */
 a {
-  color: #1767b8;
+  color: var(--color-accent);
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: color 0.22s var(--ease-out), opacity 0.22s;
 }
 
 a:hover {
-  color: #00bfa5;
+  color: #2563eb;
+  opacity: 0.85;
 }
 
+/* ── Buttons — base reset (components use their own styles) ─ */
 button {
-  font-family: inherit;
+  font-family: var(--font-body);
   cursor: pointer;
   border: none;
   outline: none;
-  transition: all 0.3s ease;
+  background: none;
+  transition: all 0.22s var(--ease-out);
 }
 
-button:hover {
-  opacity: 0.9;
+button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
 }
 
-/* ==============================
-   Utility Classes
-   ============================== */
+/* ── Lists ───────────────────────────────────────────────── */
+ul, ol {
+  list-style: none;
+}
+
+/* ── Utility: container ──────────────────────────────────── */
 .container {
   width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 1280px;
+  margin-inline: auto;
 }
 
-.text-center { text-align: center; }
+.container--narrow {
+  width: 90%;
+  max-width: 860px;
+  margin-inline: auto;
+}
+
+/* ── Utility: spacing ────────────────────────────────────── */
 .mt-1 { margin-top: 0.25rem; }
-.mt-2 { margin-top: 0.5rem; }
-.mt-3 { margin-top: 1rem; }
-.mt-4 { margin-top: 1.5rem; }
+.mt-2 { margin-top: 0.5rem;  }
+.mt-3 { margin-top: 1rem;    }
+.mt-4 { margin-top: 1.5rem;  }
+.mt-5 { margin-top: 2.5rem;  }
 
 .mb-1 { margin-bottom: 0.25rem; }
-.mb-2 { margin-bottom: 0.5rem; }
-.mb-3 { margin-bottom: 1rem; }
-.mb-4 { margin-bottom: 1.5rem; }
+.mb-2 { margin-bottom: 0.5rem;  }
+.mb-3 { margin-bottom: 1rem;    }
+.mb-4 { margin-bottom: 1.5rem;  }
+.mb-5 { margin-bottom: 2.5rem;  }
 
-/* ==============================
-   Smooth Scroll Target Fix
-   ============================== */
-:target::before {
-  content: "";
-  display: block;
-  height: 80px; /* approximate navbar height */
-  margin-top: -80px;
-  visibility: hidden;
+.text-center  { text-align: center; }
+.text-left    { text-align: left;   }
+.text-right   { text-align: right;  }
+
+/* ── Utility: display font class ────────────────────────── */
+.font-display { font-family: var(--font-display) !important; }
+.font-body    { font-family: var(--font-body)    !important; }
+.font-mono    { font-family: var(--font-mono)    !important; }
+
+/* ── Dot-grid background (shared section texture) ───────── */
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(15,23,42,0.10) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
-/* ==============================
-   Responsive Layouts
-   ============================== */
-
-/* Services navigation */
-.services-nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.5rem;
+/* ── Section divider line ────────────────────────────────── */
+.section-rule {
+  width: 40px;
+  height: 2px;
+  background: var(--color-accent);
   margin-bottom: 1.5rem;
 }
 
-.nav-button {
-  padding: 0.5rem 0.9rem;
-  border: 2px solid #1e90ff;
-  border-radius: 8px;
-  background: transparent;
-  color: #1e90ff;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-}
-
-.nav-button.active,
-.nav-button:hover {
-  background: #1e90ff;
-  color: #fff;
-}
-
-/* Service blocks */
-.services-details {
+/* ── Eyebrow label (mono caps above section headings) ───── */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--color-accent);
   display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.service-block {
-  padding: 1.5rem;
-  border-radius: 12px;
-  background: #f9f9f9;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.05);
-  transition: all 0.3s ease;
-}
-
-.service-block h3 {
-  font-size: 1.4rem;
-  margin-bottom: 0.8rem;
-}
-
-.service-block ul {
-  list-style-type: disc;
-  padding-left: 1.2rem;
+  align-items: center;
+  gap: 0.75rem;
   margin-bottom: 1rem;
 }
 
-.service-cta {
-  display: inline-block;
-  padding: 0.7rem 1.3rem;
-  background: #00bfa5;
-  color: #fff;
-  border-radius: 8px;
-  font-weight: bold;
-  font-size: 0.95rem;
-  transition: all 0.3s ease;
+.eyebrow::before {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+  flex-shrink: 0;
 }
 
-.service-cta:hover {
-  background: #009e87;
+/* ── Scrollbar styling ───────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
 
-/* ==============================
-   Mobile-specific Adjustments
-   ============================== */
+::-webkit-scrollbar-track {
+  background: var(--color-bg-deep);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(15,23,42,0.18);
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(15,23,42,0.32);
+}
+
+/* ── Selection ───────────────────────────────────────────── */
+::selection {
+  background: rgba(59,130,246,0.18);
+  color: var(--color-text);
+}
+
+/* ── Focus ring ──────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ── Horizontal rule ─────────────────────────────────────── */
+hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin-block: 2rem;
+}
+
+/* ── Table base ──────────────────────────────────────────── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td, th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+}
+
+th {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* ── Code / pre ──────────────────────────────────────────── */
+code, pre, kbd {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+
+code {
+  background: var(--color-accent-dim);
+  color: var(--color-accent);
+  padding: 0.15em 0.45em;
+  border-radius: var(--radius-sm);
+}
+
+pre {
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  line-height: 1.6;
+}
+
+pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+}
+
+/* ── Responsive typography scale-down ───────────────────── */
 @media (max-width: 768px) {
   html { font-size: 15px; }
 
-  .navbar {
-    padding: 0.8rem 1rem;
-  }
-
-  .services-nav {
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .nav-button {
-    width: 100%;
-    text-align: center;
-    font-size: 0.95rem;
-    padding: 0.6rem;
-  }
-
-  .service-block {
-    padding: 1rem;
-  }
-
-  .service-block h3 {
-    font-size: 1.25rem;
-  }
-
-  .service-cta {
-    width: 100%;
-    text-align: center;
-    padding: 0.7rem 0;
-    font-size: 0.95rem;
+  :root {
+    --navbar-h: 66px; /* stays same — mobile navbar is same height */
   }
 }
 
 @media (max-width: 480px) {
   html { font-size: 14px; }
-
-  h1 { font-size: 1.8rem; }
-  h2 { font-size: 1.5rem; }
-  h3 { font-size: 1.2rem; }
-  p { font-size: 0.9rem; }
-
-  .navbar {
-    padding: 0.6rem 0.8rem;
-  }
 }
-/* Adjust according to navbar height */
-section {
-  scroll-margin-top: 80px; /* If navbar is 80px tall */
+
+/* ── Print ───────────────────────────────────────────────── */
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+  }
 }
