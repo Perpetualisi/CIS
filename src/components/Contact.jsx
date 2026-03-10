@@ -99,7 +99,7 @@ function SVGNetworkBg() {
       });
 
       // Draw nodes
-      nodes.forEach((n, i) => {
+      nodes.forEach((n) => {
         const pulse = 0.5 + 0.5 * Math.sin(t * 1.8 + n.phase);
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.r * (0.85 + pulse * 0.3), 0, Math.PI * 2);
@@ -135,7 +135,6 @@ function SVGNetworkBg() {
 function SVGSignalIcon({ accent = "#3b82f6" }) {
   return (
     <svg viewBox="0 0 80 80" width="80" height="80" fill="none">
-      {/* Pulsing rings */}
       {[1, 2, 3].map((r) => (
         <motion.circle
           key={r}
@@ -150,11 +149,9 @@ function SVGSignalIcon({ accent = "#3b82f6" }) {
           style={{ transformOrigin: "40px 40px" }}
         />
       ))}
-      {/* Core dot */}
       <motion.circle cx="40" cy="40" r="6" fill={accent}
         animate={{ r: [5, 7, 5], opacity: [0.8, 1, 0.8] }}
         transition={{ duration: 2, repeat: Infinity }} />
-      {/* Signal arcs */}
       {[12, 20, 28].map((r, i) => (
         <motion.path
           key={r}
@@ -173,7 +170,7 @@ function SVGSignalIcon({ accent = "#3b82f6" }) {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   ANIMATED INPUT
+   ANIMATED FIELD WRAPPER
 ───────────────────────────────────────────────────────────── */
 function Field({ label, children }) {
   return (
@@ -294,12 +291,16 @@ const Contact = () => {
         .ct-input:focus, .ct-select:focus, .ct-textarea:focus {
           border-color: #3b82f6;
           background: #fff;
-          box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+          box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
+        }
+        .ct-input:hover:not(:focus), .ct-select:hover:not(:focus), .ct-textarea:hover:not(:focus) {
+          border-color: rgba(0,0,0,0.22);
+          background: #fff;
         }
         .ct-input::placeholder, .ct-textarea::placeholder {
-          color: rgba(15,23,42,0.3);
+          color: rgba(15,23,42,0.28);
         }
-        .ct-textarea { min-height: 140px; resize: vertical; }
+        .ct-textarea { min-height: 140px; resize: vertical; line-height: 1.65; }
         .ct-select { cursor: pointer; color: #0f172a; }
         .ct-select option { background: #fff; color: #0f172a; }
 
@@ -315,7 +316,7 @@ const Contact = () => {
           background: #0f172a; color: #fff; border: none;
           display: inline-flex; align-items: center; justify-content: center; gap: 10px;
           cursor: pointer;
-          transition: transform 0.28s cubic-bezier(0.16,1,0.3,1), box-shadow 0.28s;
+          transition: transform 0.28s cubic-bezier(0.16,1,0.3,1), box-shadow 0.28s, background 0.2s;
           border-radius: 3px;
           width: 100%;
         }
@@ -326,7 +327,15 @@ const Contact = () => {
           transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
         }
         .ct-submit:hover:not(:disabled)::before { transform: translateX(0); }
-        .ct-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(15,23,42,0.25); }
+        .ct-submit:hover:not(:disabled) {
+          transform: translateY(-2px);
+          box-shadow: 0 14px 40px rgba(15,23,42,0.25);
+          background: #1e293b;
+        }
+        .ct-submit:focus-visible {
+          outline: 2px solid #3b82f6;
+          outline-offset: 3px;
+        }
         .ct-submit:disabled { opacity: 0.65; cursor: not-allowed; }
 
         /* ── Sidebar ── */
@@ -353,6 +362,11 @@ const Contact = () => {
           color: #3b82f6;
           flex-shrink: 0;
           border: 1px solid rgba(59,130,246,0.2);
+          transition: background 0.2s, border-color 0.2s;
+        }
+        .ct-info-row:hover .ct-info-icon {
+          background: rgba(59,130,246,0.2);
+          border-color: rgba(59,130,246,0.4);
         }
         .ct-info-label {
           font-family: 'Space Mono', monospace;
@@ -370,7 +384,8 @@ const Contact = () => {
           text-decoration: none;
           transition: color 0.2s;
         }
-        .ct-info-link:hover { color: #3b82f6; }
+        .ct-info-link:hover { color: #3b82f6; text-decoration: underline; text-underline-offset: 3px; }
+        .ct-info-link:focus-visible { outline: 2px solid #3b82f6; outline-offset: 2px; border-radius: 2px; }
 
         /* ── Support card ── */
         .ct-support-card {
@@ -541,7 +556,8 @@ const Contact = () => {
                     </Field>
                   </div>
 
-                  <input type="hidden" name="_from" value="no-reply@conotextech.com" />
+                  {/* ── Updated: routes form replies to uchenna ── */}
+                  <input type="hidden" name="_from" value="uchenna.m@conotextech.com" />
 
                   <Field label="Inquiry Type">
                     <select name="subject" required className="ct-select">
@@ -612,10 +628,8 @@ const Contact = () => {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
             >
-              {/* Canvas network bg */}
               <SVGNetworkBg />
 
-              {/* Ambient accent */}
               <div style={{
                 position: "absolute", inset: 0, pointerEvents: "none",
                 background: "radial-gradient(ellipse 70% 60% at 50% 40%, rgba(59,130,246,0.12), transparent 70%)",
@@ -637,13 +651,13 @@ const Contact = () => {
                   <SVGSignalIcon accent="#3b82f6" />
                 </div>
 
-                {/* Info rows */}
+                {/* Info rows — updated email */}
                 <div style={{ marginBottom: 4 }}>
                   <InfoRow
                     icon={MdEmail}
                     label="Email Us"
-                    value="info@conotextech.com"
-                    href="mailto:info@conotextech.com"
+                    value="uchenna.m@conotextech.com"
+                    href="mailto:uchenna.m@conotextech.com"
                     delay={0.1}
                   />
                   <InfoRow
@@ -661,7 +675,7 @@ const Contact = () => {
                   />
                 </div>
 
-                {/* Support card */}
+                {/* Support card — updated email */}
                 <motion.div
                   className="ct-support-card"
                   initial={{ opacity: 0, y: 16 }}
@@ -677,8 +691,8 @@ const Contact = () => {
                   </div>
                   <p className="ct-body" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.6)", lineHeight: 1.65, margin: 0 }}>
                     Clients with contracts can reach our team at{" "}
-                    <a href="mailto:support@conotextech.com" style={{ color: "#3b82f6", textDecoration: "none" }}>
-                      support@conotextech.com
+                    <a href="mailto:uchenna.m@conotextech.com" style={{ color: "#3b82f6", textDecoration: "none" }}>
+                      uchenna.m@conotextech.com
                     </a>
                   </p>
 
