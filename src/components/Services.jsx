@@ -3,14 +3,20 @@ import { motion, AnimatePresence, useInView } from "framer-motion";
 import { useParams } from "react-router-dom";
 
 /* ─────────────────────────────────────────────────────────────
-   SVG SCENES (unchanged)
+   SVG SCENES — Premium 3D Illustrations
 ───────────────────────────────────────────────────────────── */
 
 function SVGWebsite({ active }) {
   return (
     <svg viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%" }}>
-      <motion.rect x="20" y="20" width="280" height="180" rx="6" fill="#0f172a" stroke="#3b82f6" strokeWidth="1.2" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6 }} />
-      <motion.rect x="20" y="20" width="280" height="28" rx="6" fill="#1e293b" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }} />
+      <defs>
+        <linearGradient id="webGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.2"/>
+          <stop offset="100%" stopColor="#3b82f6" stopOpacity="0"/>
+        </linearGradient>
+      </defs>
+      <motion.rect x="20" y="20" width="280" height="180" rx="8" fill="#0f172a" stroke="#3b82f6" strokeWidth="1.2" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6 }} />
+      <motion.rect x="20" y="20" width="280" height="28" rx="8" fill="#1e293b" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }} />
       {[0,1,2].map((i) => (<motion.circle key={i} cx={36 + i * 14} cy={34} r="4" fill={["#ef4444","#f59e0b","#22c55e"][i]} initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.2 + i * 0.08, type: "spring", stiffness: 300 }} />))}
       <motion.rect x="90" y="27" width="140" height="14" rx="3" fill="#0f172a" stroke="#334155" strokeWidth="0.8" initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 0.3, duration: 0.5 }} style={{ transformOrigin: "90px 34px" }} />
       <motion.text x="112" y="38" fill="#64748b" fontSize="6" fontFamily="monospace" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.55 }}>conotex.com</motion.text>
@@ -60,6 +66,12 @@ function SVGAi({ active }) {
 function SVGCabling({ active }) {
   return (
     <svg viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%" }}>
+      <defs>
+        <linearGradient id="cableGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.3"/>
+          <stop offset="100%" stopColor="#06b6d4" stopOpacity="0"/>
+        </linearGradient>
+      </defs>
       <motion.rect x="20" y="30" width="80" height="160" rx="3" fill="#0f172a" stroke="#06b6d4" strokeWidth="1.2" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} />
       {[0,1,2,3,4,5,6,7].map((i) => (<motion.g key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 + i * 0.06 }}><rect x="26" y={38 + i * 18} width="68" height="12" rx="2" fill="#1e293b" /><circle cx="34" cy={44 + i * 18} r="3" fill={active && i % 3 !== 2 ? "#06b6d4" : "#1e3a4f"} />{active && (<motion.circle cx="34" cy={44 + i * 18} r="5" fill="none" stroke="#06b6d4" strokeWidth="0.5" animate={{ r: [3, 7, 3], opacity: [0.6, 0, 0.6] }} transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }} />)}</motion.g>))}
       {[40, 60, 80, 100, 120, 140, 160].map((y, i) => (<motion.path key={i} d={`M 100 ${y} C 140 ${y} 160 ${y + (i % 2 === 0 ? 20 : -10)} 200 ${y + (i % 2 === 0 ? 10 : 0)}`} stroke={["#06b6d4","#3b82f6","#818cf8","#06b6d4","#3b82f6","#818cf8","#22c55e"][i]} strokeWidth={1.5} strokeOpacity={0.7} initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 0.4 + i * 0.08, duration: 0.7, ease: "easeOut" }} />))}
@@ -140,18 +152,135 @@ function SVGDesktop({ active }) {
   );
 }
 
+function SVGAv({ active }) {
+  return (
+    <svg viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%" }}>
+      <defs>
+        <linearGradient id="avGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#a855f7" stopOpacity="0.3"/>
+          <stop offset="100%" stopColor="#a855f7" stopOpacity="0"/>
+        </linearGradient>
+      </defs>
+      <motion.rect x="40" y="30" width="240" height="140" rx="8" fill="#0f172a" stroke="#a855f7" strokeWidth="1.5" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6 }} />
+      <motion.rect x="52" y="42" width="216" height="116" rx="4" fill="#0a0f1a" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} />
+      
+      {/* Audio Visualizer */}
+      {active && Array.from({ length: 16 }, (_, i) => {
+        const height = 8 + Math.sin(i * 0.8) * 15 + Math.random() * 10;
+        return (
+          <motion.rect key={i}
+            x={58 + i * 14} y={142 - height} width="6" rx="2"
+            fill="#a855f7" fillOpacity={0.7 + Math.sin(i) * 0.3}
+            animate={{ height: [height, height * (0.7 + Math.random() * 0.6), height] }}
+            transition={{ duration: 0.4, repeat: Infinity, delay: i * 0.03 }}/>
+        );
+      })}
+      
+      {/* Speakers */}
+      <motion.rect x="20" y="80" width="20" height="60" rx="4" fill="#1e293b" stroke="#a855f7" strokeWidth="0.8" initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }} />
+      <motion.rect x="280" y="80" width="20" height="60" rx="4" fill="#1e293b" stroke="#a855f7" strokeWidth="0.8" initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }} />
+      {[0,1,2].map((i) => (<circle key={i} cx={30} cy={90 + i * 20} r="3" fill="#a855f7" fillOpacity="0.6" />))}
+      {[0,1,2].map((i) => (<circle key={i} cx={290} cy={90 + i * 20} r="3" fill="#a855f7" fillOpacity="0.6" />))}
+      
+      <motion.g animate={active ? { y: [0, -4, 0] } : {}} transition={{ duration: 2.5, repeat: Infinity }}>
+        <rect x="120" y="168" width="80" height="36" rx="4" fill="#0f172a" stroke="#a855f7" strokeWidth="1" />
+        <text x="160" y="184" fill="#a855f7" fontSize="12" fontFamily="'Bebas Neue',sans-serif" textAnchor="middle">8K</text>
+        <text x="160" y="196" fill="#64748b" fontSize="5" fontFamily="monospace" textAnchor="middle">DISPLAY</text>
+      </motion.g>
+    </svg>
+  );
+}
+
 /* ─────────────────────────────────────────────────────────────
-   DATA
+   DATA — Structured Cabling integrated as a core service
 ───────────────────────────────────────────── */
 const INDUSTRIES_SERVED = "Oil & Gas | Corporate | Financial | Healthcare | Utilities | Retail | Food Service";
 
 const SERVICES_DATA = [
-  { id: "website-design", title: "Custom Websites", headline: "Custom Websites & Digital Growth", intro: "Engineered for speed, SEO, and user experience. We build responsive digital interfaces that convert traffic into revenue.", keyServices: ["UX/UI Design Architecture", "E-commerce Development", "Digital Marketing Integration", "Continuous Maintenance"], Scene: SVGWebsite, accent: "#3b82f6", tag: "WEB DEV", stat: "99%", industries: INDUSTRIES_SERVED },
-  { id: "ai-qa", title: "AI Search Quality", headline: "AI Search Quality & Validation", intro: "Validation and tuning for Large Language Models and enterprise search engines. Ensuring data accuracy in the AI era.", keyServices: ["Search Quality Evaluation", "Human-in-the-Loop Validation", "Healthcare AI Compliance", "Dataset Accuracy Audits"], Scene: SVGAi, accent: "#3b82f6", tag: "AI / ML", stat: "10×", industries: "Healthcare | Technology | Finance | Retail | Legal" },
-  { id: "structured-cabling", title: "Telecom & AV", headline: "Low Voltage, Telecom & AV Infrastructure", intro: "High-density fiber, copper architectures, and smart-room technology designed for 99.9% uptime.", keyServices: ["Cat6 & Fiber Optic Cabling", "Data Center / Server Room Build", "IP Surveillance & Security", "Conference Room AV Systems"], Scene: SVGCabling, accent: "#06b6d4", tag: "CABLING", stat: "100G", industries: INDUSTRIES_SERVED },
-  { id: "cybersecurity", title: "Cybersecurity", headline: "Threat Protection & Compliance", intro: "Hardening your perimeter with zero-trust architecture, real-time detection, and comprehensive security audits.", keyServices: ["Endpoint & Perimeter Defense", "Penetration Testing", "Compliance & Risk Audits", "24/7 Incident Response"], Scene: SVGCyber, accent: "#ef4444", tag: "SECURITY", stat: "0-DAY", industries: INDUSTRIES_SERVED },
-  { id: "managed-it", title: "Managed IT Support", headline: "Managed IT Support Operations", intro: "Proactive systems management. We monitor your infrastructure while you focus on scaling your core business.", keyServices: ["Proactive Remote Monitoring", "Patch & Asset Management", "Disaster Recovery Planning", "Business Continuity Strategy"], Scene: SVGManagedIT, accent: "#10b981", tag: "IT OPS", stat: "99.9%", industries: INDUSTRIES_SERVED },
-  { id: "desktop-support", title: "Desktop Support", headline: "Onsite & Remote Support", intro: "Rapid-response resolution across all endpoints. Dependable support to keep your workforce productive.", keyServices: ["Hardware & Software Lifecycle", "Identity & Access Management", "Employee Technical Training", "Mobile Device Management"], Scene: SVGDesktop, accent: "#8b5cf6", tag: "SUPPORT", stat: "<2HR", industries: INDUSTRIES_SERVED },
+  { 
+    id: "website-design", 
+    title: "Custom Websites", 
+    headline: "Custom Websites & Digital Growth", 
+    intro: "Engineered for speed, SEO, and user experience. We build responsive digital interfaces that convert traffic into revenue.", 
+    keyServices: ["UX/UI Design Architecture", "E-commerce Development", "Digital Marketing Integration", "Continuous Maintenance"], 
+    Scene: SVGWebsite, 
+    accent: "#3b82f6", 
+    tag: "WEB DEV", 
+    stat: "99%", 
+    industries: INDUSTRIES_SERVED 
+  },
+  { 
+    id: "ai-qa", 
+    title: "AI Search Quality", 
+    headline: "AI Search Quality & Validation", 
+    intro: "Validation and tuning for Large Language Models and enterprise search engines. Ensuring data accuracy in the AI era.", 
+    keyServices: ["Search Quality Evaluation", "Human-in-the-Loop Validation", "Healthcare AI Compliance", "Dataset Accuracy Audits"], 
+    Scene: SVGAi, 
+    accent: "#3b82f6", 
+    tag: "AI / ML", 
+    stat: "10×", 
+    industries: "Healthcare | Technology | Finance | Retail | Legal" 
+  },
+  { 
+    id: "structured-cabling", 
+    title: "Structured Cabling", 
+    headline: "High-Density Structured Cabling Infrastructure", 
+    intro: "Enterprise-grade fiber optic and copper cabling solutions designed for maximum reliability, scalability, and 99.9% uptime across your entire network.", 
+    keyServices: ["Cat6/Cat6A & Fiber Optic Installation", "Data Center Cabling & Rack Management", "Network Infrastructure Design", "Cable Certification & Testing"], 
+    Scene: SVGCabling, 
+    accent: "#06b6d4", 
+    tag: "CABLING", 
+    stat: "100G", 
+    industries: INDUSTRIES_SERVED 
+  },
+  { 
+    id: "telecom-av", 
+    title: "Telecom & AV", 
+    headline: "Unified Communications & AV Integration", 
+    intro: "Low-latency voice, video, and data synchronization. Smart-room technology and interactive display systems for modern boardrooms.", 
+    keyServices: ["VoIP & PBX Systems", "Conference Room AV", "Digital Signage Solutions", "Wireless Presentation Systems"], 
+    Scene: SVGAv, 
+    accent: "#a855f7", 
+    tag: "AV / TELECOM", 
+    stat: "8K", 
+    industries: INDUSTRIES_SERVED 
+  },
+  { 
+    id: "cybersecurity", 
+    title: "Cybersecurity", 
+    headline: "Threat Protection & Compliance", 
+    intro: "Hardening your perimeter with zero-trust architecture, real-time detection, and comprehensive security audits.", 
+    keyServices: ["Endpoint & Perimeter Defense", "Penetration Testing", "Compliance & Risk Audits", "24/7 Incident Response"], 
+    Scene: SVGCyber, 
+    accent: "#ef4444", 
+    tag: "SECURITY", 
+    stat: "0-DAY", 
+    industries: INDUSTRIES_SERVED 
+  },
+  { 
+    id: "managed-it", 
+    title: "Managed IT Support", 
+    headline: "Managed IT Support Operations", 
+    intro: "Proactive systems management. We monitor your infrastructure while you focus on scaling your core business.", 
+    keyServices: ["Proactive Remote Monitoring", "Patch & Asset Management", "Disaster Recovery Planning", "Business Continuity Strategy"], 
+    Scene: SVGManagedIT, 
+    accent: "#10b981", 
+    tag: "IT OPS", 
+    stat: "99.9%", 
+    industries: INDUSTRIES_SERVED 
+  },
+  { 
+    id: "desktop-support", 
+    title: "Desktop Support", 
+    headline: "Onsite & Remote Support", 
+    intro: "Rapid-response resolution across all endpoints. Dependable support to keep your workforce productive.", 
+    keyServices: ["Hardware & Software Lifecycle", "Identity & Access Management", "Employee Technical Training", "Mobile Device Management"], 
+    Scene: SVGDesktop, 
+    accent: "#8b5cf6", 
+    tag: "SUPPORT", 
+    stat: "<2HR", 
+    industries: INDUSTRIES_SERVED 
+  },
 ];
 
 /* ─────────────────────────────────────────────────────────────
@@ -168,7 +297,7 @@ function useWindowWidth() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   MAIN
+   MAIN COMPONENT
 ───────────────────────────────────────────── */
 const Services = () => {
   const { id } = useParams();
@@ -271,9 +400,8 @@ const Services = () => {
         /* ── Scene column ── */
         .sv-scene-col {
           position: relative; overflow: hidden;
-          background: #0a0f1e;
+          background: linear-gradient(135deg, #0a0f1e 0%, #0c1222 100%);
           display: flex; align-items: center; justify-content: center;
-          /* mobile: full width, fixed height */
           width: 100%;
           min-height: 230px;
           padding: 20px;
@@ -282,7 +410,7 @@ const Services = () => {
           .sv-scene-col {
             width: 38%;
             flex-shrink: 0;
-            min-height: 360px;
+            min-height: 380px;
             border-right: 1px solid rgba(255,255,255,0.06);
           }
         }
@@ -290,7 +418,6 @@ const Services = () => {
         /* ── Info column ── */
         .sv-info-col {
           flex: 1;
-          /* mobile padding */
           padding: 24px 18px 28px;
         }
         @media (min-width: 540px) {
@@ -303,7 +430,7 @@ const Services = () => {
         /* ── Features grid ── */
         .sv-features-grid {
           display: grid;
-          grid-template-columns: 1fr;   /* 1-col on mobile */
+          grid-template-columns: 1fr;
           gap: 8px;
           margin-bottom: 24px;
         }
@@ -363,8 +490,6 @@ const Services = () => {
           background: #0f172a; color: #fff; border: none;
           display: inline-flex; align-items: center; gap: 9px;
           transition: transform 0.28s cubic-bezier(0.16,1,0.3,1), box-shadow 0.28s;
-          white-space: nowrap;
-          /* full width on mobile */
           width: 100%; justify-content: center;
         }
         @media (min-width: 600px) {
@@ -430,11 +555,11 @@ const Services = () => {
             <h2 className="sv-display" style={{ fontSize: "clamp(2.4rem,7vw,6rem)", lineHeight: 0.9, color: "#0f172a", marginBottom: 12 }}>
               Enterprise{" "}
               <span style={{ background: "linear-gradient(90deg,#3b82f6,#818cf8)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-                Solutions
+                Infrastructure
               </span>
             </h2>
             <p className="sv-body" style={{ fontSize: "clamp(0.84rem,2.2vw,1rem)", color: "#475569", fontWeight: 400, maxWidth: "52ch", lineHeight: 1.7 }}>
-              Nationwide IT infrastructure and managed support tailored for high-demand business environments.
+              Complete IT infrastructure solutions from structured cabling to cloud integration, serving enterprise clients nationwide.
             </p>
           </motion.div>
 
@@ -592,7 +717,7 @@ const Services = () => {
             </motion.div>
           </AnimatePresence>
 
-          {/* ── Index strip (hidden on tiny screens) ── */}
+          {/* ── Index strip ── */}
           <motion.div
             className="sv-index"
             style={{ alignItems: "center", gap: 20, marginTop: 28, flexWrap: "wrap" }}
