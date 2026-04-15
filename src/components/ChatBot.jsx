@@ -755,9 +755,14 @@ export default function ChatBot() {
     };
   }, []);
 
-  // Fix body scroll lock for mobile - IMPROVED
+  // Fix body scroll lock - prevent body scroll when modal is open
   useEffect(() => {
-    if (open && !isMinimized && !showClearConfirm) {
+    if (showClearConfirm) {
+      document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.width = "100%";
+      document.body.style.top = `-${window.scrollY}px`;
+    } else if (open && !isMinimized) {
       document.body.style.overflow = "hidden";
       document.body.style.position = "fixed";
       document.body.style.width = "100%";
@@ -773,7 +778,7 @@ export default function ChatBot() {
       }
     }
     return () => {
-      if (!showClearConfirm) {
+      if (!showClearConfirm && !open) {
         document.body.style.overflow = "";
         document.body.style.position = "";
         document.body.style.width = "";
@@ -1151,7 +1156,7 @@ export default function ChatBot() {
                           onKeyDown={handleKeyDown}
                           placeholder="Ask me anything about our services..."
                           rows={1}
-                          disabled={loading}
+                          disabled={loading || showClearConfirm}
                           maxLength={500}
                           className="flex-1 bg-transparent text-gray-800 dark:text-gray-100 placeholder-gray-400 resize-none outline-none max-h-[90px] leading-5 py-0.5 text-sm"
                           style={{ scrollbarWidth: "none", fontSize: "16px" }}
@@ -1159,7 +1164,7 @@ export default function ChatBot() {
                         <VoiceInput onTranscript={(text) => setInput(text)} />
                         <button
                           onClick={() => sendMessage()}
-                          disabled={!input.trim() || loading}
+                          disabled={!input.trim() || loading || showClearConfirm}
                           className="w-8 h-8 rounded-lg bg-blue-600 hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center transition-all hover:scale-105 flex-shrink-0"
                           aria-label="Send"
                         >
@@ -1205,9 +1210,9 @@ export default function ChatBot() {
         </>
       )}
 
-      {/* Clear Confirm Modal - Fixed z-index to be above chat */}
+      {/* Clear Confirm Modal - HIGHEST Z-INDEX to appear above everything */}
       {showClearConfirm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[100] p-4" onClick={() => setShowClearConfirm(false)}>
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999] p-4" onClick={() => setShowClearConfirm(false)}>
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-xs w-full shadow-2xl" onClick={(e) => e.stopPropagation()}>
             <div className="w-12 h-12 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center mx-auto mb-4">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#dc2626" strokeWidth="2">
