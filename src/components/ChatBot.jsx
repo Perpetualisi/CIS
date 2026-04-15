@@ -729,6 +729,21 @@ export default function ChatBot() {
   const textareaRef = useRef(null);
   const messageRefs = useRef({});
 
+  // Fix for iPhone viewport height
+  useEffect(() => {
+    const setVH = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+    setVH();
+    window.addEventListener('resize', setVH);
+    window.addEventListener('orientationchange', setVH);
+    return () => {
+      window.removeEventListener('resize', setVH);
+      window.removeEventListener('orientationchange', setVH);
+    };
+  }, []);
+
   useEffect(() => {
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
@@ -740,9 +755,9 @@ export default function ChatBot() {
     };
   }, []);
 
-  // Fix: Only lock body scroll on mobile when chat is open AND not minimized
+  // Fix body scroll lock for mobile
   useEffect(() => {
-    if (open && !isMinimized && window.innerWidth < 768) {
+    if (open && !isMinimized) {
       document.body.style.overflow = "hidden";
       document.body.style.position = "fixed";
       document.body.style.width = "100%";
@@ -957,7 +972,7 @@ export default function ChatBot() {
     <>
       {open && (
         <>
-          {/* Mobile backdrop - only shows on mobile */}
+          {/* Mobile backdrop */}
           <div className="fixed inset-0 bg-black/40 z-40 md:hidden" onClick={() => setOpen(false)} />
 
           <div
@@ -977,35 +992,35 @@ export default function ChatBot() {
               height: isMinimized 
                 ? "auto" 
                 : window.innerWidth < 768 
-                  ? "85vh" 
+                  ? "calc(var(--vh, 1vh) * 85)" 
                   : "min(700px, 80vh)",
-              maxHeight: isMinimized ? "auto" : (window.innerWidth < 768 ? "85vh" : "80vh"),
+              maxHeight: isMinimized ? "auto" : (window.innerWidth < 768 ? "calc(var(--vh, 1vh) * 85)" : "80vh"),
             }}
           >
-            {/* Header - Always visible, never cut off */}
+            {/* Header - Fixed with proper padding */}
             <div className="bg-blue-600 flex-shrink-0 rounded-t-2xl">
-              <div className="px-4 py-3 flex items-center gap-3">
+              <div className="px-4 py-3 flex items-center gap-2">
                 <div className="relative flex-shrink-0">
-                  <BotAvatar size={38} />
+                  <BotAvatar size={36} />
                   <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-green-400 border-2 border-blue-600" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap">
+                  <div className="flex items-center gap-1.5 flex-wrap">
                     <span className="text-white font-semibold text-sm">Alex · Conotex Tech</span>
-                    <span className="px-1.5 py-0.5 bg-green-500 text-white text-[9px] rounded-full font-bold tracking-wide whitespace-nowrap">LIVE</span>
+                    <span className="px-1.5 py-0.5 bg-green-500 text-white text-[8px] rounded-full font-bold tracking-wide whitespace-nowrap">LIVE</span>
                     {!isOnline && (
-                      <span className="px-1.5 py-0.5 bg-red-500 text-white text-[9px] rounded-full font-bold tracking-wide whitespace-nowrap">OFFLINE</span>
+                      <span className="px-1.5 py-0.5 bg-red-500 text-white text-[8px] rounded-full font-bold tracking-wide whitespace-nowrap">OFFLINE</span>
                     )}
                   </div>
-                  <p className="text-[11px] text-blue-200 mt-0.5 truncate">Enterprise IT Assistant · Replies instantly</p>
+                  <p className="text-[10px] text-blue-200 mt-0.5 truncate">Enterprise IT Assistant · Replies instantly</p>
                 </div>
-                <div className="flex items-center gap-1 flex-shrink-0">
+                <div className="flex items-center gap-0.5 flex-shrink-0">
                   <button
                     onClick={toggleSound}
                     className="w-7 h-7 rounded-lg bg-white/15 hover:bg-white/25 flex items-center justify-center transition-colors"
                     title={soundEnabled ? "Mute typing sounds" : "Enable typing sounds"}
                   >
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
                       {soundEnabled ? (
                         <>
                           <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
@@ -1016,7 +1031,7 @@ export default function ChatBot() {
                       )}
                     </svg>
                   </button>
-                  {!isMinimized && (
+                  {!isMinimized && window.innerWidth >= 768 && (
                     <>
                       <MessageSearch messages={messages} onJumpToMessage={(idx) => setMessageTarget(idx)} />
                       <ExportChat messages={messages} />
@@ -1028,7 +1043,7 @@ export default function ChatBot() {
                     title={isMinimized ? "Expand" : "Minimize"}
                     className="w-7 h-7 rounded-lg bg-white/15 hover:bg-white/25 flex items-center justify-center transition-colors"
                   >
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
                       {isMinimized ? <path d="M5 15l7-7 7 7" /> : <path d="M19 9l-7 7-7-7" />}
                     </svg>
                   </button>
@@ -1037,7 +1052,7 @@ export default function ChatBot() {
                     title="Clear chat"
                     className="w-7 h-7 rounded-lg bg-white/15 hover:bg-white/25 flex items-center justify-center transition-colors"
                   >
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
                       <polyline points="3 6 5 6 21 6" />
                       <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
                       <path d="M10 11v6M14 11v6M9 6V4h6v2" />
@@ -1047,7 +1062,7 @@ export default function ChatBot() {
                     onClick={() => setOpen(false)}
                     className="w-7 h-7 rounded-lg bg-white/15 hover:bg-white/25 flex items-center justify-center transition-colors"
                   >
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
                       <path d="M18 6L6 18M6 6l12 12" />
                     </svg>
                   </button>
