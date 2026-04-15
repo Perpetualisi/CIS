@@ -7,6 +7,7 @@ import Project from './components/Projects';
 import Partners from './components/Partners';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import ChatBot from './components/ChatBot';
 import { useEffect, useLayoutEffect, useRef } from 'react';
 
 const MainPage = ({ scrollTo }) => {
@@ -34,7 +35,6 @@ const MainPage = ({ scrollTo }) => {
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     } else {
-      // Fire scroll reset multiple times to fight mobile scroll restoration
       scrollLocked.current = true;
 
       window.scrollTo(0, 0);
@@ -91,6 +91,7 @@ const App = () => (
       <Route path="/contact" element={<MainPage scrollTo="contact" />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
+    <ChatBot />
   </>
 );
 
