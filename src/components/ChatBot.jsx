@@ -755,9 +755,9 @@ export default function ChatBot() {
     };
   }, []);
 
-  // Fix body scroll lock for mobile
+  // Fix body scroll lock for mobile - IMPROVED
   useEffect(() => {
-    if (open && !isMinimized) {
+    if (open && !isMinimized && !showClearConfirm) {
       document.body.style.overflow = "hidden";
       document.body.style.position = "fixed";
       document.body.style.width = "100%";
@@ -773,19 +773,21 @@ export default function ChatBot() {
       }
     }
     return () => {
-      document.body.style.overflow = "";
-      document.body.style.position = "";
-      document.body.style.width = "";
-      document.body.style.top = "";
+      if (!showClearConfirm) {
+        document.body.style.overflow = "";
+        document.body.style.position = "";
+        document.body.style.width = "";
+        document.body.style.top = "";
+      }
     };
-  }, [open, isMinimized]);
+  }, [open, isMinimized, showClearConfirm]);
 
   useEffect(() => {
-    if (open && !isMinimized) {
+    if (open && !isMinimized && !showClearConfirm) {
       setUnread(0);
       setTimeout(() => inputRef.current?.focus(), 150);
     }
-  }, [open, isMinimized]);
+  }, [open, isMinimized, showClearConfirm]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -972,7 +974,7 @@ export default function ChatBot() {
     <>
       {open && (
         <>
-          {/* Mobile backdrop */}
+          {/* Mobile backdrop - only shows on mobile */}
           <div className="fixed inset-0 bg-black/40 z-40 md:hidden" onClick={() => setOpen(false)} />
 
           <div
@@ -1203,10 +1205,10 @@ export default function ChatBot() {
         </>
       )}
 
-      {/* Clear Confirm Modal */}
+      {/* Clear Confirm Modal - Fixed z-index to be above chat */}
       {showClearConfirm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[60] p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-xs w-full shadow-2xl">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[100] p-4" onClick={() => setShowClearConfirm(false)}>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-xs w-full shadow-2xl" onClick={(e) => e.stopPropagation()}>
             <div className="w-12 h-12 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center mx-auto mb-4">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#dc2626" strokeWidth="2">
                 <polyline points="3 6 5 6 21 6" />
