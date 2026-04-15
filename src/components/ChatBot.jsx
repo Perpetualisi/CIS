@@ -612,7 +612,7 @@ function ContactPanel() {
       icon: (
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d97706" strokeWidth="2">
           <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-          <circle cx="12" cy="10" r="3" />
+          <circle cx="12" cy="12" r="3" />
         </svg>
       ),
     },
@@ -740,22 +740,30 @@ export default function ChatBot() {
     };
   }, []);
 
+  // Fix: Only lock body scroll on mobile when chat is open AND not minimized
   useEffect(() => {
-    if (open && window.innerWidth < 640) {
+    if (open && !isMinimized && window.innerWidth < 768) {
       document.body.style.overflow = "hidden";
       document.body.style.position = "fixed";
       document.body.style.width = "100%";
+      document.body.style.top = `-${window.scrollY}px`;
     } else {
+      const scrollY = document.body.style.top;
       document.body.style.overflow = "";
       document.body.style.position = "";
       document.body.style.width = "";
+      document.body.style.top = "";
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+      }
     }
     return () => {
       document.body.style.overflow = "";
       document.body.style.position = "";
       document.body.style.width = "";
+      document.body.style.top = "";
     };
-  }, [open]);
+  }, [open, isMinimized]);
 
   useEffect(() => {
     if (open && !isMinimized) {
@@ -949,36 +957,49 @@ export default function ChatBot() {
     <>
       {open && (
         <>
-          <div className="fixed inset-0 bg-black/40 z-40 sm:hidden" onClick={() => setOpen(false)} />
+          {/* Mobile backdrop - only shows on mobile */}
+          <div className="fixed inset-0 bg-black/40 z-40 md:hidden" onClick={() => setOpen(false)} />
 
           <div
-            className="fixed bottom-0 left-0 right-0 sm:bottom-6 sm:left-auto sm:right-6 z-50 w-full sm:w-[420px] flex flex-col bg-white dark:bg-gray-900 rounded-t-2xl sm:rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden"
+            className={`
+              fixed z-50 flex flex-col bg-white dark:bg-gray-900 shadow-2xl border border-gray-200 dark:border-gray-700
+              ${isMinimized 
+                ? "w-auto rounded-2xl bottom-6 right-6" 
+                : `
+                  bottom-0 left-0 right-0 
+                  md:bottom-6 md:left-auto md:right-6 
+                  w-full md:w-[450px] 
+                  rounded-t-2xl md:rounded-2xl
+                `
+              }
+            `}
             style={{
               height: isMinimized 
                 ? "auto" 
-                : window.innerWidth < 640 
-                  ? "90vh" 
-                  : "min(650px, 80vh)",
-              maxHeight: window.innerWidth >= 640 ? "80vh" : "90vh",
+                : window.innerWidth < 768 
+                  ? "85vh" 
+                  : "min(700px, 80vh)",
+              maxHeight: isMinimized ? "auto" : (window.innerWidth < 768 ? "85vh" : "80vh"),
             }}
           >
-            <div className="bg-blue-600 flex-shrink-0">
+            {/* Header - Always visible, never cut off */}
+            <div className="bg-blue-600 flex-shrink-0 rounded-t-2xl">
               <div className="px-4 py-3 flex items-center gap-3">
-                <div className="relative">
+                <div className="relative flex-shrink-0">
                   <BotAvatar size={38} />
                   <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-green-400 border-2 border-blue-600" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
                     <span className="text-white font-semibold text-sm">Alex · Conotex Tech</span>
-                    <span className="px-1.5 py-0.5 bg-green-500 text-white text-[9px] rounded-full font-bold tracking-wide">LIVE</span>
+                    <span className="px-1.5 py-0.5 bg-green-500 text-white text-[9px] rounded-full font-bold tracking-wide whitespace-nowrap">LIVE</span>
                     {!isOnline && (
-                      <span className="px-1.5 py-0.5 bg-red-500 text-white text-[9px] rounded-full font-bold tracking-wide">OFFLINE</span>
+                      <span className="px-1.5 py-0.5 bg-red-500 text-white text-[9px] rounded-full font-bold tracking-wide whitespace-nowrap">OFFLINE</span>
                     )}
                   </div>
-                  <p className="text-[11px] text-blue-200 mt-0.5">Enterprise IT Assistant · Replies instantly</p>
+                  <p className="text-[11px] text-blue-200 mt-0.5 truncate">Enterprise IT Assistant · Replies instantly</p>
                 </div>
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 flex-shrink-0">
                   <button
                     onClick={toggleSound}
                     className="w-7 h-7 rounded-lg bg-white/15 hover:bg-white/25 flex items-center justify-center transition-colors"
@@ -995,9 +1016,13 @@ export default function ChatBot() {
                       )}
                     </svg>
                   </button>
-                  <MessageSearch messages={messages} onJumpToMessage={(idx) => setMessageTarget(idx)} />
-                  <ExportChat messages={messages} />
-                  <QuickResponses onSelect={(text) => sendMessage(text)} />
+                  {!isMinimized && (
+                    <>
+                      <MessageSearch messages={messages} onJumpToMessage={(idx) => setMessageTarget(idx)} />
+                      <ExportChat messages={messages} />
+                      <QuickResponses onSelect={(text) => sendMessage(text)} />
+                    </>
+                  )}
                   <button
                     onClick={() => setIsMinimized((m) => !m)}
                     title={isMinimized ? "Expand" : "Minimize"}
@@ -1032,6 +1057,7 @@ export default function ChatBot() {
 
             {!isMinimized && (
               <>
+                {/* Tabs */}
                 <div className="flex border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 flex-shrink-0">
                   {tabs.map((tab) => (
                     <button
@@ -1049,6 +1075,7 @@ export default function ChatBot() {
                   ))}
                 </div>
 
+                {/* Chat Tab */}
                 {activeTab === "chat" && (
                   <div className="flex flex-col flex-1 min-h-0">
                     <div className="flex-1 overflow-y-auto px-4 py-4" style={{ WebkitOverflowScrolling: "touch" }}>
@@ -1097,6 +1124,7 @@ export default function ChatBot() {
                       <div ref={bottomRef} />
                     </div>
 
+                    {/* Input Area */}
                     <div className="px-4 py-3 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 flex-shrink-0">
                       <div className="flex items-end gap-2 bg-gray-100 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 px-3 py-2 focus-within:border-blue-400 transition-colors">
                         <textarea
@@ -1139,6 +1167,7 @@ export default function ChatBot() {
                   </div>
                 )}
 
+                {/* Services Tab */}
                 {activeTab === "services" && (
                   <div className="flex-1 overflow-hidden">
                     <ServicesPanel
@@ -1147,6 +1176,7 @@ export default function ChatBot() {
                   </div>
                 )}
 
+                {/* Contact Tab */}
                 {activeTab === "contact" && (
                   <div className="flex-1 overflow-hidden">
                     <ContactPanel />
@@ -1158,6 +1188,7 @@ export default function ChatBot() {
         </>
       )}
 
+      {/* Clear Confirm Modal */}
       {showClearConfirm && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[60] p-4">
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-xs w-full shadow-2xl">
@@ -1188,12 +1219,14 @@ export default function ChatBot() {
         </div>
       )}
 
+      {/* Notification Toast */}
       {showNotification && (
-        <div className="fixed bottom-32 right-6 z-50 bg-gray-900 text-white px-3 py-2 rounded-lg text-xs shadow-lg animate-in fade-in slide-in-from-bottom-2">
+        <div className="fixed bottom-32 right-6 z-50 bg-gray-900 text-white px-3 py-2 rounded-lg text-xs shadow-lg">
           {notificationMsg}
         </div>
       )}
 
+      {/* Toggle Button */}
       <div className="fixed z-50 bottom-6 right-6">
         <button
           onClick={() => { setOpen((o) => !o); if (!open) setUnread(0); }}
