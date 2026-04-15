@@ -307,6 +307,25 @@ export default function ChatBot() {
   const inputRef = useRef(null);
   const textareaRef = useRef(null);
 
+  // Prevent body scroll when chat is open on mobile
+  useEffect(() => {
+    if (open && window.innerWidth < 640) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+    }
+    
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+    };
+  }, [open]);
+
   useEffect(() => {
     if (open && !isMinimized) {
       setUnread(0);
@@ -436,223 +455,247 @@ export default function ChatBot() {
   return (
     <>
       {open && (
-        <div
-          className="fixed bottom-24 right-5 sm:right-8 z-50 w-[380px] sm:w-[420px] flex flex-col bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700"
-          style={{ height: isMinimized ? "auto" : "600px", maxHeight: "80vh" }}
-        >
-          {/* Header */}
-          <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-t-2xl flex-shrink-0">
-            <div className="px-4 py-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-                      <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7H3a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z" />
-                      <path d="M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5" />
-                      <circle cx="9" cy="17" r="1" fill="white" stroke="none" />
-                      <circle cx="15" cy="17" r="1" fill="white" stroke="none" />
-                    </svg>
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <p className="font-semibold text-white text-sm">Conotex Tech AI</p>
-                      <span className="px-1.5 py-0.5 bg-green-500 text-white text-[9px] rounded-full font-medium">Live</span>
+        <>
+          {/* Mobile Overlay */}
+          <div 
+            className="fixed inset-0 bg-black/50 z-40 sm:hidden"
+            onClick={() => setOpen(false)}
+          />
+          
+          <div
+            className="fixed bottom-0 left-0 right-0 sm:bottom-24 sm:left-auto sm:right-5 z-50 w-full sm:w-[400px] flex flex-col bg-white dark:bg-gray-900 rounded-t-2xl sm:rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700"
+            style={{ 
+              height: isMinimized ? "auto" : "85vh",
+              maxHeight: "85vh",
+            }}
+          >
+            {/* Header - Fixed at top */}
+            <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-t-2xl flex-shrink-0 sticky top-0 z-10">
+              <div className="px-4 py-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                        <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7H3a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z" />
+                        <path d="M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5" />
+                        <circle cx="9" cy="17" r="1" fill="white" stroke="none" />
+                        <circle cx="15" cy="17" r="1" fill="white" stroke="none" />
+                      </svg>
                     </div>
-                    <div className="flex items-center gap-1.5 mt-0.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                      <p className="text-[10px] text-blue-100">Enterprise IT Assistant</p>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <p className="font-semibold text-white text-sm">Conotex Tech AI</p>
+                        <span className="px-1.5 py-0.5 bg-green-500 text-white text-[9px] rounded-full font-medium">Live</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 mt-0.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                        <p className="text-[10px] text-blue-100">Enterprise IT Assistant</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="flex gap-1">
-                  <button
-                    onClick={() => setIsMinimized(!isMinimized)}
-                    title={isMinimized ? "Expand" : "Minimize"}
-                    className="w-7 h-7 rounded-lg bg-white/15 hover:bg-white/25 flex items-center justify-center transition-colors"
-                  >
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-                      {isMinimized ? (
-                        <path d="M4 4v16h16" />
-                      ) : (
-                        <path d="M20 12H4M12 4v16" />
-                      )}
-                    </svg>
-                  </button>
-                  <button
-                    onClick={() => setOpen(false)}
-                    className="w-7 h-7 rounded-lg bg-white/15 hover:bg-white/25 flex items-center justify-center transition-colors"
-                  >
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
-                      <path d="M18 6L6 18M6 6l12 12" />
-                    </svg>
-                  </button>
+                  <div className="flex gap-1">
+                    <button
+                      onClick={() => setIsMinimized(!isMinimized)}
+                      title={isMinimized ? "Expand" : "Minimize"}
+                      className="w-7 h-7 rounded-lg bg-white/15 hover:bg-white/25 flex items-center justify-center transition-colors"
+                    >
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                        {isMinimized ? (
+                          <path d="M4 4v16h16" />
+                        ) : (
+                          <path d="M20 12H4M12 4v16" />
+                        )}
+                      </svg>
+                    </button>
+                    <button
+                      onClick={() => setOpen(false)}
+                      className="w-7 h-7 rounded-lg bg-white/15 hover:bg-white/25 flex items-center justify-center transition-colors"
+                    >
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
+                        <path d="M18 6L6 18M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {!isMinimized && (
-            <>
-              {/* Tabs */}
-              <div className="flex border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 flex-shrink-0">
-                {tabs.map((tab) => (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`flex-1 py-2.5 text-xs font-medium transition-all ${
-                      activeTab === tab.id
-                        ? "text-blue-600 bg-white dark:bg-gray-900 border-b-2 border-blue-600"
-                        : "text-gray-500 hover:text-gray-700 dark:text-gray-400"
-                    }`}
-                  >
-                    <span className="hidden sm:inline">{tab.label}</span>
-                    <span className="sm:hidden">{tab.icon}</span>
-                  </button>
-                ))}
-              </div>
+            {!isMinimized && (
+              <>
+                {/* Tabs - Sticky */}
+                <div className="flex border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 flex-shrink-0 sticky top-[73px] z-10">
+                  {tabs.map((tab) => (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id)}
+                      className={`flex-1 py-2.5 text-xs font-medium transition-all ${
+                        activeTab === tab.id
+                          ? "text-blue-600 bg-white dark:bg-gray-900 border-b-2 border-blue-600"
+                          : "text-gray-500 hover:text-gray-700 dark:text-gray-400"
+                      }`}
+                    >
+                      <span className="hidden sm:inline">{tab.label}</span>
+                      <span className="sm:hidden">{tab.icon}</span>
+                    </button>
+                  ))}
+                </div>
 
-              {/* Content Area */}
-              <div className="flex-1 overflow-hidden">
-                {activeTab === "chat" && (
-                  <div className="flex flex-col h-full">
-                    <div className="flex-1 overflow-y-auto px-4 py-4">
-                      {messages.map((msg, i) => (
-                        <Message key={i} msg={msg} onCopy={copyMessage} />
-                      ))}
-                      {showQuick && messages.length === 1 && (
-                        <div className="flex flex-wrap gap-2 mt-3 mb-2">
-                          {QUICK_PROMPTS.map((q) => (
-                            <button
-                              key={q.text}
-                              onClick={() => sendMessage(q.text)}
-                              className="text-xs px-3 py-1.5 rounded-full font-medium transition-all hover:scale-105 hover:shadow-md"
-                              style={{ 
-                                backgroundColor: q.bg, 
-                                color: q.color,
-                                border: `1px solid ${q.color}20`
-                              }}
-                            >
-                              {q.text}
-                            </button>
-                          ))}
-                        </div>
-                      )}
-                      {loading && <TypingIndicator />}
-                      {error && (
-                        <div className="flex items-center gap-2 text-red-500 text-xs bg-red-50 dark:bg-red-900/20 px-3 py-2 rounded-lg mt-1 mb-2">
-                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <circle cx="12" cy="12" r="10" />
-                            <path d="M12 8v4m0 4h.01" />
-                          </svg>
-                          {error}
-                        </div>
-                      )}
-                      <div ref={bottomRef} />
-                    </div>
-
-                    {/* CLEAR CHAT BUTTON - VISIBLE HERE */}
-                    {messages.length > 1 && (
-                      <div className="px-4 pb-2">
-                        <button
-                          onClick={() => setShowClearConfirm(true)}
-                          className="w-full text-xs text-red-600 dark:text-red-400 hover:text-red-700 py-2 px-3 rounded-lg border border-red-200 dark:border-red-800 hover:bg-red-50 dark:hover:bg-red-950/20 transition-colors flex items-center justify-center gap-2"
-                        >
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <polyline points="3 6 5 6 21 6" />
-                            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
-                            <path d="M10 11v6M14 11v6M9 6V4h6v2" />
-                          </svg>
-                          Clear Conversation
-                        </button>
-                      </div>
-                    )}
-
-                    {/* Confirmation Modal */}
-                    {showClearConfirm && (
-                      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}>
-                        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-sm mx-4">
-                          <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Clear Chat?</h3>
-                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                            This will delete all messages and start a fresh conversation.
-                          </p>
-                          <div className="flex gap-3">
-                            <button
-                              onClick={clearChat}
-                              className="flex-1 bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors"
-                            >
-                              Clear
-                            </button>
-                            <button
-                              onClick={() => setShowClearConfirm(false)}
-                              className="flex-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-                            >
-                              Cancel
-                            </button>
+                {/* Content Area - Scrollable */}
+                <div className="flex-1 overflow-y-auto" style={{ WebkitOverflowScrolling: 'touch' }}>
+                  {activeTab === "chat" && (
+                    <div className="flex flex-col h-full">
+                      <div className="flex-1 px-4 py-4">
+                        {messages.map((msg, i) => (
+                          <Message key={i} msg={msg} onCopy={copyMessage} />
+                        ))}
+                        {showQuick && messages.length === 1 && (
+                          <div className="flex flex-wrap gap-2 mt-3 mb-2">
+                            {QUICK_PROMPTS.map((q) => (
+                              <button
+                                key={q.text}
+                                onClick={() => sendMessage(q.text)}
+                                className="text-xs px-3 py-1.5 rounded-full font-medium transition-all hover:scale-105 hover:shadow-md"
+                                style={{ 
+                                  backgroundColor: q.bg, 
+                                  color: q.color,
+                                  border: `1px solid ${q.color}20`
+                                }}
+                              >
+                                {q.text}
+                              </button>
+                            ))}
                           </div>
+                        )}
+                        {loading && <TypingIndicator />}
+                        {error && (
+                          <div className="flex items-center gap-2 text-red-500 text-xs bg-red-50 dark:bg-red-900/20 px-3 py-2 rounded-lg mt-1 mb-2">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <circle cx="12" cy="12" r="10" />
+                              <path d="M12 8v4m0 4h.01" />
+                            </svg>
+                            {error}
+                          </div>
+                        )}
+                        <div ref={bottomRef} />
+                      </div>
+
+                      {/* Clear Chat Button */}
+                      {messages.length > 1 && (
+                        <div className="px-4 pb-2">
+                          <button
+                            onClick={() => setShowClearConfirm(true)}
+                            className="w-full text-xs text-red-600 dark:text-red-400 hover:text-red-700 py-2 px-3 rounded-lg border border-red-200 dark:border-red-800 hover:bg-red-50 dark:hover:bg-red-950/20 transition-colors flex items-center justify-center gap-2"
+                          >
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <polyline points="3 6 5 6 21 6" />
+                              <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                              <path d="M10 11v6M14 11v6M9 6V4h6v2" />
+                            </svg>
+                            Clear Conversation
+                          </button>
+                        </div>
+                      )}
+
+                      {/* Input Area - Fixed at bottom */}
+                      <div className="px-4 py-3 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 flex-shrink-0">
+                        <div className="flex items-end gap-2 bg-gray-100 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 px-3 py-2 focus-within:ring-2 focus-within:ring-blue-500 transition-all">
+                          <textarea
+                            ref={(el) => {
+                              inputRef.current = el;
+                              textareaRef.current = el;
+                            }}
+                            value={input}
+                            onChange={(e) => {
+                              setInput(e.target.value);
+                              autoResize();
+                            }}
+                            onKeyDown={handleKeyDown}
+                            placeholder="Ask about our services..."
+                            rows={1}
+                            disabled={loading}
+                            maxLength={500}
+                            className="flex-1 bg-transparent text-gray-800 dark:text-gray-100 placeholder-gray-400 resize-none outline-none max-h-[90px] leading-5 py-0.5 text-base"
+                            style={{ scrollbarWidth: "none", fontSize: "16px" }}
+                          />
+                          <button
+                            onClick={() => sendMessage()}
+                            disabled={!input.trim() || loading}
+                            className="w-8 h-8 rounded-lg bg-blue-600 hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center transition-all hover:scale-105 flex-shrink-0"
+                            aria-label="Send message"
+                          >
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
+                              <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+                            </svg>
+                          </button>
+                        </div>
+                        <div className="flex justify-between items-center mt-2">
+                          <p className="text-[10px] text-gray-400">Powered by Groq · LLaMA 3.3</p>
+                          <p className="text-[10px] text-gray-400">{input.length}/500</p>
                         </div>
                       </div>
-                    )}
-
-                    {/* Input Area */}
-                    <div className="px-4 py-3 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 flex-shrink-0">
-                      <div className="flex items-end gap-2 bg-gray-100 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 px-3 py-2 focus-within:ring-2 focus-within:ring-blue-500 transition-all">
-                        <textarea
-                          ref={(el) => {
-                            inputRef.current = el;
-                            textareaRef.current = el;
-                          }}
-                          value={input}
-                          onChange={(e) => {
-                            setInput(e.target.value);
-                            autoResize();
-                          }}
-                          onKeyDown={handleKeyDown}
-                          placeholder="Ask about our services..."
-                          rows={1}
-                          disabled={loading}
-                          maxLength={500}
-                          className="flex-1 bg-transparent text-gray-800 dark:text-gray-100 placeholder-gray-400 resize-none outline-none max-h-[90px] leading-5 py-0.5"
-                          style={{ scrollbarWidth: "none" }}
-                        />
-                        <button
-                          onClick={() => sendMessage()}
-                          disabled={!input.trim() || loading}
-                          className="w-8 h-8 rounded-lg bg-blue-600 hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center transition-all hover:scale-105 flex-shrink-0"
-                          aria-label="Send message"
-                        >
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
-                            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
-                          </svg>
-                        </button>
-                      </div>
-                      <div className="flex justify-between items-center mt-2">
-                        <p className="text-[10px] text-gray-400">Powered by Groq · LLaMA 3.3</p>
-                        <p className="text-[10px] text-gray-400">{input.length}/500</p>
-                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
-                {activeTab === "services" && (
-                  <ServicesPanel
-                    onAsk={(text) => {
-                      setActiveTab("chat");
-                      setTimeout(() => sendMessage(text), 100);
-                    }}
-                  />
-                )}
+                  {activeTab === "services" && (
+                    <ServicesPanel
+                      onAsk={(text) => {
+                        setActiveTab("chat");
+                        setTimeout(() => sendMessage(text), 100);
+                      }}
+                    />
+                  )}
 
-                {activeTab === "contact" && <ContactPanel />}
-              </div>
-            </>
-          )}
+                  {activeTab === "contact" && <ContactPanel />}
+                </div>
+              </>
+            )}
+          </div>
+        </>
+      )}
+
+      {/* Confirmation Modal */}
+      {showClearConfirm && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-sm w-full mx-4">
+            <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Clear Chat?</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+              This will delete all messages and start a fresh conversation.
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={clearChat}
+                className="flex-1 bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors"
+              >
+                Clear
+              </button>
+              <button
+                onClick={() => setShowClearConfirm(false)}
+                className="flex-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
-      {/* Toggle Button */}
+      {/* Toggle Button - MOVED HIGHER ON MOBILE */}
       <button
         onClick={() => setOpen((o) => !o)}
-        className="fixed bottom-5 right-5 sm:right-8 z-50 w-14 h-14 rounded-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 active:scale-95 text-white shadow-lg transition-all duration-200 flex items-center justify-center group"
+        className={`
+          fixed z-50 
+          rounded-full 
+          bg-gradient-to-r from-blue-600 to-blue-700 
+          hover:from-blue-700 hover:to-blue-800 
+          active:scale-95 
+          text-white shadow-lg 
+          transition-all duration-200 
+          flex items-center justify-center 
+          group
+          w-12 h-12 sm:w-14 sm:h-14
+          bottom-20 sm:bottom-5
+          right-5 sm:right-8
+        `}
         aria-label="Toggle chat"
       >
         {open ? (
